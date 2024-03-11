@@ -1,6 +1,7 @@
 package com.grp3.bid.repositories;
 
 import com.grp3.bid.entities.Product;
+import com.grp3.bid.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -16,9 +17,9 @@ import java.util.List;
 @Repository
 public class ProductDAO implements ProductDAOInterface{
 
-    private final String getProductByid = "SELECT * FROM PRODUCT WHERE id_PRODUCT = :id_PRODUCT;";
-    private final String getAll = "SELECT * FROM PRODUCT;";
-    private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_image) VALUES (:name_product,:description,:starting_value,:path_image);";
+    private final String getProductByid = "SELECT * FROM PRODUCT WHERE id_PRODUCT = :id_PRODUCT";
+    private final String getAll = "SELECT * FROM PRODUCT";
+    private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_image) VALUES (:name_product,:description,:starting_value,:path_image)";
     @Autowired
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -44,13 +45,10 @@ public class ProductDAO implements ProductDAOInterface{
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("name_product", product.getName());
         sqlParameterSource.addValue("description", product.getDescription());
-        sqlParameterSource.addValue("starting_value", product.getStartingvalue());
+        sqlParameterSource.addValue("starting_value", product.getStartingValue());
         sqlParameterSource.addValue("path_image", product.getPathToImg());
         //jdbcTeamlplte.update return numbers of affected lines
-        if(jdbcTemplate.update(insertProduct, sqlParameterSource) == 1){
-                return true;
-        }
-        return false;
+        return jdbcTemplate.update(insertProduct, sqlParameterSource) == 1;
     }
 
     @Override
@@ -62,11 +60,13 @@ public class ProductDAO implements ProductDAOInterface{
         @Override
         public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
             Product p = new Product();
-            p.setId(rs.getInt("id_PRODUCT"));
-            p.setDescription(rs.getString("description"));
+            p.setId(rs.getInt("id_product"));
             p.setName(rs.getString("name_product"));
-            p.setStartingvalue(rs.getLong("starting_value"));
-            p.setPathToImg(rs.getString("path_image"));
+            p.setName(rs.getString("description"));
+            p.setStartingValue(rs.getLong("starting_value"));
+            p.setPathToImg(rs.getString("path_to_image"));
+            p.setDateFinal(rs.getDate("date_final").toLocalDate().atStartOfDay());
+            p.setVendor_user(new User());
             return p;
         }
     }

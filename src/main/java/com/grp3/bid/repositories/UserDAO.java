@@ -43,10 +43,7 @@ public class UserDAO implements UserDAOInterface {
         sqlParameterSource.addValue("lastname", user.getLastName());
         sqlParameterSource.addValue("email", user.getEmail());
         sqlParameterSource.addValue("password", user.getPassword());
-        if(jdbcTemplate.update(insertUser, sqlParameterSource) == 1){
-            return true;
-        }
-        return false;
+        return jdbcTemplate.update(insertUser, sqlParameterSource) == 1;
     }
 
     @Override

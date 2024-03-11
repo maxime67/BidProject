@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/user")
-public class userController {
+public class UserController {
     @Autowired
     UserServiceInterface userService;
     @GetMapping("/list")

@@ -17,7 +17,7 @@ public class User {
     private String roles;
     private Float accountWallet;
     private String password;
-    private address user_address;
+    private Address user_address;
 
     @Override
     public String toString() {

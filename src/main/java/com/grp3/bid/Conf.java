@@ -13,6 +13,6 @@ public class Conf {
     DataSource getDataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
-                .addScript("db.sql").build();
+                .addScript("data.sql").build();
     }
 }

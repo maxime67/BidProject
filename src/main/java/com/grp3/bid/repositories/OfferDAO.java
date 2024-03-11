@@ -53,10 +53,7 @@ public class OfferDAO implements OfferDAOInterface {
         sqlParameterSource.addValue("id_PRODUCT", offer.getProduct().getId());
         sqlParameterSource.addValue("id_USER", offer.getUser().getId());
         //jdbcTeamlplte.update return numbers of affected lines
-        if(jdbcTemplate.update(insertOffer, sqlParameterSource) == 1){
-            return true;
-        }
-        return false;
+        return jdbcTemplate.update(insertOffer, sqlParameterSource) == 1;
     }
 
     @Override

@@ -9,16 +9,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/product")
-public class productController {
+@RequestMapping("/")
+public class ProductController {
     @Autowired
     ProductServiceInterface productService;
-    @GetMapping("/list")
+
+    @GetMapping
+    public String getAllProducts(Model model){
+        model.addAttribute("productLst", productService.getAll());
+        return "view-product-list";
+    }
+
+    @GetMapping("product/list")
     public String getAll(Model model){
         model.addAttribute("productLst", productService.getAll());
         return "view-product-list";
     }
-    @GetMapping("/get")
+    @GetMapping("product/get")
     public String getById(Model model, @RequestParam Integer id){
         model.addAttribute("product", productService.getProductByid(id));
         return "view-product-getByid";

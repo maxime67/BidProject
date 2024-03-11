@@ -13,7 +13,7 @@ public class Product {
     private Integer id;
     private String name;
     private String description;
-    private Long startingvalue;
+    private Long startingValue;
     private String pathToImg;
     private LocalDateTime dateFinal;
     private User vendor_user;
@@ -24,7 +24,7 @@ public class Product {
         sb.append("id=").append(id);
         sb.append(", name='").append(name).append('\'');
         sb.append(", description='").append(description).append('\'');
-        sb.append(", startingvalue=").append(startingvalue);
+        sb.append(", startingvalue=").append(startingValue);
         sb.append(", pathToImg='").append(pathToImg).append('\'');
         sb.append(", dateFinal=").append(dateFinal);
         sb.append(", vendor_user=").append(vendor_user);
