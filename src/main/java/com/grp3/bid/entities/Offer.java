@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +15,7 @@ public class Offer {
     private LocalDateTime offerDateTime;
     private User user;
     private Product product;
-    private address address_delivery;
+    private Address address_delivery;
 
     @Override
     public String toString() {

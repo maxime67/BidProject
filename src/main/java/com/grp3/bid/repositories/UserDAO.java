@@ -1,6 +1,7 @@
 package com.grp3.bid.repositories;
 
 import com.grp3.bid.entities.*;
+import com.grp3.bid.services.AddressServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -15,8 +16,10 @@ import java.util.List;
 @Repository
 public class UserDAO implements UserDAOInterface {
     @Autowired
+    private AddressServiceInterface addressService;
+    @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
-    private final String getUSerByid = "SELECT * FROM USER_APP WHERE id_user = :id;";
+    private final String getUSerByid = "SELECT * FROM USER_APP WHERE id = :id;";
     private final String getAll = "SELECT * FROM USER_APP;";
     private final String insertUser = "INSERT INTO USER_APP (firstname,lastname,email,password) VALUES (:firstname,:lastname,:email,:password);";
     @Override
@@ -64,11 +67,16 @@ public class UserDAO implements UserDAOInterface {
         @Override
         public User mapRow(ResultSet rs, int rowNum) throws SQLException {
             User u = new User();
-            u.setId(rs.getInt("id_USER"));
+            u.setId(rs.getInt("id_user_app"));
+            u.setPseudo(rs.getString("pseudo"));
             u.setFirstName(rs.getString("firstname"));
             u.setLastName(rs.getString("lastname"));
             u.setEmail(rs.getString("email"));
+            u.setPhone_number(rs.getString("phone_number"));
             u.setPassword(rs.getString("password"));
+            u.setRoles(rs.getString("role_user"));
+            u.setAccountWallet(rs.getFloat("accountWallet"));
+            u.setUser_address(addressService.getAddressByid(rs.getInt("id_address")));
             return u;
         }
     }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/product")
-public class productController {
+public class ProductController {
     @Autowired
     ProductServiceInterface productService;
     @GetMapping("/list")

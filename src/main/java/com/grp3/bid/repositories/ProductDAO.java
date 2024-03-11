@@ -2,7 +2,6 @@ package com.grp3.bid.repositories;
 
 import com.grp3.bid.entities.Product;
 import com.grp3.bid.entities.User;
-import com.grp3.bid.entities.address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -49,10 +48,7 @@ public class ProductDAO implements ProductDAOInterface{
         sqlParameterSource.addValue("starting_value", product.getStartingvalue());
         sqlParameterSource.addValue("path_image", product.getPathToImg());
         //jdbcTeamlplte.update return numbers of affected lines
-        if(jdbcTemplate.update(insertProduct, sqlParameterSource) == 1){
-                return true;
-        }
-        return false;
+        return jdbcTemplate.update(insertProduct, sqlParameterSource) == 1;
     }
 
     @Override

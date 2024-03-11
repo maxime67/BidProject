@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class address {
+public class Address {
     private Long id_address;
     private String street_name;
     private String state_name;

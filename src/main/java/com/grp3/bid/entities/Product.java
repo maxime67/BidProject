@@ -18,6 +18,15 @@ public class Product {
     private LocalDateTime dateFinal;
     private User vendor_user;
 
+    public Product(String name, String description, Long startingvalue, String pathToImg, LocalDateTime dateFinal, User vendor_user) {
+        this.name = name;
+        this.description = description;
+        this.startingvalue = startingvalue;
+        this.pathToImg = pathToImg;
+        this.dateFinal = dateFinal;
+        this.vendor_user = vendor_user;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Product{");
