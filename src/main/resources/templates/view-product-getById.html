@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="~{fragments/frag-head}"></div>
+<div th:replace="~{fragments/frag-navbar}"></div>
+<body>
+<div class="container">
+    <td data-th-text="${product.id}" />
+    <td data-th-text="${product.name}" />
+    <td data-th-text="${product.startingvalue}" />
+</body>
+</html>

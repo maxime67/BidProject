@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="~{fragments/frag-head}"></div>
+<div th:replace="~{fragments/frag-navbar}"></div>
+<body>
+<div class="container">
+    <table class="table table-bordered">
+<tr data-th-each="product: ${productLst}">
+    <td data-th-text="${product.id}" />
+    <td data-th-text="${product.name}" />
+    <td data-th-text="${product.startingvalue}" />
+</tr>
+    </table>
+</body>
+</html>

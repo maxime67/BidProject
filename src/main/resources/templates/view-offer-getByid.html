@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="~{fragments/frag-head}"></div>
+<div th:replace="~{fragments/frag-navbar}"></div>
+<body>
+<div class="container">
+    <td data-th-text="${offer.id}" />
+    <td data-th-text="${offer.value}" />
+    <td data-th-text="${offer.offerDateTime}" />
+    <td data-th-text="${offer.user}" />
+    <td data-th-text="${offer.product}" />
+</body>
+</html>

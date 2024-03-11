@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="~{fragments/frag-head}"></div>
+<div th:replace="~{fragments/frag-navbar}"></div>
+<body>
+<div class="container">
+    <table class="table table-bordered">
+        <tr data-th-each="user: ${userLst}">
+            <td data-th-text="${user.firstName}" />
+            <td data-th-text="${user.lastName}" />
+            <td data-th-text="${user.email}" />
+        </tr>
+    </table>
+</body>
+</html>

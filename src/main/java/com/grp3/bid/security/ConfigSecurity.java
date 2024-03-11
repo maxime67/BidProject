@@ -26,7 +26,10 @@ public class ConfigSecurity {
 		http.authorizeHttpRequests(auth -> {
 			// peuvent s'exécuter sans login
 			auth.requestMatchers(HttpMethod.GET, "/").permitAll();
-			
+			auth.requestMatchers(HttpMethod.GET, "/offer/list").permitAll();
+			auth.requestMatchers(HttpMethod.GET, "/product/list").permitAll();
+			auth.requestMatchers(HttpMethod.GET, "/user/list").permitAll();
+
 			auth.requestMatchers("/css/*").permitAll()
 				.requestMatchers("/images/*").permitAll()
 				.requestMatchers("/javascript/*").permitAll()

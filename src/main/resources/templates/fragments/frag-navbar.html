@@ -1,0 +1,17 @@
+<nav th:fragment="navbar" class="navbar bg-body-tertiary">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <img src="../ressources/static/logo.png">
+        </a>
+        <a class="navbar-brand" th:href="@{/product/list}">
+            <button class="btn btn-outline-dark">products</button>
+        </a>
+        <a class="navbar-brand" th:href="@{/user/list}">
+            <button class="btn btn-outline-dark">users</button>
+        </a>
+        <a class="navbar-brand" th:href="@{/offer/list}">
+            <button class="btn btn-outline-dark">offers</button>
+        </a>
+    </div>
+</nav>
+<br>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form data-th-object="${product}" data-th-action="@{/product/create}" method="post">
+        <input type="number" data-th-field="*{value}" data-th-text="type">
+        <input type="submit" value="Soumettre">
+    </form>
+</body>
+</html>
