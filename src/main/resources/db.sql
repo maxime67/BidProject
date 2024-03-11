@@ -10,6 +10,7 @@ CREATE TABLE ADDRESS (
 
 CREATE TABLE USER_APP (
     id_user_app INT AUTO_INCREMENT PRIMARY KEY,
+    pseudo VARCHAR(255),
     firstname VARCHAR(255),
     lastname VARCHAR(255),
     email VARCHAR(255),
@@ -49,8 +50,8 @@ INSERT INTO ADDRESS (street_name, city_name, state_name, nb_street, zip_code)
  VALUES ('street_name', 'city_name', 'state_name', 1, '35000');
 INSERT INTO USER_APP (firstname,lastname,email,phone_number, password, role_user, accountWallet, id_address)
  VALUES ('firstname', 'lastname', 'email', '0600000000', 'password', 'user,admin', 1, 1);
-INSERT INTO USER_APP (firstname,lastname,email,phone_number, password, role_user, accountWallet, id_address)
-VALUES ('firstname2', 'lastname2', 'email2', '2', 'password', 'user,admin', 1, 1);
+INSERT INTO USER_APP (pseudo, firstname,lastname,email,phone_number, password, role_user, accountWallet, id_address)
+VALUES ('pseudo2','firstname2', 'lastname2', 'email2', '2', 'password', 'user,admin', 1, 1);
 INSERT INTO PRODUCT (name_product, description, starting_value, path_to_image, date_final, id_seller)
  VALUES ('name_product', 'description', 1, 'pathToImg', CURRENT_TIMESTAMP, 1);
 INSERT INTO OFFER (value_offer, date_offer, id_user_app, id_product, id_delivery_address)
