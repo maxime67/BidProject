@@ -17,6 +17,14 @@ public class Offer {
     private Product product;
     private Address address_delivery;
 
+    public Offer(Long value, LocalDateTime offerDateTime, User user, Product product, Address address_delivery) {
+        this.value = value;
+        this.offerDateTime = offerDateTime;
+        this.user = user;
+        this.product = product;
+        this.address_delivery = address_delivery;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Offer{");

@@ -46,11 +46,5 @@ CREATE TABLE OFFER (
                        CONSTRAINT fk_offer_delivery_address FOREIGN KEY (id_delivery_address) REFERENCES ADDRESS(id_address)
 );
 
-INSERT INTO ADDRESS (street_name, city_name, state_name, nb_street, zip_code)
-VALUES ('street_name', 'city_name', 'state_name', 1, '35000');
 
-INSERT INTO PRODUCT (name_product, description, starting_value, path_to_image, date_final, id_seller)
-VALUES ('name_product', 'description', 1, 'pathToImg', CURRENT_TIMESTAMP, 1);
-INSERT INTO OFFER (value_offer, date_offer, id_user_app, id_product, id_delivery_address)
-VALUES (26,NOW(),1,1,1);
 

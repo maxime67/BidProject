@@ -24,7 +24,7 @@ public class OfferDAO implements OfferDAOInterface {
     private final String getOfferById = "SELECT * FROM OFFER WHERE id_offer = :id;";
     private final String getAll = "SELECT * FROM OFFER;";
 
-    private final String insertOffer = "INSERT INTO OFFER (value_offer,offer_datetime,id_PRODUCT,id_USER) VALUES (:value_offer,:offer_datetime,:id_PRODUCT,:id_USER);";
+    private final String insertOffer = "INSERT INTO OFFER (value_offer,date_offer,id_product,id_user_app) VALUES (:value_offer,:offer_datetime,:id_product,:id_user_app);";
     private final String updateOffer = "UPDATE OFFER SET value=?,offer_datetime=?,id_user=?,id_product=? WHERE id_offer = ?;";
 
     public OfferDAO(NamedParameterJdbcTemplate jdbcTemplate, ProductDAOInterface productDAO, UserDAOInterface userDAO) {
@@ -50,8 +50,8 @@ public class OfferDAO implements OfferDAOInterface {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("value_offer", offer.getValue());
         sqlParameterSource.addValue("offer_datetime", offer.getOfferDateTime());
-        sqlParameterSource.addValue("id_PRODUCT", offer.getProduct().getId());
-        sqlParameterSource.addValue("id_USER", offer.getUser().getId());
+        sqlParameterSource.addValue("id_product", offer.getProduct().getId());
+        sqlParameterSource.addValue("id_user_app", offer.getUser().getId());
         //jdbcTeamlplte.update return numbers of affected lines
         if(jdbcTemplate.update(insertOffer, sqlParameterSource) == 1){
             return true;

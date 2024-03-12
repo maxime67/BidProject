@@ -19,9 +19,9 @@ public class UserDAO implements UserDAOInterface {
     private AddressServiceInterface addressService;
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
-    private final String getUSerByid = "SELECT * FROM USER_APP WHERE id = :id;";
+    private final String getUSerByid = "SELECT * FROM USER_APP WHERE id_user_app = :id;";
     private final String getAll = "SELECT * FROM USER_APP;";
-    private final String insertUser = "INSERT INTO USER_APP (firstname,lastname,email,password) VALUES (:firstname,:lastname,:email,:password);";
+    private final String insertUser = "INSERT INTO USER_APP (pseudo, firstname,lastname,email,phone_number,password, role_user, accountWallet, id_address) VALUES (:pseudo,:firstname,:lastname,:email,:password,:phone_number, :role_user,:accountWallet, :id_address);";
     @Override
     public User getUserById(Integer id) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
@@ -42,14 +42,16 @@ public class UserDAO implements UserDAOInterface {
     @Override
     public boolean InsertUser(User user) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("pseudo", user.getPseudo());
         sqlParameterSource.addValue("firstname", user.getFirstName());
         sqlParameterSource.addValue("lastname", user.getLastName());
         sqlParameterSource.addValue("email", user.getEmail());
         sqlParameterSource.addValue("password", user.getPassword());
-        if(jdbcTemplate.update(insertUser, sqlParameterSource) == 1){
-            return true;
-        }
-        return false;
+        sqlParameterSource.addValue("phone_number", user.getPhone_number());
+        sqlParameterSource.addValue("role_user", user.getRoles());
+        sqlParameterSource.addValue("accountWallet", user.getAccountWallet());
+        sqlParameterSource.addValue("id_address", user.getUser_address().getId_address());
+        return jdbcTemplate.update(insertUser, sqlParameterSource) == 1;
     }
 
     @Override

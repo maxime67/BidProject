@@ -3,6 +3,7 @@ package com.grp3.bid.services;
 import com.grp3.bid.repositories.UserDAOInterface;
 import com.grp3.bid.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,8 @@ import java.util.List;
 public class UserService implements UserServiceInterface{
     @Autowired
     UserDAOInterface userDAO;
+    @Autowired
+    PasswordEncoder encodeur;
     @Override
     public User getUserByid(Integer id) {
         return userDAO.getUserById(id);
@@ -23,6 +26,7 @@ public class UserService implements UserServiceInterface{
 
     @Override
     public boolean insertUser(User user) {
+        user.setPassword(encodeur.encode(user.getPassword()));
         return userDAO.InsertUser(user);
     }
 

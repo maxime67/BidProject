@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -19,7 +20,7 @@ public class ProductDAO implements ProductDAOInterface{
 
     private final String getProductByid = "SELECT * FROM PRODUCT WHERE id_PRODUCT = :id_PRODUCT";
     private final String getAll = "SELECT * FROM PRODUCT";
-    private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_image) VALUES (:name_product,:description,:starting_value,:path_image)";
+    private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_to_image) VALUES (:name_product,:description,:starting_value,:path_to_image)";
     @Autowired
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -46,7 +47,7 @@ public class ProductDAO implements ProductDAOInterface{
         sqlParameterSource.addValue("name_product", product.getName());
         sqlParameterSource.addValue("description", product.getDescription());
         sqlParameterSource.addValue("starting_value", product.getStartingvalue());
-        sqlParameterSource.addValue("path_image", product.getPathToImg());
+        sqlParameterSource.addValue("path_to_image", product.getPathToImg());
         //jdbcTeamlplte.update return numbers of affected lines
         return jdbcTemplate.update(insertProduct, sqlParameterSource) == 1;
     }
@@ -65,7 +66,7 @@ public class ProductDAO implements ProductDAOInterface{
             p.setName(rs.getString("description"));
             p.setStartingvalue(rs.getLong("starting_value"));
             p.setPathToImg(rs.getString("path_to_image"));
-            p.setDateFinal(rs.getDate("date_final").toLocalDate().atStartOfDay());
+            p.setDateFinal(LocalDateTime.now());
             p.setVendor_user(new User());
             return p;
         }
