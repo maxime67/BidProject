@@ -46,8 +46,8 @@ public class BidApplication {
         userService.insertUser(new User("pseudo2","firstname2","lastName2","email2","phone_number2","ADMIN,USER",2F,"password2",addr2));
         userService.insertUser(new User("pseudo3","firstname3","lastName3","email3","phone_number3","ADMIN,USER",3F,"password3",addr1));
 
-        productService.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1)));
-        productService.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1)));
+        productService.insertProduct(new Product("Couteau","joli couteau",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1)));
+        productService.insertProduct(new Product("Perçeuse","occasion",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1)));
 
         offerService.insertOffer(new Offer(15L,LocalDateTime.now(), userService.getUserByid(1), productService.getProductByid(1), addr2));
 

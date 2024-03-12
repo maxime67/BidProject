@@ -19,7 +19,7 @@ import java.util.List;
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
-    private final String getProductByid = "SELECT * FROM PRODUCT WHERE id_PRODUCT = :id_PRODUCT";
+    private final String getProductByid = "SELECT * FROM PRODUCT WHERE id_product = :id_product";
     private final String getAll = "SELECT * FROM PRODUCT";
     private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_to_image) VALUES (:name_product,:description,:starting_value,:path_to_image)";
     @Autowired
@@ -32,7 +32,7 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public Product getProductByid(Integer id) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
-        sqlParameterSource.addValue("id_PRODUCT", id);
+        sqlParameterSource.addValue("id_product", id);
         return jdbcTemplate.queryForObject(getProductByid, sqlParameterSource, new ProductRowMapper());
     }
 
@@ -64,7 +64,7 @@ public class ProductDAOImpl implements ProductDAO {
             Product p = new Product();
             p.setId(rs.getInt("id_product"));
             p.setName(rs.getString("name_product"));
-            p.setName(rs.getString("description"));
+            p.setDescription(rs.getString("description"));
             p.setStartingValue(rs.getLong("starting_value"));
             p.setPathToImage(rs.getString("path_to_image"));
             p.setDateFinal(LocalDateTime.now());
