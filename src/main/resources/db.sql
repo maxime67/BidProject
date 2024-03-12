@@ -28,7 +28,8 @@ CREATE TABLE PRODUCT (
     description VARCHAR(255),
     starting_value FLOAT,
     path_to_image VARCHAR(255),
-    date_final DATETIME,
+    start_date DATE,
+    end_date DATE,
     id_seller INT,
     CONSTRAINT fk_product_user FOREIGN KEY (id_seller) REFERENCES USER_APP(id_user_app)
 );

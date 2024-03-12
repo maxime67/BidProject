@@ -1,0 +1,3 @@
+<ul data-th-fragment="frag-error(fieldName)" class="cards" data-th-if="${#fields.hasErrors(fieldName)}">
+    <li data-th-each="errorItem : ${#fields.errors(fieldName)}" data-th-text="${errorItem}"></li>
+</ul>

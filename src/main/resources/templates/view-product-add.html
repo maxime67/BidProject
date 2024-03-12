@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="~{fragments/frag-head}"></div>
+<div th:replace="~{fragments/frag-navbar}"></div>
+<head>
+
+    <meta charset="UTF-8">
+    <title>Ajout d'un produit</title>
+</head>
+<body>
+<div class="container">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <h1 class="position-relative">Ajouter un produit</h1>
+    </div>
+    <form method="post" data-th-object="${product}" data-th-action="@{/product/add}">
+        <div class="row">
+            <div class="col-sm">
+                <div class="d-flex align-items-center justify-content-center">
+                    <h4 class="position-relative">Produit : </h4>
+                </div>
+                <div class="form-group">
+                    <label name="name"> Nom </label>
+                    <input type="text" class="form-control" name="firstname"
+                           data-th-field="*{name}">
+                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='name')}"></ul>
+                </div>
+                <div class="form-group">
+                    <label name="description"> Description </label>
+                    <input type="text" class="form-control" name="description"
+                           data-th-field="*{description}">
+                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='description')}"></ul>
+                </div>
+                <div class="form-group">
+                    <label name="startingValue"> Départ de l'enchère </label>
+                    <input type="datetime-local" class="form-control" name="startingValue" data-th-field="*{startingValue}">
+                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='startingValue')}"></ul>
+                </div>
+                <div class="form-group">
+                    <label name="password"> Mot de passe </label>
+                    <input type="text" class="form-control" name="password"
+                           data-th-field="${userWithAddressDTO.password}">
+                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='password')}"></ul>
+                </div>
+                <div class="form-group">
+                    <label name="email"> Email </label>
+                    <input type="text" class="form-control" name="email" data-th-field="${userWithAddressDTO.email}">
+                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='email')}"></ul>
+                </div>
+                <div class="form-group">
+                    <label name="phone_number"> Numéro de téléphone </label>
+                    <input type="text" class="form-control" name="phone_number"
+                           data-th-field="${userWithAddressDTO.phone_number}">
+                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='phone_number')}"></ul>
+                </div>
+            </div>
+            <button type="submit" data-th-text="Valider" class="btn btn-primary">
+            </button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

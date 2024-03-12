@@ -12,7 +12,10 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -20,7 +23,7 @@ public class ProductDAO implements ProductDAOInterface{
 
     private final String getProductByid = "SELECT * FROM PRODUCT WHERE id_PRODUCT = :id_product";
     private final String getAll = "SELECT * FROM PRODUCT";
-    private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_to_image) VALUES (:name_product,:description,:starting_value,:path_to_image)";
+    private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_to_image,start_date, end_date) VALUES (:name_product,:description,:starting_value,:path_to_image, :start_date, :end_date)";
     @Autowired
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -48,8 +51,10 @@ public class ProductDAO implements ProductDAOInterface{
         sqlParameterSource.addValue("description", product.getDescription());
         sqlParameterSource.addValue("starting_value", product.getStartingValue());
         sqlParameterSource.addValue("path_to_image", product.getPathToImg());
+        sqlParameterSource.addValue("start_date", product.getStartDate());
+        sqlParameterSource.addValue("end_date", product.getEndDate());
         //jdbcTeamlplte.update return numbers of affected lines
-        return jdbcTemplate.update(insertProduct, sqlParameterSource) == 1;
+        return jdbcTemplate.update(insertProduct, sqlParameterSource, keyHolder) == 1;
     }
 
     @Override
@@ -66,7 +71,8 @@ public class ProductDAO implements ProductDAOInterface{
             p.setName(rs.getString("description"));
             p.setStartingValue(rs.getLong("starting_value"));
             p.setPathToImg(rs.getString("path_to_image"));
-            p.setDateFinal(LocalDateTime.now());
+            p.setStartDate(LocalDate.now());
+            p.setEndDate(rs.getDate("end_date").toLocalDate());
             p.setVendor_user(new User());
             return p;
         }

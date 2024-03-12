@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.parameters.P;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @SpringBootApplication
@@ -42,10 +43,10 @@ public class BidApplication {
         userService.insertUser(new User("pseudo2","firstname2","lastName2","email2","phone_number2","ADMIN,USER",2F,"password2",addr2));
         userService.insertUser(new User("pseudo3","firstname3","lastName3","email3","phone_number3","ADMIN,USER",3F,"password3",addr1));
 
-        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1)));
-        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1)));
-        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1)));
-        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1)));
+        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDate.now(), LocalDate.of(2024,03, 25), userService.getUserByid(1)));
+        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDate.now(),LocalDate.of(2024,03, 25),  userService.getUserByid(1)));
+        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDate.now(), LocalDate.of(2024,03, 25),userService.getUserByid(1)));
+        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDate.now(), LocalDate.of(2024,03, 25),userService.getUserByid(1)));
 
         offerService.insertOffer(new Offer(15L,LocalDateTime.now(), userService.getUserByid(1), serviceProduct.getProductByid(1), addr2));
 
