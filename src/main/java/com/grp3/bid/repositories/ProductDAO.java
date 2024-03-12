@@ -18,7 +18,7 @@ import java.util.List;
 @Repository
 public class ProductDAO implements ProductDAOInterface{
 
-    private final String getProductByid = "SELECT * FROM PRODUCT WHERE id_PRODUCT = :id_PRODUCT";
+    private final String getProductByid = "SELECT * FROM PRODUCT WHERE id_PRODUCT = :id_product";
     private final String getAll = "SELECT * FROM PRODUCT";
     private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_to_image) VALUES (:name_product,:description,:starting_value,:path_to_image)";
     @Autowired
@@ -31,7 +31,7 @@ public class ProductDAO implements ProductDAOInterface{
     @Override
     public Product getProductByid(Integer id) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
-        sqlParameterSource.addValue("id_PRODUCT", id);
+        sqlParameterSource.addValue("id_product", id);
         return jdbcTemplate.queryForObject(getProductByid, sqlParameterSource, new ProductRowMapper());
     }
 
@@ -46,7 +46,7 @@ public class ProductDAO implements ProductDAOInterface{
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("name_product", product.getName());
         sqlParameterSource.addValue("description", product.getDescription());
-        sqlParameterSource.addValue("starting_value", product.getStartingvalue());
+        sqlParameterSource.addValue("starting_value", product.getStartingValue());
         sqlParameterSource.addValue("path_to_image", product.getPathToImg());
         //jdbcTeamlplte.update return numbers of affected lines
         return jdbcTemplate.update(insertProduct, sqlParameterSource) == 1;
@@ -64,7 +64,7 @@ public class ProductDAO implements ProductDAOInterface{
             p.setId(rs.getInt("id_product"));
             p.setName(rs.getString("name_product"));
             p.setName(rs.getString("description"));
-            p.setStartingvalue(rs.getLong("starting_value"));
+            p.setStartingValue(rs.getLong("starting_value"));
             p.setPathToImg(rs.getString("path_to_image"));
             p.setDateFinal(LocalDateTime.now());
             p.setVendor_user(new User());
