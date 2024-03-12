@@ -11,5 +11,7 @@ public interface UserServiceInterface {
     boolean insertUser(User user);
     List<User> getAll();
     boolean updateUser(Integer id, User user);
+    boolean deleteUser(User user);
+    User getUserByPseudo(String pseudo);
 
 }
