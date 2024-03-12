@@ -19,7 +19,7 @@ public class UserDAO implements UserDAOInterface {
     private AddressServiceInterface addressService;
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
-    private final String getUSerByid = "SELECT * FROM USER_APP WHERE id_user_app = :id;";
+    private final String getUserByid = "SELECT * FROM USER_APP WHERE id_user_app = :id;";
     private final String getByPseudo = "SELECT * FROM USER_APP WHERE pseudo = :pseudo;";
     private final String getAll = "SELECT * FROM USER_APP;";
     private final String insertUser = "INSERT INTO USER_APP (pseudo, firstname,lastname,email,phone_number,password, role_user, accountWallet, id_address) VALUES (:pseudo,:firstname,:lastname,:email,:phone_number,:password, :role_user,:accountWallet, :id_address);";
@@ -27,7 +27,7 @@ public class UserDAO implements UserDAOInterface {
     public User getUserById(Integer id) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("id", id);
-        return jdbcTemplate.queryForObject(getUSerByid, sqlParameterSource, new UserRowMapper());
+        return jdbcTemplate.queryForObject(getUserByid, sqlParameterSource, new UserRowMapper());
     }
 
     @Override

@@ -28,8 +28,8 @@ public class BidApplication {
 
     @PostConstruct
     public void init() {
-        Address addr1 = new Address("street_name","state_name","city_name",12,"29300");
-        Address addr2 = new Address("street_name","state_name","city_name",12,"29300");
+        Address addr1 = new Address(1L,"street_name","state_name","city_name",12,"29300");
+        Address addr2 = new Address(2L,"street_name","state_name","city_name",12,"29300");
 
         User ap = new User("pseudo1","firstname1","lastName1","email1","phone_number1","ADMIN,USER",1F,"password1",new Address(2L,"street_name","state_name","city_name",12,"29300"));
         System.out.println(ap);

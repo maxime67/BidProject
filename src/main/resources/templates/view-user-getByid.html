@@ -4,8 +4,17 @@
 <div th:replace="~{fragments/frag-navbar}"></div>
 <body>
 <div class="container">
-<td data-th-text="${user.firstName}" />
-<td data-th-text="${user.lastName}" />
-<td data-th-text="${user.email}" />
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title" data-th-text="${user.pseudo}"></h5>
+            <p class="card-text" data-th-text="${user.firstName}"></p>
+            <p class="card-text" data-th-text="${user.lastName}"></p>
+            <p class="card-text" data-th-text="${user.email}"></p>
+            <p class="card-text" data-th-text="${user.phone_number}"></p>
+            <td data-th-text="${user.user_address.zip_code}" />
+            <td data-th-text="${user.user_address.nb_street}" />
+            <td data-th-text="${user.user_address.street_name}" />
+        </div>
+    </div>
 </body>
 </html>

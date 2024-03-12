@@ -15,17 +15,17 @@ public class AdressService implements AddressServiceInterface{
 
     @Override
     public Address getAddressByid(Integer id) {
-        return null;
+        return addresseDAO.getAddressByid(id);
     }
 
     @Override
     public boolean insertAddress(Address address) {
-        return false;
+        return addresseDAO.insertAddress(address);
     }
 
     @Override
     public List<Address> getAll() {
-        return null;
+        return addresseDAO.getAll();
     }
 
     @Override
