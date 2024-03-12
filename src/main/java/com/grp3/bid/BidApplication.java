@@ -44,6 +44,8 @@ public class BidApplication {
 
         serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1)));
         serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1)));
+        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1)));
+        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1)));
 
         offerService.insertOffer(new Offer(15L,LocalDateTime.now(), userService.getUserByid(1), serviceProduct.getProductByid(1), addr2));
 

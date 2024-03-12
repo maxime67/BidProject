@@ -4,8 +4,8 @@
 <div th:replace="~{fragments/frag-navbar}"></div>
 <body>
 <div class="container">
-    <div class="row" data-th-each="product: ${productLst}">
-        <div class="col-lg-6 mb-4">
+    <div class="row" >
+        <div class="col-lg-6 mb-4" data-th-each="product: ${productLst}">
             <div class="card">
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
