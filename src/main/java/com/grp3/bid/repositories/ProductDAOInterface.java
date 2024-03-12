@@ -1,7 +1,6 @@
 package com.grp3.bid.repositories;
 
 import com.grp3.bid.entities.Product;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
