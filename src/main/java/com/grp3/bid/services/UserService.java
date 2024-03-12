@@ -1,6 +1,6 @@
 package com.grp3.bid.services;
 
-import com.grp3.bid.repositories.UserDAOInterface;
+import com.grp3.bid.repositories.UserDAO;
 import com.grp3.bid.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class UserService implements UserServiceInterface{
     @Autowired
-    UserDAOInterface userDAO;
+    UserDAO userDAO;
     @Override
     public User getUserByid(Integer id) {
         return userDAO.getUserById(id);

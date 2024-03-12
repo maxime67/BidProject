@@ -19,6 +19,18 @@ public class User {
     private String password;
     private Address user_address;
 
+    public User(String pseudo, String firstName, String lastName, String email, String phone_number, String roles, Float accountWallet, String password, Address user_address) {
+        this.pseudo = pseudo;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone_number = phone_number;
+        this.roles = roles;
+        this.accountWallet = accountWallet;
+        this.password = password;
+        this.user_address = user_address;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("User{");

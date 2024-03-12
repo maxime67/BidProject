@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class OfferService implements OfferServiceInterface{
     @Autowired
-    OfferDAOInterface offerDAO;
+    OfferDAO offerDAO;
 
     @Override
     public Offer getOfferByid(Integer id) {

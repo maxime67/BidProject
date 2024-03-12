@@ -1,7 +1,7 @@
 package com.grp3.bid.services;
 
 import com.grp3.bid.entities.Product;
-import com.grp3.bid.repositories.ProductDAOInterface;
+import com.grp3.bid.repositories.ProductDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class ProductService implements ProductServiceInterface{
     @Autowired
-    ProductDAOInterface productDAO;
+    ProductDAO productDAO;
     @Override
     public Product getProductByid(Integer id) {
         return productDAO.getProductByid(id);

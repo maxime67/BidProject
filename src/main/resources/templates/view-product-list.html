@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:width="http://www.w3.org/1999/xhtml">
 <div th:replace="~{fragments/frag-head}"></div>
 <div th:replace="~{fragments/frag-navbar}"></div>
 <body>
 <div class="container">
     <div class="row" data-th-each="product: ${productLst}">
-        <div class="col-sm-4">
-            <div class="card">
+        <div class="col-sm-6">
+            <div class="card" style="width: 18rem;">
+                <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title" data-th-text="${product.name}"></h5>
-                    <p class="card-text">Produit</p>
-                    <a href="#" class="btn btn-primary">Voir les enchères</a>
+                    <p class="card-text" data-th-text="${product.startingValue}"></p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>

@@ -7,13 +7,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.grp3.bid.entities.User;
-import com.grp3.bid.repositories.UserDAOInterface;
+import com.grp3.bid.repositories.UserDAO;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private UserDAOInterface userRepository;
+	private UserDAO userRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String pseudo) {
