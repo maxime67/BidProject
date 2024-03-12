@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -20,20 +21,28 @@ import jakarta.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 public class ConfigSecurity {
 
+	/**
+	 * TODO A enlever avec BDD SQL SERVER
+	 * @return
+	 */
+	@Bean
+	public WebSecurityCustomizer webSecurityCustomizer() {
+		return (web) -> web.ignoring().requestMatchers(new AntPathRequestMatcher("/h2-console/**"));
+	}
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		// autorisations
 		http.authorizeHttpRequests(auth -> {
 			// peuvent s'exécuter sans login
 			auth.requestMatchers(HttpMethod.GET, "/**").permitAll();
-			/*auth.requestMatchers(HttpMethod.GET, "/offer/list").permitAll();
-			auth.requestMatchers(HttpMethod.GET, "/product/list").permitAll();
-			auth.requestMatchers(HttpMethod.GET, "/user/list").permitAll();
-			auth.requestMatchers(HttpMethod.GET, "/user").permitAll();
-			auth.requestMatchers(HttpMethod.GET, "/product").permitAll();
-			auth.requestMatchers(HttpMethod.GET, "/user").permitAll();
-			auth.requestMatchers(HttpMethod.GET, "/login").permitAll();
-			auth.requestMatchers(HttpMethod.GET, "/login-error").permitAll();*/
+			auth.requestMatchers(HttpMethod.POST, "/**").permitAll();
+
+//			auth.requestMatchers(HttpMethod.GET, "/offer/list").permitAll();
+//			auth.requestMatchers(HttpMethod.GET, "/product").permitAll();
+//			auth.requestMatchers(HttpMethod.GET, "/product/list").permitAll();
+//			auth.requestMatchers(HttpMethod.GET, "/user/list").permitAll();
+//			auth.requestMatchers(HttpMethod.GET, "/console").permitAll();
+//			auth.requestMatchers(HttpMethod.POST, "/console").permitAll();
 
 			auth.requestMatchers("/css/*").permitAll()
 				.requestMatchers("/images/*").permitAll()
@@ -45,7 +54,7 @@ public class ConfigSecurity {
 		// Customiser le formulaire de login
 		http.formLogin(form -> {
 			form.loginPage("/login").permitAll();
-			form.defaultSuccessUrl("/product/list").permitAll();
+			form.defaultSuccessUrl("/").permitAll();
 			form.failureUrl("/login-error");
 			
 			// permet de définir ce qu'il se passe lorsque le login est validé
@@ -73,5 +82,6 @@ public class ConfigSecurity {
 		return http.build();
 
 	}
+
 
 }
