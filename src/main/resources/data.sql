@@ -46,8 +46,8 @@ CREATE TABLE OFFER (
                        id_user_app INT,
                        id_product INT,
                        id_delivery_address INT,
-                       CONSTRAINT fk_offer_user_app FOREIGN KEY (id_user_app) REFERENCES USER_APP(id_user_app),
-                       CONSTRAINT fk_offer_product FOREIGN KEY (id_product) REFERENCES PRODUCT(id_product),
+                       CONSTRAINT fk_offer_user_app FOREIGN KEY (id_user_app) REFERENCES USER_APP(id_user_app) ON DELETE CASCADE,
+                       CONSTRAINT fk_offer_product FOREIGN KEY (id_product) REFERENCES PRODUCT(id_product) ON DELETE CASCADE,
                        CONSTRAINT fk_offer_delivery_address FOREIGN KEY (id_delivery_address) REFERENCES ADDRESS(id_address)
 );
 
