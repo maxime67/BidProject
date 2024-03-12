@@ -45,7 +45,7 @@ public class ConfigSecurity {
 		// Customiser le formulaire de login
 		http.formLogin(form -> {
 			form.loginPage("/login").permitAll();
-			form.defaultSuccessUrl("/").permitAll();
+			form.defaultSuccessUrl("/product/list").permitAll();
 			form.failureUrl("/login-error");
 			
 			// permet de définir ce qu'il se passe lorsque le login est validé

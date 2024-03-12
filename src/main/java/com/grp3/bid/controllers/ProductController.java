@@ -18,6 +18,7 @@ public class ProductController {
         model.addAttribute("productLst", productService.getAll());
         return "view-product-list";
     }
+
     @GetMapping("/get")
     public String getById(Model model, @RequestParam Integer id){
         model.addAttribute("product", productService.getProductByid(id));

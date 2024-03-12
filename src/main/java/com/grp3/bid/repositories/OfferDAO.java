@@ -71,9 +71,9 @@ public class OfferDAO implements OfferDAOInterface {
             Offer o = new Offer();
             o.setId(rs.getInt("id_offer"));
             o.setValue(rs.getLong("value_offer"));
-            o.setOfferDateTime(rs.getTimestamp("offer_datetime").toLocalDateTime());
-            o.setUser(userDAO.getUserById(rs.getInt("id_USER")));
-            o.setProduct(productDAO.getProductByid(rs.getInt("id_PRODUCT")));
+            o.setOfferDateTime(rs.getTimestamp("date_offer").toLocalDateTime());
+            o.setUser(userDAO.getUserById(rs.getInt("id_user_app")));
+            o.setProduct(productDAO.getProductByid(rs.getInt("id_product")));
             return o;
         }
     }
