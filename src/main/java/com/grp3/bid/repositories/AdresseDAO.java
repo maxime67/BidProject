@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class AdresseDAOImpl implements AddresseDAO {
+public class AdresseDAO implements AddresseDAOInterface {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
     private final String getAddressByid = "SELECT * FROM ADDRESS WHERE id_address = :id_address";

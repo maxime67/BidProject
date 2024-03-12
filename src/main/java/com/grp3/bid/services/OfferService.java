@@ -10,29 +10,29 @@ import java.util.List;
 @Service
 public class OfferService implements OfferServiceInterface{
     @Autowired
-    OfferDAO offerDAO;
+    OfferDAOInterface offerDAOInterface;
 
     @Override
     public Offer getOfferByid(Integer id) {
-        if(offerDAO.getOfferById(id) != null){
-            return offerDAO.getOfferById(id);
+        if(offerDAOInterface.getOfferById(id) != null){
+            return offerDAOInterface.getOfferById(id);
         }
         return null;
     }
 
     @Override
     public boolean insertOffer(Offer offer) {
-        return offerDAO.insertOffer(offer);
+        return offerDAOInterface.insertOffer(offer);
     }
 
     @Override
     public List<Offer> getAll() {
-        return offerDAO.getAll();
+        return offerDAOInterface.getAll();
     }
 
     @Override
     public boolean updateOffer(Integer id, Offer offer) {
-        return offerDAO.updateOffer(id,offer);
+        return offerDAOInterface.updateOffer(id,offer);
     }
 
 }
