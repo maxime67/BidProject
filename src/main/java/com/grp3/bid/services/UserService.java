@@ -25,7 +25,12 @@ public class UserService implements UserServiceInterface{
     }
 
     @Override
-    public boolean insertUser(User user) {
+    public User getUserByPseudo(String pseudo) {
+        return userDAO.findByPseudo(pseudo);
+    }
+
+    @Override
+    public int insertUser(User user) {
         user.setPassword(encodeur.encode(user.getPassword()));
         return userDAO.InsertUser(user);
     }
@@ -43,10 +48,5 @@ public class UserService implements UserServiceInterface{
     @Override
     public boolean deleteUser(User user) {
         return userDAO.deleteUser(user);
-    }
-
-    @Override
-    public User getUserByPseudo(String pseudo) {
-        return userDAO.getUserByPseudo(pseudo);
     }
 }

@@ -7,11 +7,10 @@ import java.util.List;
 public interface UserServiceInterface {
     User getUserByid(Integer id);
     User getUserByemail(String email);
-
-    boolean insertUser(User user);
+    User getUserByPseudo(String pseudo);
+    int insertUser(User user);
     List<User> getAll();
     boolean updateUser(Integer id, User user);
     boolean deleteUser(User user);
-    User getUserByPseudo(String pseudo);
 
 }

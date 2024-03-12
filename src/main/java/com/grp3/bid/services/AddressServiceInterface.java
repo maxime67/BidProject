@@ -7,8 +7,11 @@ import java.util.List;
 
 public interface AddressServiceInterface {
     Address getAddressByid(Integer id);
-    boolean insertAddress(Address address);
+
+    int insertAddress(Address address);
+
     List<Address> getAll();
+
     boolean updateAddress(Integer id, Address address);
 
 }

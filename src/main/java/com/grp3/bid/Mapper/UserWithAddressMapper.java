@@ -9,18 +9,18 @@ import org.springframework.stereotype.Component;
 public class UserWithAddressMapper {
     public UserWithAddressDTO toDTO (User user)
     {
-        return new UserWithAddressDTO(
-                user.getPseudo(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getEmail(),
-                user.getPhone_number(),
-                user.getPassword(),
-                user.getUser_address().getStreet_name(),
-                user.getUser_address().getState_name(),
-                user.getUser_address().getCity_name(),
-                user.getUser_address().getNb_street(),
-                user.getUser_address().getZip_code()
+    return new UserWithAddressDTO(
+            user.getPseudo(),
+            user.getFirstName(),
+            user.getLastName(),
+            user.getEmail(),
+            user.getPhone_number(),
+            user.getPassword(),
+            user.getUser_address().getStreet_name(),
+            user.getUser_address().getState_name(),
+            user.getUser_address().getCity_name(),
+            user.getUser_address().getNb_street(),
+            user.getUser_address().getZip_code()
         );
     }
 

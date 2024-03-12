@@ -8,7 +8,7 @@ public interface UserDAOInterface {
     User getUserById(Integer id);
     User getUserBydEmail(String email);
     List<User> getAll();
-    boolean InsertUser(User user);
+    int InsertUser(User user);
     boolean updateUser(Integer id, User user);
 
     User findByPseudo(String pseudo);

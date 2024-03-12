@@ -41,7 +41,7 @@ public class ProductDAO implements ProductDAOInterface{
     }
 
     @Override
-    public boolean insertProduct(Product product) {
+    public int insertProduct(Product product) {
         KeyHolder keyHolder =  new GeneratedKeyHolder();
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("name_product", product.getName());
@@ -49,7 +49,7 @@ public class ProductDAO implements ProductDAOInterface{
         sqlParameterSource.addValue("starting_value", product.getStartingValue());
         sqlParameterSource.addValue("path_to_image", product.getPathToImg());
         //jdbcTeamlplte.update return numbers of affected lines
-        return jdbcTemplate.update(insertProduct, sqlParameterSource) == 1;
+        return jdbcTemplate.update(insertProduct, sqlParameterSource, keyHolder) == 1 ? keyHolder.getKey().intValue() : -1;
     }
 
     @Override
