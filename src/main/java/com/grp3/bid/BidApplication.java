@@ -48,6 +48,9 @@ public class BidApplication {
         offerService.insertOffer(new Offer(15L,LocalDateTime.now(), userService.getUserByid(1), serviceProduct.getProductByid(1), addr2));
 
         userService.getAll().forEach(System.out::println);
+        userService.deleteUser(userService.getUserByid(1));
+        userService.getAll().forEach(System.out::println);
+
     }
 
     public static void main(String[] args) {

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class UserDAO implements UserDAOInterface {
@@ -20,9 +21,11 @@ public class UserDAO implements UserDAOInterface {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
     private final String getUserByid = "SELECT * FROM USER_APP WHERE id_user_app = :id;";
+    private final String getUserByPseudo = "SELECT * FROM USER_APP WHERE pseudo = :pseudo;";
     private final String getByPseudo = "SELECT * FROM USER_APP WHERE pseudo = :pseudo;";
     private final String getAll = "SELECT * FROM USER_APP;";
     private final String insertUser = "INSERT INTO USER_APP (pseudo, firstname,lastname,email,phone_number,password, role_user, accountWallet, id_address) VALUES (:pseudo,:firstname,:lastname,:email,:phone_number,:password, :role_user,:accountWallet, :id_address);";
+    private final String deleteUser = "DELETE FROM USER_APP WHERE id_user_app = :id_user_app";
     @Override
     public User getUserById(Integer id) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
@@ -65,6 +68,20 @@ public class UserDAO implements UserDAOInterface {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("pseudo", pseudo);
         return jdbcTemplate.queryForObject(getByPseudo, sqlParameterSource, new UserRowMapper());
+    }
+
+    @Override
+    public boolean deleteUser(User user) {
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("id_user_app", user.getId());
+        return jdbcTemplate.update(deleteUser, sqlParameterSource) != 0;
+    }
+
+    @Override
+    public User getUserByPseudo(String pseudo) {
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("pseudo", pseudo);
+        return jdbcTemplate.queryForObject(getUserByPseudo, sqlParameterSource, new UserRowMapper());
     }
 
     public class UserRowMapper implements RowMapper<User> {
