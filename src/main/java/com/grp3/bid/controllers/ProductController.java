@@ -1,12 +1,15 @@
 package com.grp3.bid.controllers;
 
 import com.grp3.bid.entities.Category;
+import com.grp3.bid.entities.Product;
 import com.grp3.bid.services.CategoryServiceInterface;
 import com.grp3.bid.services.ProductServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -37,9 +40,10 @@ public class ProductController {
     }
     @PostMapping("product/search")
     public String searchProduct(@RequestParam("name") String productName, @RequestParam("categoryId") Long categoryId, Model model){
-        System.out.println(productName);
-        System.out.println(categoryService.getById(categoryId));
-        model.addAttribute("products", productService.getByIdCategory(categoryId.intValue()));
+        model.addAttribute("categories", categoryService.getAll());
+        List<Product> products = productService.getByIdCategory(categoryId.intValue()).stream().filter(p -> p.getName().contains(productName)).toList();
+        model.addAttribute("productLst", products);
+        System.out.println(productService.getByIdCategory(categoryId.intValue()));
         return "view-product-list";
     }
 }

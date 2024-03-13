@@ -34,7 +34,7 @@ public class BidApplication {
         System.out.println(ap);
 
         Category cat1 = new Category(1L, "Jouets");
-        Category cat2 = new Category(1L, "Mobilier");
+        Category cat2 = new Category(2L, "Mobilier");
         categoryService.insertCategory(cat1);
         categoryService.insertCategory(cat2);
 
