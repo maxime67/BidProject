@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface OfferServiceInterface {
     Offer getOfferByid(Integer id);
-    boolean insertOffer(Offer offer);
+    int insertOffer(Offer offer);
     List<Offer> getAll();
     boolean updateOffer(Integer id, Offer offer);
 

@@ -1,12 +1,12 @@
 package com.grp3.bid.repositories;
 
 import com.grp3.bid.entities.Address;
-import com.grp3.bid.entities.Offer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class AdresseDAO implements AddresseDAOInterface{
+public class AddressDAO implements AddressDAOInterface{
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
     private final String getAddressByid = "SELECT * FROM ADDRESS WHERE id_address = :id_address";
@@ -23,21 +23,22 @@ public class AdresseDAO implements AddresseDAOInterface{
     private final String updateAddress = "UPDATE ADDRESS SET street_name = :street_name, city_name = :city_name, state_name = :state_name, nb_street = :nb_street, zip_code = :zip_code WHERE id_address = :id_address";
 
     @Override
-    public Address getAddressByid(Integer id) {
+    public Address getAddressById(Integer id) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("id_address", id);
         return jdbcTemplate.queryForObject(getAddressByid, sqlParameterSource, new AddressRowMapper());
     }
 
     @Override
-    public boolean insertAddress(Address address) {
+    public int insertAddress(Address address) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("street_name", address.getStreet_name());
         sqlParameterSource.addValue("city_name", address.getCity_name());
         sqlParameterSource.addValue("state_name", address.getState_name());
         sqlParameterSource.addValue("nb_street", address.getNb_street());
         sqlParameterSource.addValue("zip_code", address.getZip_code());
-        return jdbcTemplate.update(insertAddress, sqlParameterSource) == 1;
+        return jdbcTemplate.update(insertAddress, sqlParameterSource, keyHolder) == 1 ? keyHolder.getKey().intValue() : -1;
 
     }
 

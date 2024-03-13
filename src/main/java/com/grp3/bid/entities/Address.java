@@ -22,4 +22,5 @@ public class Address {
         this.nb_street = nb_street;
         this.zip_code = zip_code;
     }
+
 }

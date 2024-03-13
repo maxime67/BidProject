@@ -7,7 +7,7 @@ import java.util.List;
 public interface OfferDAOInterface {
     Offer getOfferById(Integer id);
     List<Offer> getAll();
-    boolean insertOffer(Offer offer);
+    int insertOffer(Offer offer);
     boolean updateOffer(Integer id, Offer offer);
 
 

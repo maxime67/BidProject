@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
@@ -46,17 +48,15 @@ public class OfferDAO implements OfferDAOInterface {
     }
 
     @Override
-    public boolean insertOffer(Offer offer) {
+    public int insertOffer(Offer offer) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("value_offer", offer.getValue());
         sqlParameterSource.addValue("offer_datetime", offer.getOfferDateTime());
         sqlParameterSource.addValue("id_product", offer.getProduct().getId());
         sqlParameterSource.addValue("id_user_app", offer.getUser().getId());
         //jdbcTeamlplte.update return numbers of affected lines
-        if(jdbcTemplate.update(insertOffer, sqlParameterSource) == 1){
-            return true;
-        }
-        return false;
+        return jdbcTemplate.update(insertOffer, sqlParameterSource, keyHolder) == 1 ? keyHolder.getKey().intValue() : -1;
     }
 
     @Override
