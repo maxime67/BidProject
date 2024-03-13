@@ -16,14 +16,6 @@
                     <button class="btn btn-primary" type="submit" value="Rechercher">Rechercher</button>
                 </div>
             </div>
-        <form class="form" action="@{/product/search}">
-        <input type="text" placeholder="Rechercher un objet par nom">
-            <select>
-                <option th:each="category : ${categories}" th:value="${category}" th:text="${category}">
-                </option>
-            </select>
-            <input value="Search" type="submit">
-        </form>
     </div>
 </nav>
 <br>
