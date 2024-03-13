@@ -44,8 +44,7 @@ public class UserController {
             return "view-user-register";
         }
         User user = userWithAddressMapper.toUser(userWithAddressDTO);
-        addressService.insertAddress(user.getUser_address());
         userService.insertUser(user);
-        return "view-user-register";
+        return "redirect:/product/list";
     }
 }

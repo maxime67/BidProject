@@ -32,6 +32,8 @@ public class UserService implements UserServiceInterface{
     @Override
     public int insertUser(User user) {
         user.setPassword(encodeur.encode(user.getPassword()));
+        user.setAccountWallet(100f);
+        user.setRoles("USER");
         return userDAO.InsertUser(user);
     }
 

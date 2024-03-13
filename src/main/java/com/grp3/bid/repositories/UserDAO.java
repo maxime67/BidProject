@@ -24,8 +24,9 @@ public class UserDAO implements UserDAOInterface {
     @Autowired
     private NamedParameterJdbcTemplate jdbcTemplate;
 
-    private final String getUserByid = "SELECT * FROM USER_APP WHERE id_user = :id;";
+    private final String getUserByid = "SELECT * FROM USER_APP WHERE id_user_app = :id;";
     private final String getUserByPseudo = "SELECT * FROM USER_APP WHERE pseudo = :pseudo;";
+    private final String getUserByEmail = "SELECT * FROM USER_APP WHERE email = :email;";
     private final String getByPseudo = "SELECT * FROM USER_APP WHERE pseudo = :pseudo;";
     private final String getAll = "SELECT * FROM USER_APP;";
     private final String insertUser = "INSERT INTO USER_APP (pseudo, firstname,lastname,email,phone_number,password, role_user, accountWallet, id_address) VALUES (:pseudo,:firstname,:lastname,:email,:phone_number,:password, :role_user,:accountWallet, :id_address);";
@@ -39,7 +40,9 @@ public class UserDAO implements UserDAOInterface {
 
     @Override
     public User getUserBydEmail(String email) {
-        return null;
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("email", email);
+        return jdbcTemplate.queryForObject(getUserByEmail, sqlParameterSource, new UserRowMapper());
     }
 
     @Override
@@ -50,7 +53,7 @@ public class UserDAO implements UserDAOInterface {
     @Override
     public int InsertUser(User user) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        user.setId(addressService.insertAddress(user.getUser_address()));
+        int id_address = (addressService.insertAddress(user.getUser_address()));
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("pseudo", user.getPseudo());
         sqlParameterSource.addValue("firstname", user.getFirstName());
@@ -60,7 +63,7 @@ public class UserDAO implements UserDAOInterface {
         sqlParameterSource.addValue("phone_number", user.getPhone_number());
         sqlParameterSource.addValue("role_user", user.getRoles());
         sqlParameterSource.addValue("accountWallet", user.getAccountWallet());
-        sqlParameterSource.addValue("id_address", user.getUser_address().getId_address());
+        sqlParameterSource.addValue("id_address", id_address);
         return jdbcTemplate.update(insertUser, sqlParameterSource, keyHolder) == 1 ? keyHolder.getKey().intValue() : -1;
     }
 
