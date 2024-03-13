@@ -7,6 +7,6 @@ import java.util.List;
 public interface ProductDAOInterface {
     Product getProductByid(Integer id);
     List<Product> getAll();
-    boolean insertProduct(Product product);
+    void insertProduct(Product product);
     boolean updateProduct(Integer id, Product product);
 }

@@ -10,9 +10,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -22,7 +20,7 @@ public class ProductDAO implements ProductDAOInterface {
 
     private final String getProductByid = "SELECT * FROM PRODUCT WHERE id_PRODUCT = :id_product";
     private final String getAll = "SELECT * FROM PRODUCT";
-    private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_to_image,start_date, end_date, category, id_seller) VALUES (:name_product,:description,:starting_value,:path_to_image, :start_date, :end_date, :category, :id_seller)";
+    private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_to_image,start_date, end_date, category, id_seller) VALUES (:name_product,:description,:starting_value,:path_to_image,:start_date,:end_date,:category,:id_seller)";
     @Autowired
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
@@ -46,28 +44,25 @@ public class ProductDAO implements ProductDAOInterface {
     }
 
     @Override
-    public boolean insertProduct(Product product) {
+    public void insertProduct(Product product) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
-//        sqlParameterSource.addValue("name_product", product.getName());
-//        sqlParameterSource.addValue("description", product.getDescription());
-//        sqlParameterSource.addValue("starting_value", product.getStartingValue());
-//        sqlParameterSource.addValue("path_to_image", product.getPathToImg());
-//        sqlParameterSource.addValue("start_date", Timestamp.valueOf(product.getStartDate()));
-//        sqlParameterSource.addValue("end_date", Timestamp.valueOf(product.getEndDate()));
-//        sqlParameterSource.addValue("category", product.getCategory());
-//        sqlParameterSource.addValue("id_seller", product.getSeller());
-
         sqlParameterSource.addValue("name_product", product.getName());
         sqlParameterSource.addValue("description", product.getDescription());
         sqlParameterSource.addValue("starting_value", product.getStartingValue());
         sqlParameterSource.addValue("path_to_image", product.getPathToImg());
-        sqlParameterSource.addValue("start_date", product.getStartDate());
-        sqlParameterSource.addValue("end_date", product.getEndDate());
+        sqlParameterSource.addValue("start_date", Timestamp.valueOf(product.getStartDate()));
+        sqlParameterSource.addValue("end_date", Timestamp.valueOf(product.getEndDate()));
         sqlParameterSource.addValue("category", product.getCategory());
-        sqlParameterSource.addValue("id_seller", product.getSeller());
+        sqlParameterSource.addValue("id_seller", product.getSeller().getId());
+
+
         //jdbcTeamlplte.update return numbers of affected lines
-        return jdbcTemplate.update(insertProduct, sqlParameterSource, keyHolder) == 1;
+        if (keyHolder != null && keyHolder.getKey() != null) {
+            // Mise à jour de l'identifiant du film auto-généré par la base
+            product.setId(keyHolder.getKey().intValue());
+        }
+        jdbcTemplate.update(insertProduct, sqlParameterSource,keyHolder);
     }
 
     @Override
@@ -82,12 +77,17 @@ public class ProductDAO implements ProductDAOInterface {
             Product p = new Product();
             p.setId(rs.getInt("id_product"));
             p.setName(rs.getString("name_product"));
-            p.setName(rs.getString("description"));
-            p.setStartingValue(rs.getLong("starting_value"));
+            p.setDescription(rs.getString("description"));
+            p.setStartingValue(rs.getDouble("starting_value"));
             p.setPathToImg(rs.getString("path_to_image"));
 
-            p.setStartDate(rs.getTimestamp("start_date").toLocalDateTime());
-            p.setStartDate(rs.getTimestamp("end_date").toLocalDateTime());
+           /* Date date = rs.getDate("start_date");
+            p.setStartDate(date.toLocalDateTime());*/
+
+            Timestamp timestampEnd = rs.getTimestamp("end_date");
+            p.setStartDate(timestampEnd.toLocalDateTime());
+
+
             p.setCategory(rs.getString("category"));
             User userSeller = userDAOInterface.getUserById(rs.getInt("id_seller"));
             p.setSeller(userSeller);

@@ -15,14 +15,14 @@ public class Product implements Serializable {
     private Integer id;
     private String name;
     private String description;
-    private Long startingValue;
+    private Double startingValue;
     private String pathToImg;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String category;
     private User seller;
 
-    public Product(String name, String description, Long startingValue, String pathToImg, LocalDateTime startDate, LocalDateTime endDate, String category, User seller) {
+    public Product(String name, String description, Double startingValue, String pathToImg, LocalDateTime startDate, LocalDateTime endDate, String category, User seller) {
         this.name = name;
         this.description = description;
         this.startingValue = startingValue;

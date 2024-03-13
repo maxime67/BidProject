@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ProductServiceInterface {
     Product getProductByid(Integer id);
-    boolean insertProduct(Product product);
+    void insertProduct(Product product);
     List<Product> getAll();
     boolean updateProduct(Integer id, Product product);
     Product getLastOffer(Product product);

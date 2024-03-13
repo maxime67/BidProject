@@ -43,19 +43,17 @@ public class BidApplication {
         userService.insertUser(new User("pseudo2","firstname2","lastName2","email2","phone_number2","ADMIN,USER",2F,"password2",addr2));
         userService.insertUser(new User("pseudo3","firstname3","lastName3","email3","phone_number3","ADMIN,USER",3F,"password3",addr1));
 
-        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.of(2024,03, 23,12,00), LocalDateTime.of(2024,03, 25,12,00), "categorie1",userService.getUserByid(2)));
-        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.of(2024,03, 23,12,00),LocalDateTime.of(2024,03, 25,12,00), "categorie1", userService.getUserByid(2)));
-        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.of(2024,03, 23,12,00), LocalDateTime.of(2024,03, 25,12,00),"categorie1", userService.getUserByid(2)));
-        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.of(2024,03, 23,12,00), LocalDateTime.of(2024,03, 25,12,00),"categorie1",userService.getUserByid(2)));
+        serviceProduct.insertProduct(new Product("nameProd","aaaa",101.00,"aaa", LocalDateTime.of(2024,3, 23, 12, 00), LocalDateTime.of(2024,3, 25, 12, 00), "categorie1",userService.getUserByid(2)));
+        serviceProduct.insertProduct(new Product("nameProd","aaaa",101.00,"aaa", LocalDateTime.of(2024,3, 23, 12, 00),LocalDateTime.of(2024,3, 25, 12,00 ), "categorie1", userService.getUserByid(2)));
+        serviceProduct.insertProduct(new Product("nameProd","aaaa",101.00,"aaa", LocalDateTime.of(2024,3, 23, 12, 00), LocalDateTime.of(2024,3, 25,12,00),"categorie1", userService.getUserByid(2)));
+        serviceProduct.insertProduct(new Product("nameProd","aaaa",101.00,"aaa", LocalDateTime.of(2024,3, 23, 12, 00), LocalDateTime.of(2024,3, 25,12,00),"categorie1",userService.getUserByid(2)));
 
-        offerService.insertOffer(new Offer(15L,LocalDateTime.now(), userService.getUserByid(1), serviceProduct.getProductByid(1), addr2));
+        /*  offerService.insertOffer(new Offer(15L,LocalDateTime.now(), userService.getUserByid(1), serviceProduct.getProductByid(1), addr2));
 
         userService.getAll().forEach(System.out::println);
         userService.deleteUser(userService.getUserByid(1));
-        userService.getAll().forEach(System.out::println);
-
+        userService.getAll().forEach(System.out::println);*/
     }
-
     public static void main(String[] args) {
         SpringApplication.run(BidApplication.class, args);
     }

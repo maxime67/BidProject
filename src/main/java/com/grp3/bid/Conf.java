@@ -26,6 +26,4 @@ public class Conf {
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("db.sql").build();
     }
-
-
 }
