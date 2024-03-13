@@ -15,9 +15,6 @@
     <form method="post" data-th-object="${product}" data-th-action="@{/product/add}">
         <div class="row">
             <div class="col-sm">
-                <div class="d-flex align-items-center justify-content-center">
-                    <h4 class="position-relative">Produit : </h4>
-                </div>
                 <div class="form-group">
                     <label name="name"> Nom </label>
                     <input type="text" class="form-control" name="name"
@@ -36,10 +33,10 @@
                     <ul data-th-replace="~{fragments/error :: frag-error(fieldName='startingValue')}"></ul>
                 </div>
                 <div class="form-group">
-                    <label name="image"> Ajouter une image </label>
-                    <input type="text" class="form-control" name="password"
+                    <label name="pathToImg"> Ajouter une image </label>
+                    <input type="text" class="form-control" name="pathToImg"
                            data-th-field="*{pathToImg}">
-                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='pathToImage')}"></ul>
+                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='pathToImg')}"></ul>
                 </div>
                 <div class="form-group">
                     <label name="startDate"> Date de début </label>
@@ -52,7 +49,7 @@
                     <ul data-th-replace="~{fragments/error :: frag-error(fieldName='endDate')}"></ul>
                 </div>
                 <div class="form-group">
-                    <label name="category"> Numéro de téléphone </label>
+                    <label name="category"> Catégorie </label>
                     <input type="text" class="form-control" name="category"
                            data-th-field="*{category}">
                     <ul data-th-replace="~{fragments/error :: frag-error(fieldName='category')}"></ul>

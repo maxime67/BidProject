@@ -80,10 +80,8 @@ public class ProductDAO implements ProductDAOInterface {
             p.setDescription(rs.getString("description"));
             p.setStartingValue(rs.getDouble("starting_value"));
             p.setPathToImg(rs.getString("path_to_image"));
-
-           /* Date date = rs.getDate("start_date");
-            p.setStartDate(date.toLocalDateTime());*/
-
+            Timestamp timestampStart = rs.getTimestamp("start_date");
+            p.setStartDate(timestampStart.toLocalDateTime());
             Timestamp timestampEnd = rs.getTimestamp("end_date");
             p.setStartDate(timestampEnd.toLocalDateTime());
 

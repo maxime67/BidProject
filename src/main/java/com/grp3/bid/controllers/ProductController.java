@@ -1,19 +1,24 @@
 package com.grp3.bid.controllers;
 
 import com.grp3.bid.entities.Product;
-import com.grp3.bid.entities.User;
 import com.grp3.bid.services.ProductServiceInterface;
+import com.grp3.bid.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/")
-@SessionAttributes({ "userLogged" })
 public class ProductController {
     @Autowired
     ProductServiceInterface productService;
+
+    @Autowired
+    UserService userService;
 
     @GetMapping
     public String getAllProducts(Model model){
@@ -33,12 +38,10 @@ public class ProductController {
     }
 
     @GetMapping("product/add")
-    public String getProductForm(Model model, @ModelAttribute("userLogged")User userLogged) {
-        if (userLogged != null && userLogged.getId() >= 1) {
-            // Il y a un membre en session
-            // Ajout de l'instance dans le modèle
+    public String getProductForm(Model model, Authentication authentication) {
+        if (authentication.isAuthenticated()) {
             model.addAttribute("product", new Product());
-            return "view-product-add";
+            return "view-product-form";
         } else {
             // redirection vers la page des produits
             return "redirect:/";
@@ -46,12 +49,20 @@ public class ProductController {
     }
 
     @PostMapping("product/add")
-    public String addProduct(Model model) {
-        model.addAttribute("product", new Product());
-        return "view-product-add";
-//    } else {
-//        // redirection vers la page des films
-//        return "redirect:/";
+    public String addProduct(Authentication authentication, @Valid @ModelAttribute("product") Product product, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "view-product-form";
+        }else{
+            if (authentication.isAuthenticated()) {
+                System.out.println(product);
+                String userName = authentication.getName();
+                product.setSeller(userService.getUserByPseudo(userName));
+                productService.insertProduct(product);
+                return "redirect:/";
+            } else {
+                return "redirect:/";
+            }
+        }
     }
     }
 
