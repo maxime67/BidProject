@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="~{fragments/frag-head}"></div>
+<div th:replace="~{fragments/frag-navbar}"></div>
+<head>
+
+    <meta charset="UTF-8">
+    <title>Produit</title>
+</head>
+<body>
+<div class="container">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <h1 class="position-relative">Ajouter un produit</h1>
+    </div>
+    <form method="post" data-th-object="${product}" data-th-action="@{/product/add}">
+        <div class="row">
+            <div class="col-sm">
+                <div class="form-group">
+                    <label name="name"> Nom </label>
+                    <input type="text" class="form-control" name="name"
+                           data-th-field="*{name}">
+                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='name')}"></ul>
+                </div>
+                <div class="form-group">
+                    <label name="description"> Description </label>
+                    <input type="text" class="form-control" name="description"
+                           data-th-field="*{description}">
+                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='description')}"></ul>
+                </div>
+                <div class="form-group">
+                    <label name="startingValue"> Prix de départ de l'enchère </label>
+                    <input type="number" class="form-control" name="startingValue" data-th-field="*{startingValue}">
+                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='startingValue')}"></ul>
+                </div>
+                <div class="form-group">
+                    <label name="pathToImg"> Ajouter une image </label>
+                    <input type="text" class="form-control" name="pathToImg"
+                           data-th-field="*{pathToImg}">
+                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='pathToImg')}"></ul>
+                </div>
+                <div class="form-group">
+                    <label name="startDate"> Date de début </label>
+                    <input type="datetime-local" class="form-control" name="startDate" data-th-field="*{startDate}">
+                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='startDate')}"></ul>
+                </div>
+                <div class="form-group">
+                    <label name="endDate"> Date de fin </label>
+                    <input type="datetime-local" class="form-control" name="endDate" data-th-field="*{endDate}">
+                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='endDate')}"></ul>
+                </div>
+                <div class="form-group">
+                    <label name="category"> Catégorie </label>
+                    <input type="text" class="form-control" name="category"
+                           data-th-field="*{category}">
+                    <ul data-th-replace="~{fragments/error :: frag-error(fieldName='category')}"></ul>
+                </div>
+            </div>
+            <button type="submit" data-th-text="Valider" class="btn btn-primary">
+            </button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

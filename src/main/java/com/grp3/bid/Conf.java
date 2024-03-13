@@ -24,8 +24,6 @@ public class Conf {
     DataSource getDataSource() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
-                .addScript("data.sql").build();
+                .addScript("db.sql").build();
     }
-
-
 }

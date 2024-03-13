@@ -4,25 +4,26 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Offer {
+public class Offer implements Serializable {
     private Integer id;
     private Long value;
     private LocalDateTime offerDateTime;
     private User user;
     private Product product;
-    private Address address_delivery;
+    private Address deliveryAddress;
 
-    public Offer(Long value, LocalDateTime offerDateTime, User user, Product product, Address address_delivery) {
+    public Offer(Long value, LocalDateTime offerDateTime, User user, Product product, Address deliveryAddress) {
         this.value = value;
         this.offerDateTime = offerDateTime;
         this.user = user;
         this.product = product;
-        this.address_delivery = address_delivery;
+        this.deliveryAddress = deliveryAddress;
     }
 
     @Override
@@ -33,7 +34,7 @@ public class Offer {
         sb.append(", offerDateTime=").append(offerDateTime);
         sb.append(", user=").append(user);
         sb.append(", product=").append(product);
-        sb.append(", address_delivery=").append(address_delivery);
+        sb.append(", address_delivery=").append(deliveryAddress);
         sb.append('}');
         return sb.toString();
     }
