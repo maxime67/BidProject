@@ -16,15 +16,17 @@ public class Product {
     private Long startingValue;
     private String pathToImg;
     private LocalDateTime dateFinal;
-    private User vendor_user;
+    private User vendorUser;
+    private Category category;
 
-    public Product(String name, String description, Long startingValue, String pathToImg, LocalDateTime dateFinal, User vendor_user) {
+    public Product(String name, String description, Long startingValue, String pathToImg, LocalDateTime dateFinal, User vendor_user, Category category) {
         this.name = name;
         this.description = description;
         this.startingValue = startingValue;
         this.pathToImg = pathToImg;
         this.dateFinal = dateFinal;
-        this.vendor_user = vendor_user;
+        this.vendorUser = vendor_user;
+        this.category = category;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class Product {
         sb.append(", startingvalue=").append(startingValue);
         sb.append(", pathToImg='").append(pathToImg).append('\'');
         sb.append(", dateFinal=").append(dateFinal);
-        sb.append(", vendor_user=").append(vendor_user);
+        sb.append(", vendor_user=").append(vendorUser);
         sb.append('}');
         return sb.toString();
     }

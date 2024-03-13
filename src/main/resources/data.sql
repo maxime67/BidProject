@@ -2,6 +2,7 @@ DROP TABLE if exists OFFER;
 DROP TABLE if exists PRODUCT;
 DROP TABLE if exists USER_APP;
 DROP TABLE if exists ADDRESS;
+DROP TABLE if exists CATEGORY;
 
 
 CREATE TABLE ADDRESS (
@@ -26,6 +27,10 @@ CREATE TABLE USER_APP (
                           id_address INT,
                           CONSTRAINT fk_user_address FOREIGN KEY (id_address) REFERENCES ADDRESS(id_address)
 );
+CREATE TABLE CATEGORY (
+                          id_category INT AUTO_INCREMENT PRIMARY KEY,
+                          name_category VARCHAR(255)
+);
 
 CREATE TABLE PRODUCT (
                          id_product INT AUTO_INCREMENT PRIMARY KEY,
@@ -35,8 +40,11 @@ CREATE TABLE PRODUCT (
                          path_to_image VARCHAR(255),
                          date_final DATETIME,
                          id_seller INT,
-                         CONSTRAINT fk_product_user FOREIGN KEY (id_seller) REFERENCES USER_APP(id_user_app)
+                         category_id INT,
+                         CONSTRAINT fk_product_user FOREIGN KEY (id_seller) REFERENCES USER_APP(id_user_app),
+                         CONSTRAINT fk_category_product FOREIGN KEY (category_id) REFERENCES CATEGORY(id_category)
 );
+
 
 
 CREATE TABLE OFFER (

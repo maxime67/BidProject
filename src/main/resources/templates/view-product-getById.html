@@ -2,11 +2,13 @@
 <html lang="en">
 <div th:replace="~{fragments/frag-head}"></div>
 <div th:replace="~{fragments/frag-navbar}"></div>
+<div th:replace="~{fragments/frag-search}"></div>
+
 <body>
 <div class="container">
     <td data-th-text="${product.id}"/>
     <td data-th-text="${product.name}"/>
-    <td data-th-text="${product.startingvalue}"/>
+    <td data-th-text="${product.startingValue}"/>
 </div>
 </body>
 </html>

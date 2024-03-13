@@ -1,10 +1,12 @@
 package com.grp3.bid.controllers;
 
+import com.grp3.bid.services.CategoryServiceInterface;
 import com.grp3.bid.services.ProductServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -13,21 +15,31 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ProductController {
     @Autowired
     ProductServiceInterface productService;
+    @Autowired
+    CategoryServiceInterface categoryService;
 
     @GetMapping
     public String getAllProducts(Model model){
+        model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("productLst", productService.getAll());
         return "view-product-list";
     }
 
     @GetMapping("product/list")
     public String getAll(Model model){
+        model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("productLst", productService.getAll());
         return "view-product-list";
     }
     @GetMapping("product/get")
     public String getById(Model model, @RequestParam Integer id){
+        model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("product", productService.getProductByid(id));
         return "view-product-getByid";
+    }
+    @GetMapping("product/search")
+    public String searchProduct(Model model, @RequestBody String name){
+        model.addAttribute("categories", categoryService.getByName(name));
+        return "view-product-list";
     }
 }

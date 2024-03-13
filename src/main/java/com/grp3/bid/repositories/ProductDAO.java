@@ -67,7 +67,7 @@ public class ProductDAO implements ProductDAOInterface{
             p.setStartingValue(rs.getLong("starting_value"));
             p.setPathToImg(rs.getString("path_to_image"));
             p.setDateFinal(LocalDateTime.now());
-            p.setVendor_user(new User());
+            p.setVendorUser(new User());
             return p;
         }
     }

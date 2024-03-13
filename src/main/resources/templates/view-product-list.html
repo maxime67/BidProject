@@ -2,6 +2,8 @@
 <html lang="en" xmlns:width="http://www.w3.org/1999/xhtml">
 <div th:replace="~{fragments/frag-head}"></div>
 <div th:replace="~{fragments/frag-navbar}"></div>
+<div th:replace="~{fragments/frag-search}"></div>
+
 <body>
 <div class="container">
     <div class="row" data-th-each="product: ${productLst}">
@@ -11,7 +13,7 @@
                 <div class="card-body">
                     <h5 class="card-title" data-th-text="${product.name}"></h5>
                     <p class="card-text" data-th-text="${product.startingValue}"></p>
-                    <a href="#" class="btn btn-primary">Voir le produit</a>
+                    <a th:href="@{/product/get?id=} + ${product.id}" class="btn btn-primary">Voir le produit</a>
                 </div>
             </div>
         </div>
