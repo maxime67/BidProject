@@ -28,18 +28,4 @@ public class Product {
         this.vendorUser = vendor_user;
         this.category = category;
     }
-
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Product{");
-        sb.append("id=").append(id);
-        sb.append(", name='").append(name).append('\'');
-        sb.append(", description='").append(description).append('\'');
-        sb.append(", startingvalue=").append(startingValue);
-        sb.append(", pathToImg='").append(pathToImg).append('\'');
-        sb.append(", dateFinal=").append(dateFinal);
-        sb.append(", vendor_user=").append(vendorUser);
-        sb.append('}');
-        return sb.toString();
-    }
 }

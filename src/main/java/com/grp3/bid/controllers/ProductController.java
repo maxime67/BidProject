@@ -1,14 +1,12 @@
 package com.grp3.bid.controllers;
 
+import com.grp3.bid.entities.Category;
 import com.grp3.bid.services.CategoryServiceInterface;
 import com.grp3.bid.services.ProductServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/")
@@ -37,9 +35,11 @@ public class ProductController {
         model.addAttribute("product", productService.getProductByid(id));
         return "view-product-getByid";
     }
-    @GetMapping("product/search")
-    public String searchProduct(Model model, @RequestBody String name){
-        model.addAttribute("categories", categoryService.getByName(name));
+    @PostMapping("product/search")
+    public String searchProduct(@RequestParam("name") String productName, @RequestParam("categoryId") Long categoryId, Model model){
+        System.out.println(productName);
+        System.out.println(categoryService.getById(categoryId));
+        model.addAttribute("products", productService.getByIdCategory(categoryId.intValue()));
         return "view-product-list";
     }
 }

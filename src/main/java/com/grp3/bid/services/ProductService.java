@@ -35,4 +35,9 @@ public class ProductService implements ProductServiceInterface{
 //        TODO : Implement method that return the last offer sort by date, on product id
         return null;
     }
+
+    @Override
+    public List<Product> getByIdCategory(Integer idCategory) {
+        return productDAO.getByIdCategory(idCategory);
+    }
 }

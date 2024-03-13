@@ -11,4 +11,5 @@ public interface ProductServiceInterface {
     List<Product> getAll();
     boolean updateProduct(Integer id, Product product);
     Product getLastOffer(Product product);
+    List<Product> getByIdCategory(Integer idCategory);
 }

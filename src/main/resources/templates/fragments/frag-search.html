@@ -1,9 +1,9 @@
 <nav th:fragment="navbar" class="navbar bg-body-tertiary">
     <div class="container">
-        <form class="form" action="@{/product/search}">
-        <input type="text" placeholder="Rechercher un objet par nom">
-            <select>
-                <option th:each="category : ${categories}" th:value="${category}" th:text="${category}">
+        <form modelAttribut="category" method="POST" class="form" th:action="@{/product/search}">
+        <input type="text" name="name" placeholder="Rechercher un objet par nom">
+            <select name="categoryId">
+                <option th:each="category : ${categories}" data-th-value="${category.idCategory}" data-th-text="${category.nameCategory}">
                 </option>
             </select>
             <input value="Search" type="submit">

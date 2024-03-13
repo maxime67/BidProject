@@ -20,9 +20,15 @@ public class ProductDAO implements ProductDAOInterface{
 
     private final String getProductByid = "SELECT * FROM PRODUCT WHERE id_PRODUCT = :id_product";
     private final String getAll = "SELECT * FROM PRODUCT";
-    private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_to_image) VALUES (:name_product,:description,:starting_value,:path_to_image)";
+    private final String getByIdCategory = "SELECT * FROM PRODUCT WHERE category_id = :id_category";
+
+    private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_to_image, category_id, id_seller) VALUES (:name_product,:description,:starting_value,:path_to_image,:category_id, :id_seller)";
     @Autowired
     private final NamedParameterJdbcTemplate jdbcTemplate;
+    @Autowired
+    CategoryDAOInterface categoryDAO;
+    @Autowired
+    UserDAOInterface userDAO;
 
     public ProductDAO(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -48,6 +54,8 @@ public class ProductDAO implements ProductDAOInterface{
         sqlParameterSource.addValue("description", product.getDescription());
         sqlParameterSource.addValue("starting_value", product.getStartingValue());
         sqlParameterSource.addValue("path_to_image", product.getPathToImg());
+        sqlParameterSource.addValue("category_id", product.getCategory().getIdCategory());
+        sqlParameterSource.addValue("id_seller", product.getVendorUser().getId());
         //jdbcTeamlplte.update return numbers of affected lines
         return jdbcTemplate.update(insertProduct, sqlParameterSource, keyHolder) == 1 ? keyHolder.getKey().intValue() : -1;
     }
@@ -56,6 +64,14 @@ public class ProductDAO implements ProductDAOInterface{
     public boolean updateProduct(Integer id, Product product) {
         return false;
     }
+
+    @Override
+    public List<Product> getByIdCategory(Integer idCategory) {
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("id_category", idCategory);
+        return jdbcTemplate.query(getByIdCategory, sqlParameterSource, new ProductRowMapper());
+    }
+
     public class ProductRowMapper implements RowMapper<Product> {
 
         @Override
@@ -63,11 +79,12 @@ public class ProductDAO implements ProductDAOInterface{
             Product p = new Product();
             p.setId(rs.getInt("id_product"));
             p.setName(rs.getString("name_product"));
-            p.setName(rs.getString("description"));
+            p.setDescription(rs.getString("description"));
             p.setStartingValue(rs.getLong("starting_value"));
             p.setPathToImg(rs.getString("path_to_image"));
             p.setDateFinal(LocalDateTime.now());
-            p.setVendorUser(new User());
+            p.setVendorUser(userDAO.getUserById(rs.getInt("id_seller")));
+            p.setCategory(categoryDAO.getById(rs.getLong("category_id")));
             return p;
         }
     }

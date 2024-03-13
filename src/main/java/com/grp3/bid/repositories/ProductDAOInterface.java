@@ -9,4 +9,6 @@ public interface ProductDAOInterface {
     List<Product> getAll();
     int insertProduct(Product product);
     boolean updateProduct(Integer id, Product product);
+
+    List<Product> getByIdCategory(Integer idCategory);
 }
