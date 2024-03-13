@@ -36,6 +36,8 @@ public class ConfigSecurity {
 			// peuvent s'exécuter sans login
 			auth.requestMatchers(HttpMethod.GET, "/**").permitAll();
 			auth.requestMatchers(HttpMethod.POST, "/**").permitAll();
+			/*TODO
+			*  UPDATE ROUTE AUTH AFTER DEV*/
 
 //			auth.requestMatchers(HttpMethod.GET, "/offer/list").permitAll();
 //			auth.requestMatchers(HttpMethod.GET, "/product").permitAll();

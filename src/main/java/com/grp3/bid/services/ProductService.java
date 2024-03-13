@@ -40,4 +40,5 @@ public class ProductService implements ProductServiceInterface{
     public List<Product> getByIdCategory(Integer idCategory) {
         return productDAO.getByIdCategory(idCategory);
     }
+
 }

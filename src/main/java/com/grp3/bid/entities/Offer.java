@@ -1,5 +1,8 @@
 package com.grp3.bid.entities;
 
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,14 +13,20 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Offer {
+    @NotNull
     private Integer id;
-    private Long value;
+    @NotNull
+    private Float value;
+    @NotNull
     private LocalDateTime offerDateTime;
+    @NotNull
     private User user;
+    @NotNull
     private Product product;
+    @Nullable
     private Address address_delivery;
 
-    public Offer(Long value, LocalDateTime offerDateTime, User user, Product product, Address address_delivery) {
+    public Offer(Float value, LocalDateTime offerDateTime, User user, Product product, Address address_delivery) {
         this.value = value;
         this.offerDateTime = offerDateTime;
         this.user = user;

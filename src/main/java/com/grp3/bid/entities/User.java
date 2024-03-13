@@ -1,5 +1,6 @@
 package com.grp3.bid.entities;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,15 +9,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
+    @NotNull
     private Integer id;
+    @NotNull
     private String pseudo;
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
+    @NotNull
     private String email;
+    @NotNull
     private String phone_number;
+    @NotNull
     private String roles;
+    @NotNull
     private Float accountWallet;
+    @NotNull
     private String password;
+    @NotNull
     private Address user_address;
 
     public User(String pseudo, String firstName, String lastName, String email, String phone_number, String roles, Float accountWallet, String password, Address user_address) {
