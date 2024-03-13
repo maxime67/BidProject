@@ -56,6 +56,10 @@ public class BidApplication {
 
         categoryService.getAll().forEach(System.out::println);
 
+        categoryService.insertCategory(cat1);
+        categoryService.insertCategory(cat2);
+        categoryService.getAll().forEach(System.out::println);
+
 
     }
 
