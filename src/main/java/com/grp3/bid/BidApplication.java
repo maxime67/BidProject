@@ -1,9 +1,6 @@
 package com.grp3.bid;
 
-import com.grp3.bid.entities.Address;
-import com.grp3.bid.entities.Offer;
-import com.grp3.bid.entities.Product;
-import com.grp3.bid.entities.User;
+import com.grp3.bid.entities.*;
 import com.grp3.bid.services.*;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +21,8 @@ public class BidApplication {
     public OfferServiceInterface offerService;
     @Autowired
     public AddressServiceInterface addressService;
+    @Autowired
+    public CategoryServiceInterface categoryService;
 
 
     @PostConstruct
@@ -42,14 +41,21 @@ public class BidApplication {
         userService.insertUser(new User("pseudo2","firstname2","lastName2","email2","phone_number2","ADMIN,USER",2F,"password2",addr2));
         userService.insertUser(new User("pseudo3","firstname3","lastName3","email3","phone_number3","ADMIN,USER",3F,"password3",addr1));
 
-        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1)));
-        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1)));
+        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1), new Category(2L,"cat test1")));
+        serviceProduct.insertProduct(new Product("nameProd","aaaa",101L,"aaa", LocalDateTime.now(), userService.getUserByid(1),new Category(1L,"cat test2")));
 
         offerService.insertOffer(new Offer(15L,LocalDateTime.now(), userService.getUserByid(1), serviceProduct.getProductByid(1), addr2));
 
         userService.getAll().forEach(System.out::println);
         userService.deleteUser(userService.getUserByid(1));
         userService.getAll().forEach(System.out::println);
+
+        Category cat1 = new Category(1L, "Jouets");
+        Category cat2 = new Category(1L, "Mobilier");
+        categoryService.insertCategory(cat1);
+        categoryService.insertCategory(cat2);
+        categoryService.getAll().forEach(System.out::println);
+
 
     }
 
