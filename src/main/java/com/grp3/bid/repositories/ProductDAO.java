@@ -13,19 +13,21 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Repository
-public class ProductDAO implements ProductDAOInterface{
+public class ProductDAO implements ProductDAOInterface {
 
     private final String getProductByid = "SELECT * FROM PRODUCT WHERE id_PRODUCT = :id_product";
     private final String getAll = "SELECT * FROM PRODUCT";
-    private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_to_image,start_date, end_date) VALUES (:name_product,:description,:starting_value,:path_to_image, :start_date, :end_date)";
+    private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_to_image,start_date, end_date, category, id_seller) VALUES (:name_product,:description,:starting_value,:path_to_image, :start_date, :end_date, :category, :id_seller)";
     @Autowired
     private final NamedParameterJdbcTemplate jdbcTemplate;
+
+    @Autowired
+    UserDAOInterface userDAOInterface;
 
     public ProductDAO(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -45,14 +47,25 @@ public class ProductDAO implements ProductDAOInterface{
 
     @Override
     public boolean insertProduct(Product product) {
-        KeyHolder keyHolder =  new GeneratedKeyHolder();
+        KeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+//        sqlParameterSource.addValue("name_product", product.getName());
+//        sqlParameterSource.addValue("description", product.getDescription());
+//        sqlParameterSource.addValue("starting_value", product.getStartingValue());
+//        sqlParameterSource.addValue("path_to_image", product.getPathToImg());
+//        sqlParameterSource.addValue("start_date", Timestamp.valueOf(product.getStartDate()));
+//        sqlParameterSource.addValue("end_date", Timestamp.valueOf(product.getEndDate()));
+//        sqlParameterSource.addValue("category", product.getCategory());
+//        sqlParameterSource.addValue("id_seller", product.getSeller());
+
         sqlParameterSource.addValue("name_product", product.getName());
         sqlParameterSource.addValue("description", product.getDescription());
         sqlParameterSource.addValue("starting_value", product.getStartingValue());
         sqlParameterSource.addValue("path_to_image", product.getPathToImg());
         sqlParameterSource.addValue("start_date", product.getStartDate());
         sqlParameterSource.addValue("end_date", product.getEndDate());
+        sqlParameterSource.addValue("category", product.getCategory());
+        sqlParameterSource.addValue("id_seller", product.getSeller());
         //jdbcTeamlplte.update return numbers of affected lines
         return jdbcTemplate.update(insertProduct, sqlParameterSource, keyHolder) == 1;
     }
@@ -61,6 +74,7 @@ public class ProductDAO implements ProductDAOInterface{
     public boolean updateProduct(Integer id, Product product) {
         return false;
     }
+
     public class ProductRowMapper implements RowMapper<Product> {
 
         @Override
@@ -71,9 +85,12 @@ public class ProductDAO implements ProductDAOInterface{
             p.setName(rs.getString("description"));
             p.setStartingValue(rs.getLong("starting_value"));
             p.setPathToImg(rs.getString("path_to_image"));
-            p.setStartDate(LocalDate.now());
-            p.setEndDate(rs.getDate("end_date").toLocalDate());
-            p.setVendor_user(new User());
+
+            p.setStartDate(rs.getTimestamp("start_date").toLocalDateTime());
+            p.setStartDate(rs.getTimestamp("end_date").toLocalDateTime());
+            p.setCategory(rs.getString("category"));
+            User userSeller = userDAOInterface.getUserById(rs.getInt("id_seller"));
+            p.setSeller(userSeller);
             return p;
         }
     }

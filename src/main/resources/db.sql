@@ -1,3 +1,7 @@
+DROP TABLE if exists OFFER;
+DROP TABLE if exists PRODUCT;
+DROP TABLE if exists USER_APP;
+DROP TABLE if exists ADDRESS;
 
 CREATE TABLE ADDRESS (
     id_address INT AUTO_INCREMENT PRIMARY KEY,
@@ -28,8 +32,9 @@ CREATE TABLE PRODUCT (
     description VARCHAR(255),
     starting_value FLOAT,
     path_to_image VARCHAR(255),
-    start_date DATE,
-    end_date DATE,
+    start_date TIMESTAMP,
+    end_date TIMESTAMP,
+    category VARCHAR(255),
     id_seller INT,
     CONSTRAINT fk_product_user FOREIGN KEY (id_seller) REFERENCES USER_APP(id_user_app)
 );

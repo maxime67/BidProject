@@ -4,10 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User implements Serializable {
     private Integer id;
     private String pseudo;
     private String firstName;
@@ -17,9 +19,9 @@ public class User {
     private String roles;
     private Float accountWallet;
     private String password;
-    private Address user_address;
+    private Address userAddress;
 
-    public User(String pseudo, String firstName, String lastName, String email, String phone_number, String roles, Float accountWallet, String password, Address user_address) {
+    public User(String pseudo, String firstName, String lastName, String email, String phone_number, String roles, Float accountWallet, String password, Address userAddress) {
         this.pseudo = pseudo;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,7 +30,7 @@ public class User {
         this.roles = roles;
         this.accountWallet = accountWallet;
         this.password = password;
-        this.user_address = user_address;
+        this.userAddress = userAddress;
     }
 
     @Override
@@ -43,7 +45,7 @@ public class User {
         sb.append(", roles='").append(roles).append('\'');
         sb.append(", accountWallet=").append(accountWallet);
         sb.append(", password='").append(password).append('\'');
-        sb.append(", user_address_id=").append(user_address);
+        sb.append(", user_address_id=").append(userAddress);
         sb.append('}');
         return sb.toString();
     }

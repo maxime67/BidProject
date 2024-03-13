@@ -3,7 +3,6 @@ package com.grp3.bid.repositories;
 import com.grp3.bid.entities.*;
 import com.grp3.bid.services.AddressServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class UserDAO implements UserDAOInterface {
@@ -54,7 +52,7 @@ public class UserDAO implements UserDAOInterface {
         sqlParameterSource.addValue("phone_number", user.getPhone_number());
         sqlParameterSource.addValue("role_user", user.getRoles());
         sqlParameterSource.addValue("accountWallet", user.getAccountWallet());
-        sqlParameterSource.addValue("id_address", user.getUser_address().getId_address());
+        sqlParameterSource.addValue("id_address", user.getUserAddress().getId_address());
         return jdbcTemplate.update(insertUser, sqlParameterSource) == 1;
     }
 
@@ -98,7 +96,7 @@ public class UserDAO implements UserDAOInterface {
             u.setPassword(rs.getString("password"));
             u.setRoles(rs.getString("role_user"));
             u.setAccountWallet(rs.getFloat("accountWallet"));
-            u.setUser_address(addressService.getAddressByid(rs.getInt("id_address")));
+            u.setUserAddress(addressService.getAddressByid(rs.getInt("id_address")));
             return u;
         }
     }
