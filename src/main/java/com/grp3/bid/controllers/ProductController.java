@@ -89,8 +89,6 @@ public class ProductController {
         System.out.println(productService.getByIdCategory(categoryId.intValue()));
         return "view-product-list";
     }
-
-
     @GetMapping("product/add")
     public String getProductForm(Model model, Authentication authentication) {
         if (authentication.isAuthenticated()) {
