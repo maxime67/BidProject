@@ -23,7 +23,7 @@ class BidApplicationTests {
         address.setStreet_name("street");
         address.setState_name("state");
         User user = new User();
-        user.setUser_address(address);
+        user.setUserAddress(address);
         user.setEmail("mail");
         user.setPassword("passwd");
         user.setAccountWallet(100f);
@@ -31,7 +31,7 @@ class BidApplicationTests {
         user.setPseudo("pseudo");
         user.setFirstName("firstname");
         user.setLastName("lastname");
-        user.setPhone_number("0600000000");
+        user.setPhoneNumber("0600000000");
         UserWithAddressDTO userDTO = userWithAddressMapper.toDTO(user);
         System.out.println(userDTO);
         System.out.println(userWithAddressMapper.toUser(userDTO));

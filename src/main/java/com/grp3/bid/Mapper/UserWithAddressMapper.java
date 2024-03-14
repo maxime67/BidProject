@@ -7,25 +7,23 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserWithAddressMapper {
-    public UserWithAddressDTO toDTO (User user)
-    {
-    return new UserWithAddressDTO(
-            user.getPseudo(),
-            user.getFirstName(),
-            user.getLastName(),
-            user.getEmail(),
-            user.getPhone_number(),
-            user.getPassword(),
-            user.getUser_address().getStreet_name(),
-            user.getUser_address().getState_name(),
-            user.getUser_address().getCity_name(),
-            user.getUser_address().getNb_street(),
-            user.getUser_address().getZip_code()
+    public UserWithAddressDTO toDTO(User user) {
+        return new UserWithAddressDTO(
+                user.getPseudo(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getEmail(),
+                user.getPhoneNumber(),
+                user.getPassword(),
+                user.getUserAddress().getStreet_name(),
+                user.getUserAddress().getState_name(),
+                user.getUserAddress().getCity_name(),
+                user.getUserAddress().getNb_street(),
+                user.getUserAddress().getZip_code()
         );
     }
 
-    public User toUser(UserWithAddressDTO userWithAddressDTO)
-    {
+    public User toUser(UserWithAddressDTO userWithAddressDTO) {
         Address address = new Address();
         address.setCity_name(userWithAddressDTO.getCity_name());
         address.setNb_street(userWithAddressDTO.getNb_street());
@@ -39,8 +37,8 @@ public class UserWithAddressMapper {
         user.setPassword(userWithAddressDTO.getPassword());
         user.setFirstName(userWithAddressDTO.getFirstName());
         user.setLastName(userWithAddressDTO.getLastName());
-        user.setPhone_number(userWithAddressDTO.getPhone_number());
-        user.setUser_address(address);
+        user.setPhoneNumber(userWithAddressDTO.getPhone_number());
+        user.setUserAddress(address);
         return user;
     }
 }

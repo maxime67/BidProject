@@ -57,7 +57,7 @@ public class UserDAO implements UserDAOInterface {
         sqlParameterSource.addValue("lastname", user.getLastName());
         sqlParameterSource.addValue("email", user.getEmail());
         sqlParameterSource.addValue("password", user.getPassword());
-        sqlParameterSource.addValue("phone_number", user.getPhone_number());
+        sqlParameterSource.addValue("phone_number", user.getPhoneNumber());
         sqlParameterSource.addValue("role_user", user.getRoles());
         sqlParameterSource.addValue("accountWallet", user.getAccountWallet());
         sqlParameterSource.addValue("id_address", id_address);
@@ -100,7 +100,7 @@ public class UserDAO implements UserDAOInterface {
             u.setFirstName(rs.getString("firstname"));
             u.setLastName(rs.getString("lastname"));
             u.setEmail(rs.getString("email"));
-            u.setPhone_number(rs.getString("phone_number"));
+            u.setPhoneNumber(rs.getString("phone_number"));
             u.setPassword(rs.getString("password"));
             u.setRoles(rs.getString("role_user"));
             u.setAccountWallet(rs.getFloat("accountWallet"));

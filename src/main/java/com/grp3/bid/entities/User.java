@@ -15,18 +15,18 @@ public class User implements Serializable {
     private String firstName;
     private String lastName;
     private String email;
-    private String phone_number;
+    private String phoneNumber;
     private String roles;
     private Float accountWallet;
     private String password;
     private Address userAddress;
 
-    public User(String pseudo, String firstName, String lastName, String email, String phone_number, String roles, Float accountWallet, String password, Address userAddress) {
+    public User(String pseudo, String firstName, String lastName, String email, String phoneNumber, String roles, Float accountWallet, String password, Address userAddress) {
         this.pseudo = pseudo;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.phone_number = phone_number;
+        this.phoneNumber = phoneNumber;
         this.roles = roles;
         this.accountWallet = accountWallet;
         this.password = password;
@@ -41,7 +41,7 @@ public class User implements Serializable {
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", email='").append(email).append('\'');
-        sb.append(", phone_number='").append(phone_number).append('\'');
+        sb.append(", phone_number='").append(phoneNumber).append('\'');
         sb.append(", roles='").append(roles).append('\'');
         sb.append(", accountWallet=").append(accountWallet);
         sb.append(", password='").append(password).append('\'');
