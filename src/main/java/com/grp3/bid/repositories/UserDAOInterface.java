@@ -11,6 +11,8 @@ public interface UserDAOInterface {
     int InsertUser(User user);
     boolean updateUser(Integer id, User user);
 
+    boolean updateAccountWallet(Integer id, User user);
+
     User findByPseudo(String pseudo);
     boolean deleteUser(User user);
     User getUserByPseudo(String pseudo);

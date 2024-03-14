@@ -18,12 +18,12 @@
         <form data-th-action="@{/product/bid?id=} + ${product.id}" method="POST">
             <div class="row">
                 <div class="col">
-                    <input name="value" type="number" class="form-control" placeholder="Montant de votre enchère" >
+                    <input name="value" type="number" class="form-control" placeholder="Montant de votre enchère">
                 </div>
                 <div class="col">
                     <a data-th-text="'Solde de votre compte :' + ${walletAccount}"></a>
                 </div>
-                </div>
+            </div>
             <div class="row">
                 <div class="col">
                     <a data-th-text="'Meilleur Offreur :' + ${actualOffer.getUser().getEmail()}"></a>

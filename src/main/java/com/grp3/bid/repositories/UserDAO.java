@@ -28,6 +28,8 @@ public class UserDAO implements UserDAOInterface {
     private final String getAll = "SELECT * FROM USER_APP;";
     private final String insertUser = "INSERT INTO USER_APP (pseudo, firstname,lastname,email,phone_number,password, role_user, accountWallet, id_address) VALUES (:pseudo,:firstname,:lastname,:email,:phone_number,:password, :role_user,:accountWallet, :id_address);";
     private final String deleteUser = "DELETE FROM USER_APP WHERE id_user_app = :id_user_app";
+    private final String updateAccountWallet = "UPDATE FROM USER_APP SET a";
+
     @Override
     public User getUserById(Integer id) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
@@ -67,6 +69,12 @@ public class UserDAO implements UserDAOInterface {
     @Override
     public boolean updateUser(Integer id, User user) {
         return false;
+    }
+    @Override
+    public boolean updateAccountWallet(Integer id, User user) {
+       MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+       sqlParameterSource.addValue("account", user.getAccountWallet());
+        return jdbcTemplate.update(updateAccountWallet, sqlParameterSource) == 1;
     }
 
     @Override
