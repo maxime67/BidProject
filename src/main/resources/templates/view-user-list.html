@@ -4,6 +4,9 @@
 <div th:replace="~{fragments/frag-navbar}"></div>
 <body>
 <div class="container">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <h1 class="position-relative">Liste des utilisateurs</h1>
+    </div>
     <table class="table table-bordered">
         <tr data-th-each="user: ${userLst}">
             <td data-th-text="${user.firstName}" />

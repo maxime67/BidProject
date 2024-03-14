@@ -40,4 +40,9 @@ public class OfferService implements OfferServiceInterface{
         return offerDAO.getActualMaxOffer(idProduct);
     }
 
+    @Override
+    public boolean isOfferExistOnProduct(Integer idProduct) {
+        return offerDAO.isOfferExistOnProduct(idProduct);
+    }
+
 }
