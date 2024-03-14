@@ -1,0 +1,93 @@
+<form data-th-fragment="frag-userWithAddressForm(userWithAddressDTO, action, isEditForm)" method="post" data-th-object="${userWithAddressDTO}" data-th-action="${action}">
+    <div class="row">
+        <div class="col-sm">
+            <div class="d-flex align-items-center justify-content-center">
+                <h4 class="position-relative">Profil : </h4>
+            </div>
+            <div class="form-group">
+                <label name="firstname" > Nom </label>
+                <input type="text" class="form-control" name="firstname" data-th-field="${userWithAddressDTO.firstName}">
+                <ul data-th-replace="~{fragments/error :: frag-error(fieldName='firstName')}"></ul>
+            </div>
+            <div class="form-group">
+                <label name="lastname" > Prenom </label>
+                <input type="text" class="form-control" name="lastname" data-th-field="${userWithAddressDTO.lastName}">
+                <ul data-th-replace="~{fragments/error :: frag-error(fieldName='lastName')}"></ul>
+            </div>
+            <div class="form-group">
+                <label name="pseudo" > Pseudo </label>
+                <input type="text" class="form-control" name="pseudo" data-th-field="${userWithAddressDTO.pseudo}">
+                <ul data-th-replace="~{fragments/error :: frag-error(fieldName='pseudo')}"></ul>
+            </div>
+            <div class="form-group">
+                <label name="password" > Mot de passe  </label>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text" data-th-if="${isEditForm} == true">
+                            <input type="checkbox" id="chkEditPassword">
+                        </div>
+                    </div>
+                    <input id="inputPassword" type="password" name="password" class="form-control" data-th-field="${userWithAddressDTO.password}" data-th-placeholder="${isEditForm ? '***********' : ''}" data-th-disabled="${isEditForm ? true : false}">
+                </div>
+                <ul data-th-replace="~{fragments/error :: frag-error(fieldName='password')}"></ul>
+            </div>
+
+            <div class="form-group">
+                <label name="email" > Email </label>
+                <input type="text" class="form-control" name="email" data-th-field="${userWithAddressDTO.email}">
+                <ul data-th-replace="~{fragments/error :: frag-error(fieldName='email')}"></ul>
+            </div>
+            <div class="form-group">
+                <label name="phone_number" > Numéro de téléphone </label>
+                <input type="text" class="form-control" name="phone_number" data-th-field="${userWithAddressDTO.phone_number}">
+                <ul data-th-replace="~{fragments/error :: frag-error(fieldName='phone_number')}"></ul>
+            </div>
+        </div>
+
+        <div style="background-color: bisque" class="col-sm">
+            <div class="d-flex align-items-center justify-content-center">
+                <h4 class="position-relative">Adresse : </h4>
+            </div>
+            <div class="form-group">
+                <label name="street_name" > Rue </label>
+                <input type="text" class="form-control" name="street_name" data-th-field="${userWithAddressDTO.street_name}">
+                <ul data-th-replace="~{fragments/error :: frag-error(fieldName='street_name')}"></ul>
+            </div>
+            <div class="form-group">
+                <label name="nb_street" > Numéro de rue </label>
+                <input type="text" class="form-control" name="nb_street" data-th-field="${userWithAddressDTO.nb_street}">
+                <ul data-th-replace="~{fragments/error :: frag-error(fieldName='nb_street')}"></ul>
+            </div>
+            <div class="form-group">
+                <label name="city_name" > Ville </label>
+                <input type="text" class="form-control" name="city_name" data-th-field="${userWithAddressDTO.city_name}">
+                <ul data-th-replace="~{fragments/error :: frag-error(fieldName='city_name')}"></ul>
+            </div>
+            <div class="form-group">
+                <label name="zip_code" > Code postal </label>
+                <input type="text" class="form-control" name="zip_code" data-th-field="${userWithAddressDTO.zip_code}">
+                <ul data-th-replace="~{fragments/error :: frag-error(fieldName='zip_code')}"></ul>
+
+            </div>
+            <div class="form-group">
+                <label name="state_name" > Région </label>
+                <input type="text" class="form-control" name="state_name" data-th-field="${userWithAddressDTO.state_name}">
+                <ul data-th-replace="~{fragments/error :: frag-error(fieldName='state_name')}"></ul>
+            </div>
+        </div>
+
+        <button type="submit" data-th-text="Valider" class="btn btn-primary">
+        </button>
+    </div>
+
+    <script>
+        let chkEditPassword = document.getElementById("chkEditPassword");
+        if (null != chkEditPassword) {
+            chkEditPassword.addEventListener('click', function (chkEditPassword) {
+                let inputPassword = document.getElementById("inputPassword");
+                inputPassword.disabled = chkEditPassword.checked;
+            })
+        }
+    </script>
+</form>
+

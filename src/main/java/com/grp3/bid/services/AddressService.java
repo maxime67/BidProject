@@ -31,8 +31,8 @@ public class AddressService implements AddressServiceInterface{
     }
 
     @Override
-    public boolean updateAddress(Integer id, Address address) {
-        return AddressDAO.updateAddress(id,address);
+    public boolean updateAddress(Address address) {
+        return AddressDAO.updateAddress(address);
     }
 
 }

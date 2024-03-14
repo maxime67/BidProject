@@ -43,8 +43,10 @@ public class UserService implements UserServiceInterface{
     }
 
     @Override
-    public boolean updateUser(Integer id, User user) {
-        return userDAO.updateUser(id,user);
+    public boolean updateUser(User user) {
+        if (!user.getPassword().isEmpty())
+            user.setPassword(encodeur.encode(user.getPassword()));
+        return userDAO.updateUser(user);
     }
     @Override
     public boolean updateAccountWallet(User user) {

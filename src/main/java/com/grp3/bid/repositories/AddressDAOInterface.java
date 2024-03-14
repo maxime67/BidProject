@@ -8,7 +8,7 @@ public interface AddressDAOInterface {
     Address getAddressById(Integer id);
     List<Address> getAll();
     int insertAddress(Address address);
-    boolean updateAddress(Integer id, Address address);
+    boolean updateAddress(Address address);
 
 
 }
