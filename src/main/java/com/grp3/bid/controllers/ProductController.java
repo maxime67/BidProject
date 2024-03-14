@@ -4,10 +4,7 @@ import com.grp3.bid.entities.Category;
 import com.grp3.bid.entities.Offer;
 import com.grp3.bid.entities.Product;
 import com.grp3.bid.entities.User;
-import com.grp3.bid.services.CategoryServiceInterface;
-import com.grp3.bid.services.OfferServiceInterface;
-import com.grp3.bid.services.ProductServiceInterface;
-import com.grp3.bid.services.UserService;
+import com.grp3.bid.services.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -16,9 +13,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/")
@@ -31,6 +32,8 @@ public class ProductController {
     UserService userService;
     @Autowired
     OfferServiceInterface offerService;
+    @Autowired
+    StorageServiceInterface storageService;
 
     @GetMapping
     public String getAllProducts(Model model) {
@@ -105,15 +108,17 @@ public class ProductController {
     }
 
     @PostMapping("product/add")
-    public String addProduct(Authentication authentication, @Valid @ModelAttribute("product") Product product, Category category, BindingResult bindingResult) {
+    public String addProduct(Authentication authentication,@ModelAttribute("product") Product product, Category category, @RequestParam("pathToImage")MultipartFile file, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "view-product-form";
         } else {
             if (authentication.isAuthenticated()) {
+                storageService.store(file);
                 System.out.println(product);
                 String userName = authentication.getName();
                 product.setSeller(userService.getUserByPseudo(userName));
                 product.setCategory(category);
+                product.setPathToImg(file.getOriginalFilename());
                 productService.insertProduct(product);
                 return "redirect:/";
             } else {

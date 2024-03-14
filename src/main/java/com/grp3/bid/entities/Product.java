@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.File;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -22,7 +23,6 @@ public class Product implements Serializable {
     private String description;
     @NotNull(message = "Le prix de depart est obligatoire")
     private Long startingValue;
-    @NotBlank
     private String pathToImg;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
