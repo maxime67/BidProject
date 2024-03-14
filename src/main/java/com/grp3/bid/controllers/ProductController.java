@@ -93,8 +93,10 @@ public class ProductController {
 
     @GetMapping("product/add")
     public String getProductForm(Model model, Authentication authentication) {
+        List<Category> categories = categoryService.getAll();
         if (authentication.isAuthenticated()) {
             model.addAttribute("product", new Product());
+            model.addAttribute("categories", categories);
             return "view-product-form";
         } else {
             // redirection vers la page des produits

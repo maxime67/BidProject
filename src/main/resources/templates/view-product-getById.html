@@ -12,8 +12,8 @@
             <h5 class="card-title" data-th-text="${product.name}"></h5>
             <p class="card-text" data-th-text="'Description : ' + ${product.description}"></p>
             <p class="card-text" data-th-text="'Valeur de départ : ' + ${product.startingValue}"></p>
-            <p class="card-text" data-th-text="'Date de fin : ' + ${product.dateFinal}"></p>
-            <p class="card-text" data-th-text="'Vendue par : ' + ${product.vendorUser.email}"></p>
+            <p class="card-text" data-th-text="'Date de fin : ' + ${product.endDate}"></p>
+            <p class="card-text" data-th-text="'Vendue par : ' + ${product.seller.email}"></p>
             <a th:href="@{/product/bid?id=} + ${product.id}" class="btn btn-primary">Enchérir</a>
         </div>
     </div>
