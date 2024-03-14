@@ -46,6 +46,10 @@ public class UserService implements UserServiceInterface{
     public boolean updateUser(Integer id, User user) {
         return userDAO.updateUser(id,user);
     }
+    @Override
+    public boolean updateAccountWallet(User user) {
+        return userDAO.updateAccountWallet(user);
+    }
 
     @Override
     public boolean deleteUser(User user) {

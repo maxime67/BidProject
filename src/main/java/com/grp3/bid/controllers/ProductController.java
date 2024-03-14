@@ -69,15 +69,21 @@ public class ProductController {
         return "view-product-bid";
     }
     @PostMapping("product/bid")
-    public String bid(@RequestParam Integer id, Authentication authentication, @RequestParam("value") Float value){
+    public String bid(@RequestParam Integer id, Authentication authentication, @RequestParam("value") Float value) {
+        User precUser = offerService.getActualMaxOffer(id).getUser();
         User currentUser = userService.getUserByPseudo(authentication.getName());
         Product currentProduct = productService.getProductByid(id);
-        if(!authentication.isAuthenticated()){
+        if (!authentication.isAuthenticated()) {
             return "redirect:/product/list";
         }
-        if(currentUser.getAccountWallet() >= offerService.getActualMaxOffer(id).getValue()){
-            currentUser.setAccountWallet(currentUser.getAccountWallet() - offerService.getActualMaxOffer(currentProduct.getId()).getValue());
-            offerService.insertOffer(new Offer(value, LocalDateTime.now(), currentUser, productService.getProductByid(id), currentUser.getUserAddress()));
+        if (value > offerService.getActualMaxOffer(currentProduct.getId()).getValue()) {
+            if (currentUser.getAccountWallet() >= value) {
+                precUser.setAccountWallet(precUser.getAccountWallet() + offerService.getActualMaxOffer(id).getValue());
+                userService.updateAccountWallet(precUser);
+                currentUser.setAccountWallet(currentUser.getAccountWallet() - value);
+                offerService.insertOffer(new Offer(value, LocalDateTime.now(), currentUser, productService.getProductByid(id), currentUser.getUserAddress()));
+                userService.updateAccountWallet(currentUser);
+            }
         }
         return "redirect:/product/list";
     }
@@ -89,8 +95,6 @@ public class ProductController {
         System.out.println(productService.getByIdCategory(categoryId.intValue()));
         return "view-product-list";
     }
-
-
     @GetMapping("product/add")
     public String getProductForm(Model model, Authentication authentication) {
         List<Category> categories = categoryService.getAll();

@@ -11,6 +11,9 @@ public interface UserServiceInterface {
     int insertUser(User user);
     List<User> getAll();
     boolean updateUser(Integer id, User user);
+
+    boolean updateAccountWallet(User user);
+
     boolean deleteUser(User user);
 
 }
