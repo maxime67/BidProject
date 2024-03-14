@@ -50,27 +50,24 @@ public class ProductController {
     public String getById(Model model, @RequestParam Integer id) {
         model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("product", productService.getProductByid(id));
-        System.out.println(productService.getProductByid(id));
         return "view-product-getByid";
     }
-
     @GetMapping("product/bid")
-    public String bid(Model model, @RequestParam Integer id, Authentication authentication) {
+    public String bid(Model model, @RequestParam Integer id, Authentication authentication){
         model.addAttribute("categories", categoryService.getAll());
-        if (null == authentication) {
+        if(null == authentication) {
             return "redirect:/product/list";
         }
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             model.addAttribute("walletAccount", userService.getUserByPseudo(currentUserName).getAccountWallet());
-        } else {
+        } else{
             return "redirect:/product/list";
         }
         model.addAttribute("product", productService.getProductByid(id));
         model.addAttribute("actualOffer", offerService.getActualMaxOffer(id));
         return "view-product-bid";
     }
-
     @PostMapping("product/bid")
     public String bid(@RequestParam Integer id, Authentication authentication, @RequestParam("value") Float value) {
         User precUser = offerService.getActualMaxOffer(id).getUser();
@@ -90,7 +87,6 @@ public class ProductController {
         }
         return "redirect:/product/list";
     }
-
     @PostMapping("product/search")
     public String searchProduct(@RequestParam("name") String productName, @RequestParam("categoryId") Long categoryId, Model model) {
         model.addAttribute("categories", categoryService.getAll());
@@ -99,7 +95,6 @@ public class ProductController {
         System.out.println(productService.getByIdCategory(categoryId.intValue()));
         return "view-product-list";
     }
-
     @GetMapping("product/add")
     public String getProductForm(Model model, Authentication authentication) {
         List<Category> categories = categoryService.getAll();
