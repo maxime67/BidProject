@@ -1,5 +1,6 @@
 package com.grp3.bid.controllers;
 
+import com.grp3.bid.entities.Category;
 import com.grp3.bid.entities.Product;
 import com.grp3.bid.services.CategoryServiceInterface;
 import com.grp3.bid.services.ProductServiceInterface;
@@ -57,8 +58,10 @@ public class ProductController {
 
     @GetMapping("product/add")
     public String getProductForm(Model model, Authentication authentication) {
+        List<Category> categories = categoryService.getAll();
         if (authentication.isAuthenticated()) {
             model.addAttribute("product", new Product());
+            model.addAttribute("categories", categories);
             return "view-product-form";
         } else {
             // redirection vers la page des produits
@@ -67,14 +70,15 @@ public class ProductController {
     }
 
     @PostMapping("product/add")
-    public String addProduct(Authentication authentication, @Valid @ModelAttribute("product") Product product, BindingResult bindingResult) {
+    public String addProduct(Authentication authentication, @Valid @ModelAttribute("product") Product product, Category category, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "view-product-form";
         } else {
             if (authentication.isAuthenticated()) {
                 System.out.println(product);
                 String userName = authentication.getName();
-                product.setVendorUser(userService.getUserByPseudo(userName));
+                product.setSeller(userService.getUserByPseudo(userName));
+                product.setCategory(category);
                 productService.insertProduct(product);
                 return "redirect:/";
             } else {

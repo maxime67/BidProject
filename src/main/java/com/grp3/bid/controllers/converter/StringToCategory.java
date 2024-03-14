@@ -7,11 +7,17 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 @Component
-public class StringToCategory implements Converter<Long, Category> {
-    @Autowired
+public class StringToCategory implements Converter<String, Category> {
+
     CategoryServiceInterface categoryService;
+
+    public StringToCategory(CategoryServiceInterface categoryService) {
+        this.categoryService = categoryService;
+    }
+
     @Override
-    public Category convert(Long id) {
-        return categoryService.getById(id);
+    public Category convert(String id) {
+        Long theId = Long.parseLong(id);
+        return categoryService.getById(theId);
     }
 }

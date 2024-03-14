@@ -49,9 +49,11 @@
                     <ul data-th-replace="~{fragments/error :: frag-error(fieldName='endDate')}"></ul>
                 </div>
                 <div class="form-group">
-                    <label name="category"> Catégorie </label>
-                    <input type="text" class="form-control" name="category"
-                           data-th-field="*{category}">
+                    <label for="categoryId"> Catégorie </label>
+                    <select class="form-select" id="categoryId" data-th-field="*{category}">
+                        <option data-th-each="category : ${categories}" data-th-value="${category.idCategory}" data-th-text="${category.nameCategory}" >
+                        </option>
+                    </select>
                     <ul data-th-replace="~{fragments/error :: frag-error(fieldName='category')}"></ul>
                 </div>
             </div>
