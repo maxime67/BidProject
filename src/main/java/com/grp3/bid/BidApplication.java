@@ -49,7 +49,7 @@ public class BidApplication {
         productService.insertProduct(new Product("nameProd","aaaa",101L,"aaa",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1), cat1));
         productService.insertProduct(new Product("nameProd","aaaa",101L,"aaa",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1),cat2));
 
-        offerService.insertOffer(new Offer(15L,LocalDateTime.now(), userService.getUserByid(1), productService.getProductByid(1), addr2));
+        offerService.insertOffer(new Offer(15F,LocalDateTime.now(), userService.getUserByid(1), productService.getProductByid(1), addr2));
 
         userService.getAll().forEach(System.out::println);
         productService.getAll().forEach(System.out::println);
