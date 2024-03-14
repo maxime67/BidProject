@@ -1,6 +1,7 @@
 package com.grp3.bid.repositories;
 
 import com.grp3.bid.entities.Product;
+import com.grp3.bid.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
