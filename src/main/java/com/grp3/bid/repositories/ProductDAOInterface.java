@@ -1,5 +1,6 @@
 package com.grp3.bid.repositories;
 
+import com.grp3.bid.entities.Offer;
 import com.grp3.bid.entities.Product;
 
 import java.util.List;

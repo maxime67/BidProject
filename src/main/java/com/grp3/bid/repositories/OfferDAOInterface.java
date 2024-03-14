@@ -9,6 +9,5 @@ public interface OfferDAOInterface {
     List<Offer> getAll();
     int insertOffer(Offer offer);
     boolean updateOffer(Integer id, Offer offer);
-
-
+    Offer getActualMaxOffer(Integer idProduct);
 }

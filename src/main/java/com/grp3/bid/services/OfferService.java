@@ -35,4 +35,9 @@ public class OfferService implements OfferServiceInterface{
         return offerDAO.updateOffer(id,offer);
     }
 
+    @Override
+    public Offer getActualMaxOffer(Integer idProduct){
+        return offerDAO.getActualMaxOffer(idProduct);
+    }
+
 }

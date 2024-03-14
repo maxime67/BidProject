@@ -10,4 +10,5 @@ public interface OfferServiceInterface {
     List<Offer> getAll();
     boolean updateOffer(Integer id, Offer offer);
 
+    Offer getActualMaxOffer(Integer idProduct);
 }

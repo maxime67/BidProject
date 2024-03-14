@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:width="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:width="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:replace="~{fragments/frag-head}"></div>
 <div th:replace="~{fragments/frag-navbar}"></div>
 <div th:replace="~{fragments/frag-search}"></div>
@@ -12,8 +12,16 @@
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title" data-th-text="${product.name}"></h5>
-                    <p class="card-text" data-th-text="${product.startingValue}"></p>
+                    <p class="card-text" data-th-text="'Description : ' + ${product.description}"></p>
+                    <p class="card-text" data-th-text="'Valeur de départ : ' + ${product.startingValue}"></p>
+                    <p class="card-text" data-th-text="'Date de fin : ' + ${product.dateFinal}"></p>
+                    <p class="card-text" data-th-text="'Vendue par : ' + ${product.vendorUser.email}"></p>
+                    <div sec:authorize="isAnonymous()">
+                        <p class="card-text">Veuillez vous authentifier pour accèder aux ventes</p>
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
                     <a th:href="@{/product/get?id=} + ${product.id}" class="btn btn-primary">Voir le produit</a>
+                        </div>
                 </div>
             </div>
         </div>

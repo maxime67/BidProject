@@ -1,5 +1,6 @@
 package com.grp3.bid.entities;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -23,10 +24,14 @@ public class Product implements Serializable {
     private Long startingValue;
     @NotBlank
     private String pathToImg;
+    @NotNull
     private LocalDateTime dateFinal;
+    @NotNull
     private User vendorUser;
+    @NotNull
     private Category category;
-
+    @Nullable
+    private User buyerUser;
     public Product(String name, String description, Long startingValue, String pathToImg, LocalDateTime dateFinal, User vendor_user, Category category) {
         this.name = name;
         this.description = description;

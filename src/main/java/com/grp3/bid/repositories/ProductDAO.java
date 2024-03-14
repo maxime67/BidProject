@@ -1,5 +1,6 @@
 package com.grp3.bid.repositories;
 
+import com.grp3.bid.entities.Offer;
 import com.grp3.bid.entities.Product;
 import com.grp3.bid.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,6 @@ public class ProductDAO implements ProductDAOInterface{
     private final String getProductByid = "SELECT * FROM PRODUCT WHERE id_PRODUCT = :id_product";
     private final String getAll = "SELECT * FROM PRODUCT";
     private final String getByIdCategory = "SELECT * FROM PRODUCT WHERE category_id = :id_category";
-
     private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_to_image, category_id, id_seller) VALUES (:name_product,:description,:starting_value,:path_to_image,:category_id, :id_seller)";
     @Autowired
     private final NamedParameterJdbcTemplate jdbcTemplate;
@@ -71,6 +71,8 @@ public class ProductDAO implements ProductDAOInterface{
         sqlParameterSource.addValue("id_category", idCategory);
         return jdbcTemplate.query(getByIdCategory, sqlParameterSource, new ProductRowMapper());
     }
+
+
 
     public class ProductRowMapper implements RowMapper<Product> {
 
