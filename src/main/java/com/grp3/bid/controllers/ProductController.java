@@ -50,6 +50,7 @@ public class ProductController {
     public String getById(Model model, @RequestParam Integer id) {
         model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("product", productService.getProductByid(id));
+        System.out.println(productService.getProductByid(id));
         return "view-product-getByid";
     }
 
@@ -72,6 +73,7 @@ public class ProductController {
 
     @PostMapping("product/bid")
     public String bid(@RequestParam Integer id, Authentication authentication, @RequestParam("value") Float value) {
+        User precUser = offerService.getActualMaxOffer(id).getUser();
         User currentUser = userService.getUserByPseudo(authentication.getName());
         Product currentProduct = productService.getProductByid(id);
         if (!authentication.isAuthenticated()) {
@@ -79,9 +81,11 @@ public class ProductController {
         }
         if (value > offerService.getActualMaxOffer(currentProduct.getId()).getValue()) {
             if (currentUser.getAccountWallet() >= value) {
+                precUser.setAccountWallet(precUser.getAccountWallet() + offerService.getActualMaxOffer(id).getValue());
+                userService.updateAccountWallet(precUser);
                 currentUser.setAccountWallet(currentUser.getAccountWallet() - value);
                 offerService.insertOffer(new Offer(value, LocalDateTime.now(), currentUser, productService.getProductByid(id), currentUser.getUserAddress()));
-                userService.updateUser(currentUser.getId(), currentUser);
+                userService.updateAccountWallet(currentUser);
             }
         }
         return "redirect:/product/list";

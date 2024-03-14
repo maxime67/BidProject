@@ -46,8 +46,8 @@ public class BidApplication {
         userService.insertUser(new User("pseudo2","firstname2","lastName2","email2","phone_number2","ADMIN,USER",2F,"password2",addr2));
         userService.insertUser(new User("pseudo3","firstname3","lastName3","email3","phone_number3","ADMIN,USER",3F,"password3",addr1));
 
-        productService.insertProduct(new Product("nameProd","aaaa",101L,"aaa",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1), cat1));
-        productService.insertProduct(new Product("nameProd","aaaa",101L,"aaa",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1),cat2));
+        productService.insertProduct(new Product("nameProd","aaaa",101L,"aaa",  LocalDateTime.now(), LocalDateTime.now().plusMonths(1), userService.getUserByid(1), cat1));
+        productService.insertProduct(new Product("nameProd","aaaa",101L,"aaa",  LocalDateTime.now(), LocalDateTime.now().plusMonths(1), userService.getUserByid(1),cat2));
 
         offerService.insertOffer(new Offer(15F,LocalDateTime.now(), userService.getUserByid(1), productService.getProductByid(1), addr2));
 
@@ -55,9 +55,7 @@ public class BidApplication {
         productService.getAll().forEach(System.out::println);
 
         categoryService.getAll().forEach(System.out::println);
-
-        categoryService.insertCategory(cat1);
-        categoryService.insertCategory(cat2);
+        
         categoryService.getAll().forEach(System.out::println);
 
 

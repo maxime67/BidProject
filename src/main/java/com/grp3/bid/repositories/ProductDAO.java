@@ -49,6 +49,7 @@ public class ProductDAO implements ProductDAOInterface{
 
     @Override
     public int insertProduct(Product product) {
+        System.out.println("TEST------------------" + product);
         KeyHolder keyHolder =  new GeneratedKeyHolder();
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("name_product", product.getName());
@@ -88,7 +89,7 @@ public class ProductDAO implements ProductDAOInterface{
             Timestamp timestampStart = rs.getTimestamp("start_date");
             p.setStartDate(timestampStart.toLocalDateTime());
             Timestamp timestampEnd = rs.getTimestamp("end_date");
-            p.setStartDate(timestampEnd.toLocalDateTime());
+            p.setEndDate(timestampEnd.toLocalDateTime());
             p.setSeller(userDAO.getUserById(rs.getInt("id_seller")));
             p.setCategory(categoryDAO.getById(rs.getLong("category_id")));
             return p;
