@@ -20,7 +20,7 @@ public class AddressDAO implements AddressDAOInterface{
     private final String getAddressByid = "SELECT * FROM ADDRESS WHERE id_address = :id_address";
     private final String insertAddress = "INSERT INTO ADDRESS (street_name,city_name,state_name,nb_street,zip_code) VALUES (:street_name,:city_name,:state_name,:nb_street,:zip_code)";
     private final String getAll = "SELECT * from ADDRESS";
-    private final String updateAddress = "UPDATE ADDRESS SET street_name = :street_name, city_name = :city_name, state_name = :state_name, nb_street = :nb_street, zip_code = :zip_code WHERE id_address = :id_address";
+    private final String UPDATE_ADDRESS = "UPDATE ADDRESS SET street_name = :street_name, city_name = :city_name, state_name = :state_name, nb_street = :nb_street, zip_code = :zip_code WHERE id_address = :id_address;";
 
     @Override
     public Address getAddressById(Integer id) {
@@ -48,8 +48,15 @@ public class AddressDAO implements AddressDAOInterface{
     }
 
     @Override
-    public boolean updateAddress(Integer id, Address address) {
-        return false;
+    public boolean updateAddress(Address address) {
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("id_address", address.getId_address());
+        sqlParameterSource.addValue("street_name", address.getStreet_name());
+        sqlParameterSource.addValue("city_name", address.getCity_name());
+        sqlParameterSource.addValue("state_name", address.getState_name());
+        sqlParameterSource.addValue("nb_street", address.getNb_street());
+        sqlParameterSource.addValue("zip_code", address.getZip_code());
+        return jdbcTemplate.update(UPDATE_ADDRESS, sqlParameterSource) == 1;
     }
     public class AddressRowMapper implements RowMapper<Address> {
 

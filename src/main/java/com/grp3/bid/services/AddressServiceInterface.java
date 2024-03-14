@@ -12,6 +12,6 @@ public interface AddressServiceInterface {
 
     List<Address> getAll();
 
-    boolean updateAddress(Integer id, Address address);
+    boolean updateAddress(Address address);
 
 }

@@ -29,7 +29,8 @@ public class UserDAO implements UserDAOInterface {
     private final String insertUser = "INSERT INTO USER_APP (pseudo, firstname,lastname,email,phone_number,password, role_user, accountWallet, id_address) VALUES (:pseudo,:firstname,:lastname,:email,:phone_number,:password, :role_user,:accountWallet, :id_address);";
     private final String deleteUser = "DELETE FROM USER_APP WHERE id_user_app = :id_user_app";
     private final String updateAccountWallet = "UPDATE USER_APP SET accountWallet = :accountWallet WHERE id_user_app = :id";
-
+    private final String UPDATE_USER_WITHOUT_PASSWORD = "UPDATE USER_APP SET pseudo = :pseudo, firstname = :firstname, lastname = :lastname, email = :email, phone_number = :phone_number WHERE id_user_app = :id_user_app;";
+    private final String UPDATE_USER_WITH_PASSWORD = "UPDATE USER_APP SET pseudo = :pseudo, firstname = :firstname, lastname = :lastname, email = :email, phone_number = :phone_number, password = :password WHERE id_user_app = :id_user_app;";
     @Override
     public User getUserById(Integer id) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
@@ -67,8 +68,20 @@ public class UserDAO implements UserDAOInterface {
     }
 
     @Override
-    public boolean updateUser(Integer id, User user) {
-        return false;
+    public boolean updateUser(User user) {
+        boolean isUpdatePassword = !user.getPassword().isEmpty();
+        addressService.updateAddress(user.getUserAddress());
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("id_user_app", user.getId());
+        sqlParameterSource.addValue("pseudo", user.getPseudo());
+        sqlParameterSource.addValue("firstname", user.getFirstName());
+        sqlParameterSource.addValue("lastname", user.getLastName());
+        sqlParameterSource.addValue("email", user.getEmail());
+        sqlParameterSource.addValue("phone_number", user.getPhoneNumber());
+        if (isUpdatePassword) {
+            sqlParameterSource.addValue("password", user.getPassword());
+        }
+        return jdbcTemplate.update(isUpdatePassword ? UPDATE_USER_WITH_PASSWORD : UPDATE_USER_WITHOUT_PASSWORD, sqlParameterSource) == 1 ;
     }
     @Override
     public boolean updateAccountWallet(User user) {

@@ -28,7 +28,7 @@ public class AdressService implements AddressServiceInterface{
     }
 
     @Override
-    public boolean updateAddress(Integer id, Address address) {
+    public boolean updateAddress(Address address) {
         return false;
     }
 }

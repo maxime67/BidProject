@@ -15,17 +15,17 @@ CREATE TABLE ADDRESS (
 );
 
 CREATE TABLE USER_APP (
-                          id_user_app INT AUTO_INCREMENT PRIMARY KEY,
-                          pseudo VARCHAR(255),
-                          firstname VARCHAR(255),
-                          lastname VARCHAR(255),
-                          email VARCHAR(255),
-                          phone_number VARCHAR(255),
-                          password VARCHAR(255),
-                          role_user VARCHAR(255),
-                          accountWallet FLOAT,
-                          id_address INT,
-                          CONSTRAINT fk_user_address FOREIGN KEY (id_address) REFERENCES ADDRESS(id_address)
+    id_user_app INT AUTO_INCREMENT PRIMARY KEY,
+    pseudo VARCHAR(255),
+    firstname VARCHAR(255),
+    lastname VARCHAR(255),
+    email VARCHAR(255),
+    phone_number VARCHAR(255),
+    password VARCHAR(255),
+    role_user VARCHAR(255),
+    accountWallet FLOAT,
+    id_address INT,
+    CONSTRAINT fk_user_address FOREIGN KEY (id_address) REFERENCES ADDRESS(id_address)
 );
 CREATE TABLE CATEGORY (
                           id_category INT AUTO_INCREMENT PRIMARY KEY,
@@ -47,7 +47,6 @@ CREATE TABLE PRODUCT (
 );
 
 
-
 CREATE TABLE OFFER (
                        id_offer INT AUTO_INCREMENT PRIMARY KEY,
                        value_offer FLOAT,
@@ -59,3 +58,6 @@ CREATE TABLE OFFER (
                        CONSTRAINT fk_offer_product FOREIGN KEY (id_product) REFERENCES PRODUCT(id_product) ON DELETE CASCADE,
                        CONSTRAINT fk_offer_delivery_address FOREIGN KEY (id_delivery_address) REFERENCES ADDRESS(id_address)
 );
+
+
+

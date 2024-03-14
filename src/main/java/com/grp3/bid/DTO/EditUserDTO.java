@@ -11,7 +11,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserWithAddressDTO {
+public class EditUserDTO {
+    private int id;
     @NotBlank(message = "Le pseudo est obligatoire")
     @UniquePseudoConstraint
     @Pattern(regexp="^[a-zA-Z0-9_]*$", message = "Le pseudo ne doit contenir que des caractères alphanumériques")
@@ -25,8 +26,8 @@ public class UserWithAddressDTO {
     private String email;
     @NotBlank(message = "Le numéro de téléphone est obligatoire")
     private String phone_number;
-    @NotBlank(message = "Le mot de passe est obligatoire")
-    private String password;
+    private String password = "";
+    private long id_address;
     @NotBlank(message = "La rue est obligatoire")
     private String street_name;
     @NotBlank(message = "La région est obligatoire")
@@ -37,4 +38,17 @@ public class UserWithAddressDTO {
     @NotBlank(message = "Le code postal est obligatoire")
     private String zip_code;
 
+    public EditUserDTO(int id, String pseudo, String firstName, String lastName, String email, String phone_number, long id_address, String street_name, String state_name, String city_name, Integer nb_street, String zip_code) {
+        this.id = id;
+        this.pseudo = pseudo;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone_number = phone_number;
+        this.street_name = street_name;
+        this.state_name = state_name;
+        this.city_name = city_name;
+        this.nb_street = nb_street;
+        this.zip_code = zip_code;
+    }
 }

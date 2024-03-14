@@ -1,11 +1,16 @@
 package com.grp3.bid.controllers;
 
+import com.grp3.bid.DTO.EditUserDTO;
 import com.grp3.bid.DTO.UserWithAddressDTO;
+import com.grp3.bid.Mapper.EditUserMapper;
 import com.grp3.bid.Mapper.UserWithAddressMapper;
+import com.grp3.bid.Utils.AuthenticationFacade;
+import com.grp3.bid.Utils.AuthenticationFacadeInterface;
 import com.grp3.bid.entities.User;
 import com.grp3.bid.services.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -19,9 +24,13 @@ public class UserController {
     @Autowired
     UserServiceInterface userService;
     @Autowired
-    UserWithAddressMapper userWithAddressMapper;
+    AuthenticationFacadeInterface authenticationFacade;
     @Autowired
     AddressService addressService;
+    @Autowired
+    UserWithAddressMapper userWithAddressMapper;
+    @Autowired
+    EditUserMapper editUserMapper;
 
     @GetMapping("/list")
     public String getAll(Model model){
@@ -60,5 +69,21 @@ public class UserController {
         User user = userWithAddressMapper.toUser(userWithAddressDTO);
         userService.insertUser(user);
         return "redirect:/product/list";
+    }
+
+    @GetMapping("/editAccount")
+    public String editAccount(Model model){
+        model.addAttribute("userWithAddressDTO", editUserMapper.toDTO(authenticationFacade.getConnectedUser()));
+        return "view-user-editAccount";
+    }
+
+    @PostMapping("/editAccount")
+    public String editAccountPost(@Valid @ModelAttribute("userWithAddressDTO") EditUserDTO editUserDTO, BindingResult bindingResult){
+        if (bindingResult.hasErrors()) {
+            return "view-user-editAccount";
+        }
+        User user = editUserMapper.toUser(editUserDTO);
+        userService.updateUser(user);
+        return "redirect:/logout";
     }
 }
