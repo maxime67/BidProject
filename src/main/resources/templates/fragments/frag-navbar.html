@@ -1,4 +1,4 @@
-<nav th:fragment="navbar" class="navbar bg-body-tertiary">
+<nav th:fragment="navbar" class="navbar bg-body-tertiary" xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="container">
         <a  class="navbar-brand mr-0 mr-md-2" th:href="@{/}">
             <img  width="30" height="30" data-th-src="@{/images/upload/logo.jpg}">
@@ -15,16 +15,16 @@
         <a class="navbar-brand" th:href="@{/offer/list}">
             <button class="btn btn-outline-dark">Offres</button>
         </a>
-        <a class="navbar-brand" th:href="@{/user/myAccount}">
+        <a class="navbar-brand" th:href="@{/user/myAccount}" sec:authorize="isAuthenticated()">
             <button class="btn btn-outline-dark">myAccount</button>
         </a>
-        <a class="navbar-brand" th:href="@{/login}">
+        <a class="navbar-brand" th:href="@{/login}" sec:authorize="!isAuthenticated()">
             <button class="btn btn-outline-dark">Login</button>
         </a>
-        <a class="navbar-brand" th:href="@{/logout}">
+        <a class="navbar-brand" th:href="@{/logout}" sec:authorize="isAuthenticated()">
             <button class="btn btn-outline-dark">Logout</button>
         </a>
-        <a class="navbar-brand" th:href="@{/user/register}">
+        <a class="navbar-brand" th:href="@{/user/register}" sec:authorize="!isAuthenticated()">
             <button class="btn btn-outline-dark">Inscription</button>
         </a>
     </div>

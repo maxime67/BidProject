@@ -9,6 +9,6 @@ public interface OfferServiceInterface {
     int insertOffer(Offer offer);
     List<Offer> getAll();
     boolean updateOffer(Integer id, Offer offer);
-
     Offer getActualMaxOffer(Integer idProduct);
+    boolean isOfferExistOnProduct(Integer idProduct);
 }

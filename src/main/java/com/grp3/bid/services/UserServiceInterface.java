@@ -10,7 +10,8 @@ public interface UserServiceInterface {
     User getUserByPseudo(String pseudo);
     int insertUser(User user);
     List<User> getAll();
-    boolean updateUser(Integer id, User user);
+    boolean updateAccountWallet(User user);
+    boolean updateUser(User user);
     boolean deleteUser(User user);
 
 }

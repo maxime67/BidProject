@@ -55,35 +55,67 @@ public class ProductController {
         model.addAttribute("product", productService.getProductByid(id));
         return "view-product-getByid";
     }
+
     @GetMapping("product/bid")
-    public String bid(Model model, @RequestParam Integer id, Authentication authentication){
+    public String bid(Model model, @RequestParam Integer id, Authentication authentication) {
         model.addAttribute("categories", categoryService.getAll());
-        if(null == authentication) {
+        if (null == authentication) {
             return "redirect:/product/list";
         }
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             model.addAttribute("walletAccount", userService.getUserByPseudo(currentUserName).getAccountWallet());
-        } else{
+        } else {
             return "redirect:/product/list";
         }
         model.addAttribute("product", productService.getProductByid(id));
-        model.addAttribute("actualOffer", offerService.getActualMaxOffer(id));
+        if (offerService.isOfferExistOnProduct(id)) {
+            model.addAttribute("actualOffer", offerService.getActualMaxOffer(id));
+            model.addAttribute("offerExist", true);
+        }
+        model.addAttribute("offerExist", false);
         return "view-product-bid";
     }
+
     @PostMapping("product/bid")
-    public String bid(@RequestParam Integer id, Authentication authentication, @RequestParam("value") Float value){
+    public String bid(@RequestParam Integer id, Authentication authentication, @RequestParam("value") Float value) {
         User currentUser = userService.getUserByPseudo(authentication.getName());
         Product currentProduct = productService.getProductByid(id);
-        if(!authentication.isAuthenticated()){
+        if (!authentication.isAuthenticated()) {
             return "redirect:/product/list";
         }
-        if(currentUser.getAccountWallet() >= offerService.getActualMaxOffer(id).getValue()){
-            currentUser.setAccountWallet(currentUser.getAccountWallet() - offerService.getActualMaxOffer(currentProduct.getId()).getValue());
-            offerService.insertOffer(new Offer(value, LocalDateTime.now(), currentUser, productService.getProductByid(id), currentUser.getUserAddress()));
+//      IF THE OFFER IS THE FIRST FOR THE TARGET PRODUCT
+        if (!offerService.isOfferExistOnProduct(id)) {
+            if (currentUser.getAccountWallet() >= productService.getProductByid(id).getStartingValue()) {
+                currentUser.setAccountWallet(currentUser.getAccountWallet() - value);
+                offerService.insertOffer(new Offer(value, LocalDateTime.now(), currentUser, productService.getProductByid(id), currentUser.getUserAddress()));
+                userService.updateAccountWallet(currentUser);
+                return "redirect:/product/list";
+            }
+            return "redirect:/product/list";
+        }
+//      IF THE USER HOW BID IS ALREADY THE OWNER OF MAX BID VALUE
+        if(currentUser.getId() == offerService.getActualMaxOffer(id).getUser().getId()){
+            return "redirect:/product/list";
+        }
+//      IF THE USER HOW BID IS ALREADY THE SELLER
+        if(currentUser.getId() == productService.getProductByid(id).getSeller().getId()){
+            return "redirect:/product/list";
+        }
+//      IF OFFER ALREADY EXIST
+        if (value > offerService.getActualMaxOffer(currentProduct.getId()).getValue()) {
+            if (currentUser.getAccountWallet() >= value) {
+                User precUser = offerService.getActualMaxOffer(id).getUser();
+                precUser.setAccountWallet(precUser.getAccountWallet() + offerService.getActualMaxOffer(id).getValue());
+                userService.updateAccountWallet(precUser);
+                currentUser.setAccountWallet(currentUser.getAccountWallet() - value);
+                offerService.insertOffer(new Offer(value, LocalDateTime.now(), currentUser, productService.getProductByid(id), currentUser.getUserAddress()));
+                userService.updateAccountWallet(currentUser);
+            }
         }
         return "redirect:/product/list";
     }
+
     @PostMapping("product/search")
     public String searchProduct(@RequestParam("name") String productName, @RequestParam("categoryId") Long categoryId, Model model) {
         model.addAttribute("categories", categoryService.getAll());
@@ -92,7 +124,6 @@ public class ProductController {
         System.out.println(productService.getByIdCategory(categoryId.intValue()));
         return "view-product-list";
     }
-
 
     @GetMapping("product/add")
     public String getProductForm(Model model, Authentication authentication) {

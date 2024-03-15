@@ -49,6 +49,7 @@ public class ProductDAO implements ProductDAOInterface{
 
     @Override
     public int insertProduct(Product product) {
+        System.out.println("TEST------------------" + product);
         KeyHolder keyHolder =  new GeneratedKeyHolder();
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("name_product", product.getName());

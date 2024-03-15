@@ -18,18 +18,27 @@
         <form data-th-action="@{/product/bid?id=} + ${product.id}" method="POST">
             <div class="row">
                 <div class="col">
-                    <input name="value" type="number" class="form-control" placeholder="Montant de votre enchère" >
+                    <input name="value" type="number" class="form-control" placeholder="Montant de votre enchère">
                 </div>
                 <div class="col">
                     <a data-th-text="'Solde de votre compte :' + ${walletAccount}"></a>
                 </div>
+            </div>
+            <div th:if="${actualOffer}">
+                <div class="row">
+                    <div class="col">
+                        <a data-th-text="'Meilleur Offreur :' + ${actualOffer.getUser().getEmail()}"></a>
+                    </div>
+                    <div class="col">
+                        <a data-th-text="'Valeur actuelle :' + ${actualOffer.getValue()}"></a>
+                    </div>
                 </div>
-            <div class="row">
-                <div class="col">
-                    <a data-th-text="'Meilleur Offreur :' + ${actualOffer.getUser().getEmail()}"></a>
-                </div>
-                <div class="col">
-                    <a data-th-text="'Valeur actuelle :' + ${actualOffer.getValue()}"></a>
+            </div>
+            <div th:else>
+                <div class="row">
+                    <div class="col">
+                        <a data-th-text="'Actuellement pas d\'offres'"></a>
+                    </div>
                 </div>
             </div>
             <input type="submit" class="btn btn-primary" value="Enchérir">

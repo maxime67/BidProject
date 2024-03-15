@@ -50,15 +50,13 @@ public class BidApplication {
         productService.insertProduct(new Product("nameProd","aaaa",101L,"couteau.jpg",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1), cat1));
         productService.insertProduct(new Product("nameProd","aaaa",101L,"tooth.png",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1),cat2));
 
-        offerService.insertOffer(new Offer(15F,LocalDateTime.now(), userService.getUserByid(1), productService.getProductByid(1), addr2));
+//        offerService.insertOffer(new Offer(15F,LocalDateTime.now(), userService.getUserByid(1), productService.getProductByid(1), addr2));
 
         userService.getAll().forEach(System.out::println);
         productService.getAll().forEach(System.out::println);
 
         categoryService.getAll().forEach(System.out::println);
-
-        categoryService.insertCategory(cat1);
-        categoryService.insertCategory(cat2);
+        
         categoryService.getAll().forEach(System.out::println);
 
 

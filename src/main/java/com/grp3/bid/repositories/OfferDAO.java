@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Objects;
 
 
 @Repository
@@ -29,7 +28,8 @@ public class OfferDAO implements OfferDAOInterface {
 
     private final String insertOffer = "INSERT INTO OFFER (value_offer,date_offer,id_product,id_user_app) VALUES (:value_offer,:offer_datetime,:id_product,:id_user_app);";
     private final String updateOffer = "UPDATE OFFER SET value=?,offer_datetime=?,id_user=?,id_product=? WHERE id_offer = ?;";
-    private final String getActualMaxOffer = "SELECT TOP 1 * FROM OFFER WHERE id_product = :id_product ORDER BY value_offer";
+    private final String getActualMaxOffer = "SELECT TOP 1 * FROM OFFER WHERE id_product = :id_product ORDER BY value_offer DESC";
+    private final String isOfferExistOnProduct = "SELECT count(*) FROM OFFER WHERE id_product = :id_product";
 
     public OfferDAO(NamedParameterJdbcTemplate jdbcTemplate, ProductDAOInterface productDAO, UserDAOInterface userDAO) {
         this.jdbcTemplate = jdbcTemplate;
@@ -70,6 +70,12 @@ public class OfferDAO implements OfferDAOInterface {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("id_product", idProduct);
         return jdbcTemplate.queryForObject(getActualMaxOffer, sqlParameterSource, new OfferRowMapper());
+    }
+    @Override
+    public boolean isOfferExistOnProduct(Integer idProduct) {
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("id_product", idProduct);
+        return jdbcTemplate.queryForObject(isOfferExistOnProduct, sqlParameterSource, Integer.class) == 1;
     }
 
     public class OfferRowMapper implements RowMapper<Offer> {
