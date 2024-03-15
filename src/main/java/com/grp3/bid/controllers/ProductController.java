@@ -53,6 +53,10 @@ public class ProductController {
     public String getById(Model model, @RequestParam Integer id) {
         model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("product", productService.getProductByid(id));
+        model.addAttribute("offerAlreadyExist", offerService.isOfferExistOnProduct(id));
+        if(offerService.isOfferExistOnProduct(id)) {
+            model.addAttribute("actualOffer", offerService.getActualMaxOffer(id));
+        }
         return "view-product-getByid";
     }
 
