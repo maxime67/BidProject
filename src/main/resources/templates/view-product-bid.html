@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<div th:replace="~{fragments/frag-head}"></div>
+<div th:replace="~{fragments/frag-navbar}"></div>
+
+<body>
+<div class="container">
+    <div class="card">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title" data-th-text="${product.name}"></h5>
+            <p class="card-text" data-th-text="'Description : ' + ${product.description}"></p>
+            <p class="card-text" data-th-text="'Valeur de départ : ' + ${product.startingValue}"></p>
+            <p class="card-text" data-th-text="'Date de fin : ' + ${product.endDate}"></p>
+            <p class="card-text" data-th-text="'Vendue par : ' + ${product.seller.email}"></p>
+        </div>
+        <form data-th-action="@{/product/bid?id=} + ${product.id}" method="POST">
+            <div class="row">
+                <div class="col">
+                    <input name="value" type="number" class="form-control" placeholder="Montant de votre enchère">
+                </div>
+                <div class="col">
+                    <a data-th-text="'Solde de votre compte :' + ${walletAccount}"></a>
+                </div>
+            </div>
+            <div th:if="${actualOffer}">
+                <div class="row">
+                    <div class="col">
+                        <a data-th-text="'Meilleur Offreur :' + ${actualOffer.getUser().getEmail()}"></a>
+                    </div>
+                    <div class="col">
+                        <a data-th-text="'Valeur actuelle :' + ${actualOffer.getValue()}"></a>
+                    </div>
+                </div>
+            </div>
+            <div th:else>
+                <div class="row">
+                    <div class="col">
+                        <a data-th-text="'Actuellement pas d\'offres'"></a>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Enchérir">
+        </form>
+    </div>
+</div>
+<div th:replace="~{fragments/frag-script}"></div>
+</body>
+</html>
