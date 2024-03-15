@@ -51,7 +51,7 @@ public class BidApplication {
         productService.insertProduct(new Product("Voiture","Mégane RS Trophy à vendre",1F,"tooth.png",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1),cat2));
         productService.insertProduct(new Product("Bateau","Hobbie 16 à vendre",1F,"tooth.png",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1),cat2));
 
-//        offerService.insertOffer(new Offer(15F,LocalDateTime.now(), userService.getUserByid(1), productService.getProductByid(1), addr2));
+        offerService.insertOffer(new Offer(50.6F,LocalDateTime.now(), userService.getUserByid(2), productService.getProductByid(1), addr2));
 
         userService.getAll().forEach(System.out::println);
         productService.getAll().forEach(System.out::println);
