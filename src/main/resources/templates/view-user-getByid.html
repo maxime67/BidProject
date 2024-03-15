@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <div th:replace="~{fragments/frag-head}"></div>
 <div th:replace="~{fragments/frag-navbar}"></div>
 <body>
-<div class="container justify-content-center">
-    <div class="card d-flex align-items-center ">
+<div class="container">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <h1 class="position-relative">Détails d'un utilisateur</h1>
+    </div>
+    <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title" data-th-text="${user.pseudo}"></h5>
-            <p class="card-text" data-th-text="${user.lastName} + ' ' + ${user.firstName}"></p>
-            <a th:href="'mailto:' + ${user.getEmail()}">
-                <p class="card-text" data-th-text="${user.email}"></p>
-            </a>
+            <p class="card-text" data-th-text="${user.firstName}"></p>
+            <p class="card-text" data-th-text="${user.lastName}"></p>
+            <p class="card-text" data-th-text="${user.email}"></p>
             <p class="card-text" data-th-text="${user.getPhoneNumber}"></p>
+            <td data-th-text="${user.getUserAddress.zip_code}" />
+            <td data-th-text="${user.getUserAddress.nb_street}" />
+            <td data-th-text="${user.getUserAddress.street_name}" />
         </div>
     </div>
     <div class="row">
@@ -43,5 +48,6 @@
         </div>
     </div>
 </div>
+<div th:replace="~{fragments/frag-script}"></div>
 </body>
 </html>

@@ -1,0 +1,12 @@
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('input[name="name"]').on('keyup', function() {
+            if ($(this).val() === '') {
+                $('#categoryDiv').hide();
+            } else {
+                $('#categoryDiv').show();
+            }
+        });
+    });
+</script>
