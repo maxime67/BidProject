@@ -14,12 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/")
@@ -139,7 +136,7 @@ public class ProductController {
     }
 
     @PostMapping("product/add")
-    public String addProduct(Authentication authentication,@ModelAttribute("product") Product product, Category category, @RequestParam("pathToImage")MultipartFile file, BindingResult bindingResult) {
+    public String addProduct(Authentication authentication, @Valid @ModelAttribute("product") Product product, Category category, @RequestParam("pathToImage")MultipartFile file, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "view-product-form";
         } else {
