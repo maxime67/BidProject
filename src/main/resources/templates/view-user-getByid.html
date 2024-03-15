@@ -1,25 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:replace="~{fragments/frag-head}"></div>
 <div th:replace="~{fragments/frag-navbar}"></div>
 <body>
-<div class="container">
-    <div class="h-100 d-flex align-items-center justify-content-center">
-        <h1 class="position-relative">Détails d'un utilisateur</h1>
-    </div>
-    <div style="text-align: center">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title" data-th-text="'Pseudo : ' + ${user.pseudo}"></h5>
-                <p class="card-text" data-th-text="'Prénom : ' + ${user.firstName}"></p>
-                <p class="card-text" data-th-text="'Nom : ' + ${user.lastName}"></p>
-                <p data-th-text="'Addresse e-mail : '"></p>
-                <a th:href="'mailto:' + ${user.getEmail()}">
+<div class="container justify-content-center">
+    <div class="card d-flex align-items-center ">
+        <div class="card-body">
+            <h5 class="card-title" data-th-text="${user.pseudo}"></h5>
+            <p class="card-text" data-th-text="${user.lastName} + ' ' + ${user.firstName}"></p>
+            <a th:href="'mailto:' + ${user.getEmail()}">
                 <p class="card-text" data-th-text="${user.email}"></p>
-                </a>
-                <p class="card-text" data-th-text="'Numéro de téléphone : ' + ${user.getPhoneNumber}"></p>
+            </a>
+            <p class="card-text" data-th-text="${user.getPhoneNumber}"></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 mb-4" data-th-each="product: ${productLst}">
+            <div class="card">
+                <img width="286" height="180" data-th-src="|/images/upload/${product.pathToImg}|"
+                     class="card-img-top object-fit-sm-cover" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title" data-th-text="${product.name}"></h5>
+                    <p class="card-text" data-th-text="${product.description}"></p>
+                    <button class="btn btn-outline-dark"
+                            data-th-text="'Valeur de départ : ' + ${product.startingValue}"></button>
+
+                    <p th:text="'Date de fin : ' + ${#temporals.format(product.endDate, 'EEEE')} + ' ' + ${#temporals.format(product.endDate, 'dd')} + ' ' + ${#temporals.format(product.endDate, 'MMMM yyyy')} + ' ' + ${#temporals.format(product.endDate, 'HH:mm')}"></p>
+                    <a   style="text-decoration: none;  color:black" th:href="@{/user/get?id=} + ${product.id}">
+                        Vendu par : <button class="btn-sm btn btn-outline-dark" data-th-text="${product.getSeller().getEmail()}">a</button>
+                    </a>
+                    <div sec:authorize="isAnonymous()">
+                        <p class="card-text">Veuillez vous authentifier pour accèder aux ventes</p>
+                    </div>
+                    <div sec:authorize="isAuthenticated()">
+                        <a th:href="@{/product/get?id=} + ${product.id}">
+                            <br>
+                            <button class="button-50">Voir le produit</button>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>

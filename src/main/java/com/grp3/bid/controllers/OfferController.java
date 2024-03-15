@@ -20,7 +20,7 @@ public class OfferController {
         return "view-offer-list";
     }
     @GetMapping("/get")
-    public String getById(Model model, @RequestParam Integer id){
+    public String getById(Model model, @RequestParam Integer id) {
         model.addAttribute("offer", offerService.getOfferByid(id));
         return "view-offer-getByid";
     }

@@ -6,6 +6,7 @@ import com.grp3.bid.Mapper.EditUserMapper;
 import com.grp3.bid.Mapper.UserWithAddressMapper;
 import com.grp3.bid.Utils.AuthenticationFacade;
 import com.grp3.bid.Utils.AuthenticationFacadeInterface;
+import com.grp3.bid.entities.Product;
 import com.grp3.bid.entities.User;
 import com.grp3.bid.services.*;
 import jakarta.validation.Valid;
@@ -28,6 +29,8 @@ public class UserController {
     @Autowired
     AddressService addressService;
     @Autowired
+    ProductServiceInterface productService;
+    @Autowired
     UserWithAddressMapper userWithAddressMapper;
     @Autowired
     EditUserMapper editUserMapper;
@@ -40,6 +43,7 @@ public class UserController {
     @GetMapping("/get")
     public String getById(Model model, @RequestParam Integer id){
         model.addAttribute("user", userService.getUserByid(id));
+        model.addAttribute("productLst", productService.getProductListByIdSeller(userService.getUserByid(id)));
         return "view-user-getByid";
     }
     @GetMapping("/myAccount")

@@ -13,13 +13,13 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
 public class ProductDAO implements ProductDAOInterface{
 
     private final String getProductByid = "SELECT * FROM PRODUCT WHERE id_PRODUCT = :id_product";
+    private final String getProductByIdUser = "SELECT * FROM PRODUCT WHERE id_seller = :id_seller";
     private final String getAll = "SELECT * FROM PRODUCT";
     private final String getByIdCategory = "SELECT * FROM PRODUCT WHERE category_id = :id_category";
 
@@ -74,6 +74,13 @@ public class ProductDAO implements ProductDAOInterface{
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("id_category", idCategory);
         return jdbcTemplate.query(getByIdCategory, sqlParameterSource, new ProductRowMapper());
+    }
+
+    @Override
+    public List<Product> getProductListByIdSeller(User user) {
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("id_seller", user.getId());
+        return jdbcTemplate.query(getProductByIdUser, sqlParameterSource, new ProductRowMapper());
     }
 
     public class ProductRowMapper implements RowMapper<Product> {

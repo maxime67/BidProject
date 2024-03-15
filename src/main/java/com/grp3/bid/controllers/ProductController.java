@@ -1,5 +1,6 @@
 package com.grp3.bid.controllers;
 
+import com.grp3.bid.Utils.AuthenticationFacadeInterface;
 import com.grp3.bid.entities.Category;
 import com.grp3.bid.entities.Offer;
 import com.grp3.bid.entities.Product;
@@ -31,6 +32,8 @@ public class ProductController {
     OfferServiceInterface offerService;
     @Autowired
     StorageServiceInterface storageService;
+    @Autowired
+    AuthenticationFacadeInterface authenticationFacade;
 
     @GetMapping
     public String getAllProducts(Model model) {
@@ -47,7 +50,13 @@ public class ProductController {
     }
 
     @GetMapping("product/get")
-    public String getById(Model model, @RequestParam Integer id) {
+    public String getById(Model model, @RequestParam Integer id, Authentication authentication) {
+        if (authenticationFacade.getAuthentication() != null) {
+            String currentUserName = authentication.getName();
+            model.addAttribute("walletAccount", userService.getUserByPseudo(currentUserName).getAccountWallet());
+        } else {
+            return "redirect:/product/list";
+        }
         model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("product", productService.getProductByid(id));
         model.addAttribute("offerAlreadyExist", offerService.isOfferExistOnProduct(id));
@@ -55,27 +64,6 @@ public class ProductController {
             model.addAttribute("actualOffer", offerService.getActualMaxOffer(id));
         }
         return "view-product-getByid";
-    }
-
-    @GetMapping("product/bid")
-    public String bid(Model model, @RequestParam Integer id, Authentication authentication) {
-        model.addAttribute("categories", categoryService.getAll());
-        if (null == authentication) {
-            return "redirect:/product/list";
-        }
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            String currentUserName = authentication.getName();
-            model.addAttribute("walletAccount", userService.getUserByPseudo(currentUserName).getAccountWallet());
-        } else {
-            return "redirect:/product/list";
-        }
-        model.addAttribute("product", productService.getProductByid(id));
-        if (offerService.isOfferExistOnProduct(id)) {
-            model.addAttribute("actualOffer", offerService.getActualMaxOffer(id));
-            model.addAttribute("offerExist", true);
-        }
-        model.addAttribute("offerExist", false);
-        return "view-product-bid";
     }
 
     @PostMapping("product/bid")
@@ -129,7 +117,7 @@ public class ProductController {
     @GetMapping("product/add")
     public String getProductForm(Model model, Authentication authentication) {
         List<Category> categories = categoryService.getAll();
-        if (authentication.isAuthenticated()) {
+        if (authenticationFacade.isAuthenticated()) {
             model.addAttribute("product", new Product());
             model.addAttribute("categories", categories);
             return "view-product-form";

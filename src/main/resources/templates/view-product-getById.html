@@ -24,10 +24,40 @@
                 <p class="card-text">Veuillez vous authentifier pour accèder aux enchère</p>
             </div>
             <div sec:authorize="isAuthenticated()">
-                <a th:href="@{/product/get?id=} + ${product.id}">
-                    <br>
-                    <button class="button-50">Voir le produit</button>
-                </a>
+                <form data-th-action="@{/product/bid?id=} + ${product.id}" method="POST">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" data-th-text="${walletAccount} + '$'"></span>
+                        </div>
+                        <input type="text" class="form-control" name="value" placeholder="Montant de votre enchère">
+                    </div>
+                    <!--            <div class="row">-->
+                    <!--                <div class="col">-->
+                    <!--                    <input  type="number" class="form-control" placeholder="Montant de votre enchère">-->
+                    <!--                </div>-->
+                    <!--                <div class="col">-->
+                    <!--                    <a data-th-text="'Solde de votre compte :' + ${walletAccount}"></a>-->
+                    <!--                </div>-->
+                    <!--            </div>-->
+                    <div th:if="${actualOffer}">
+                        <div class="row">
+                            <div class="col">
+                                <a data-th-text="'Meilleur Offreur :' + ${actualOffer.getUser().getEmail()}"></a>
+                            </div>
+                            <div class="col">
+                                <a data-th-text="'Valeur actuelle :' + ${actualOffer.getValue()}"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:unless="${actualOffer}">
+                        <div class="row">
+                            <div class="col">
+                                <a data-th-text="'Actuellement pas d\'offres'"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Enchérir">
+                </form>
             </div>
         </div>
     </div>

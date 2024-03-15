@@ -10,7 +10,9 @@ public interface ProductServiceInterface {
     int insertProduct(Product product);
     List<Product> getAll();
     boolean updateProduct(Integer id, Product product);
-    Product getLastOffer(Product product);
+
+    List<Product> getProductListByIdSeller(User user);
+
     List<Product> getByIdCategory(Integer idCategory);
 
 }

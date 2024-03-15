@@ -38,17 +38,11 @@ public class ConfigSecurity {
 			auth.requestMatchers(HttpMethod.POST, "/user/register").anonymous();
 			auth.requestMatchers(HttpMethod.GET, "/user/editAccount").authenticated();
 			auth.requestMatchers(HttpMethod.POST, "/user/editAccount").authenticated();
+			auth.requestMatchers(HttpMethod.GET, "/product/get").authenticated();
 			auth.requestMatchers(HttpMethod.GET, "/**").permitAll();
 			auth.requestMatchers(HttpMethod.POST, "/**").permitAll();
 			/*TODO
 			*  UPDATE ROUTE AUTH AFTER DEV*/
-
-//			auth.requestMatchers(HttpMethod.GET, "/offer/list").permitAll();
-//			auth.requestMatchers(HttpMethod.GET, "/product").permitAll();
-//			auth.requestMatchers(HttpMethod.GET, "/product/list").permitAll();
-//			auth.requestMatchers(HttpMethod.GET, "/user/list").permitAll();
-//			auth.requestMatchers(HttpMethod.GET, "/console").permitAll();
-//			auth.requestMatchers(HttpMethod.POST, "/console").permitAll();
 
 			auth.requestMatchers("/static/upload/css/*").permitAll()
 				.requestMatchers("/images/**").permitAll()

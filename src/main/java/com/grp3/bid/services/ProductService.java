@@ -1,6 +1,7 @@
 package com.grp3.bid.services;
 
 import com.grp3.bid.entities.Product;
+import com.grp3.bid.entities.User;
 import com.grp3.bid.repositories.ProductDAOInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,9 +32,8 @@ public class ProductService implements ProductServiceInterface{
     }
 
     @Override
-    public Product getLastOffer(Product product) {
-//        TODO : Implement method that return the last offer sort by date, on product id
-        return null;
+    public List<Product> getProductListByIdSeller(User user) {
+        return productDAO.getProductListByIdSeller(user);
     }
 
     @Override
