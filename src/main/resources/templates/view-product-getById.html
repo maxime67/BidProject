@@ -7,14 +7,14 @@
 <body>
 <div class="container">
     <div class="card">
-        <img src="..." class="card-img-top" alt="...">
+        <img data-th-src="|/images/upload/${product.pathToImg}|"class="card-img-top" style="max-height: 100px;">
         <div class="card-body">
             <h5 class="card-title" data-th-text="${product.name}"></h5>
             <p class="card-text" data-th-text="'Description : ' + ${product.description}"></p>
             <p class="card-text" data-th-text="'Valeur de départ : ' + ${product.startingValue}"></p>
             <p class="card-text" data-th-text="'Date de fin : ' + ${product.endDate}"></p>
             <p class="card-text" data-th-text="'Vendue par : ' + ${product.seller.email}"></p>
-            <a th:href="@{/product/bid?id=} + ${product.id}" class="btn btn-primary">Enchérir</a>
+            <a th:href="@{/product/bid?id=} + ${product.id}" class="btn button-50">Enchérir</a>
         </div>
     </div>
 </div>

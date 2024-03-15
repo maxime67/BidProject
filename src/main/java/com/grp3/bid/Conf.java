@@ -32,7 +32,6 @@ public class Conf {
     @Bean
     CommandLineRunner init(StorageServiceInterface storageService) {
         return (args) -> {
-            storageService.deleteAll();
             storageService.init();
         };
     }

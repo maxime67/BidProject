@@ -10,9 +10,9 @@
         <h1 class="position-relative">Détails d'un produit</h1>
     </div>
     <div class="row" >
-        <div class="col-lg-6 mb-4" data-th-each="product: ${productLst}">
+        <div class="col-lg-4 mb-4" data-th-each="product: ${productLst}">
             <div class="card">
-                <img data-th-src="|/images/upload/${product.pathToImg}|" class="card-img-top" alt="...">
+                <img  width="286" height="180" data-th-src="|/images/upload/${product.pathToImg}|" class="card-img-top object-fit-sm-cover" alt="...">
                 <div class="card-body">
                     <h5 class="card-title" data-th-text="${product.name}"></h5>
                     <p class="card-text" data-th-text="'Description : ' + ${product.description}"></p>
@@ -23,8 +23,10 @@
                         <p class="card-text">Veuillez vous authentifier pour accèder aux ventes</p>
                     </div>
                     <div sec:authorize="isAuthenticated()">
-                    <a th:href="@{/product/get?id=} + ${product.id}" class="btn btn-primary">Voir le produit</a>
-                        </div>
+                        <a>
+                        <button  class="button-50">Voir le produit</button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
