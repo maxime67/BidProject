@@ -57,4 +57,10 @@ public class UserService implements UserServiceInterface{
     public boolean deleteUser(User user) {
         return userDAO.deleteUser(user);
     }
+
+    @Override
+    public boolean updateUserPassword(User user, String password) {
+        password = encodeur.encode(password);
+        return userDAO.updateUserPassword(user, password);
+    }
 }

@@ -35,6 +35,15 @@ CREATE TABLE CATEGORY
     name_category VARCHAR(255)
 );
 
+CREATE TABLE RESET_PASSWD_TOKEN (
+    id_reset_passwd_token INT AUTO_INCREMENT PRIMARY KEY,
+    id_user_app INT,
+    token CHAR(9),
+    expiration TIMESTAMP,
+    is_already_used BOOLEAN,
+    CONSTRAINT fk_reset_passwd_token_user FOREIGN KEY (id_user_app) REFERENCES USER_APP(id_user_app)
+);
+
 CREATE TABLE PRODUCT
 (
     id_product     INT AUTO_INCREMENT PRIMARY KEY,

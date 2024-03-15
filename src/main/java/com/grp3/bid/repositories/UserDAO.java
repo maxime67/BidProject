@@ -32,6 +32,7 @@ public class UserDAO implements UserDAOInterface {
     private final String updateAccountWallet = "UPDATE USER_APP SET accountWallet = :accountWallet WHERE id_user_app = :id";
     private final String UPDATE_USER_WITHOUT_PASSWORD = "UPDATE USER_APP SET pseudo = :pseudo, firstname = :firstname, lastname = :lastname, email = :email, phone_number = :phone_number WHERE id_user_app = :id_user_app;";
     private final String UPDATE_USER_WITH_PASSWORD = "UPDATE USER_APP SET pseudo = :pseudo, firstname = :firstname, lastname = :lastname, email = :email, phone_number = :phone_number, password = :password WHERE id_user_app = :id_user_app;";
+    private final String UPDATE_USER_PASSWORD = "UPDATE USER_APP SET password = :password WHERE id_user_app = :id_user_app;";
     @Override
     public User getUserById(Integer id) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
@@ -115,6 +116,14 @@ public class UserDAO implements UserDAOInterface {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("pseudo", pseudo);
         return jdbcTemplate.queryForObject(getUserByPseudo, sqlParameterSource, new UserRowMapper());
+    }
+
+    @Override
+    public boolean updateUserPassword(User user, String password) {
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("id_user_app", user.getId());
+        sqlParameterSource.addValue("password", password);
+        return jdbcTemplate.update(UPDATE_USER_PASSWORD, sqlParameterSource) != 0;
     }
 
     public class UserRowMapper implements RowMapper<User> {

@@ -6,11 +6,14 @@ import com.grp3.bid.Mapper.EditUserMapper;
 import com.grp3.bid.Mapper.UserWithAddressMapper;
 import com.grp3.bid.Utils.AuthenticationFacade;
 import com.grp3.bid.Utils.AuthenticationFacadeInterface;
+import com.grp3.bid.entities.ResetPasswdToken;
 import com.grp3.bid.entities.Product;
 import com.grp3.bid.entities.User;
 import com.grp3.bid.services.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -34,6 +37,8 @@ public class UserController {
     UserWithAddressMapper userWithAddressMapper;
     @Autowired
     EditUserMapper editUserMapper;
+    @Autowired
+    ResetPasswdTokenServiceInterface resetPasswdTokenService;
     @Autowired
     DeleteUserInterface deleteUser;
 
@@ -66,6 +71,7 @@ public class UserController {
         model.addAttribute("userWithAddressDTO", new UserWithAddressDTO());
         return "view-user-register";
     }
+
     @PostMapping("/register")
     public String registerPost(@Valid @ModelAttribute("userWithAddressDTO") UserWithAddressDTO userWithAddressDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -100,5 +106,49 @@ public class UserController {
     public String deleteTargetAccount(@RequestParam("id") Integer id){
         deleteUser.deleteUser(userService.getUserByid(id));
         return "redirect:/admin";
+    }
+    @GetMapping("/forgottenPassword")
+    public String forgottenPassword(Model model) {
+        model.addAttribute("step", "request");
+        return "view-user-forgottenPassword";
+    }
+
+    @PostMapping("/forgottenPassword")
+    public String forgottenPasswordPost(@RequestParam String email, Model model) {
+        User user = null;
+        try {
+            user = userService.getUserByemail(email);
+        } catch (EmptyResultDataAccessException ignored) {}
+        if (null != user) {
+            resetPasswdTokenService.createRequestResetPasswdTokenForUser(user);
+        }
+        model.addAttribute("step", "accepted");
+        return "view-user-forgottenPassword";
+    }
+
+    @GetMapping("/forgottenPassword/{token}")
+    public String forgottenPasswordReset(@PathVariable String token, Model model) {
+        ResetPasswdToken resetPasswdToken = resetPasswdTokenService.getResetPasswdTokenByToken(token);
+        if (null == resetPasswdToken) {
+            model.addAttribute("step", "expired");
+        } else {
+            model.addAttribute("step", "resetPasswordForm");
+            model.addAttribute("token", token);
+        }
+        return "view-user-forgottenPassword";
+    }
+
+    @PostMapping("/forgottenPassword/reset")
+    public String forgottenPasswordResetPost(@RequestParam String token, @RequestParam String password, Model model) {
+        ResetPasswdToken resetPasswdToken = resetPasswdTokenService.getResetPasswdTokenByToken(token);
+        if (null == resetPasswdToken) {
+            model.addAttribute("step", "expired");
+            return "view-user-forgottenPassword";
+        }
+
+        userService.updateUserPassword(resetPasswdToken.getUser(), password);
+        resetPasswdTokenService.updateAlreadyUsed(resetPasswdToken, true);
+        model.addAttribute("step", "done");
+        return "view-user-forgottenPassword";
     }
 }
