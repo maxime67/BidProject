@@ -43,9 +43,9 @@ public class BidApplication {
         addressService.insertAddress(addr2);
         addressService.insertAddress(addr2);
 
-        userService.insertUser(new User("pseudo1","firstname1","lastName1","email1","phone_number1","ADMIN,USER",1F,"password1",addr2));
-        userService.insertUser(new User("pseudo2","firstname2","lastName2","email2","phone_number2","ADMIN,USER",2F,"password2",addr2));
-        userService.insertUser(new User("pseudo3","firstname3","lastName3","email3","phone_number3","ADMIN,USER",3F,"password3",addr1));
+        userService.insertUser(new User("pseudo1","Djibril","Laporte","Djibril.laporte@gmail.com","0298965678","ADMIN,USER",200F,"password1",addr2));
+        userService.insertUser(new User("pseudo2","Djibril","Laporte","Djibril.laporte@gmail.com","0298965678","ADMIN,USER",200F,"password2",addr2));
+        userService.insertUser(new User("pseudo3","Djibril","Laporte","Djibril.laporte@gmail.com","0298965678","ADMIN,USER",200F,"password3",addr1));
 
         productService.insertProduct(new Product("Couteau","Jolie couteau du XIIème siècle",1F,"couteau.jpg",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1), cat1));
         productService.insertProduct(new Product("Voiture","Mégane RS Trophy à vendre",1F,"tooth.png",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1),cat2));
