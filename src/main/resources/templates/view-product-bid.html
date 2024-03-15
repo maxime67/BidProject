@@ -16,14 +16,20 @@
             <p class="card-text" data-th-text="'Vendue par : ' + ${product.seller.email}"></p>
         </div>
         <form data-th-action="@{/product/bid?id=} + ${product.id}" method="POST">
-            <div class="row">
-                <div class="col">
-                    <input name="value" type="number" class="form-control" placeholder="Montant de votre enchère">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" data-th-text="${walletAccount} + '$'"></span>
                 </div>
-                <div class="col">
-                    <a data-th-text="'Solde de votre compte :' + ${walletAccount}"></a>
-                </div>
+                <input type="text" class="form-control" name="value" placeholder="Montant de votre enchère">
             </div>
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    <input  type="number" class="form-control" placeholder="Montant de votre enchère">-->
+<!--                </div>-->
+<!--                <div class="col">-->
+<!--                    <a data-th-text="'Solde de votre compte :' + ${walletAccount}"></a>-->
+<!--                </div>-->
+<!--            </div>-->
             <div th:if="${actualOffer}">
                 <div class="row">
                     <div class="col">
@@ -34,7 +40,7 @@
                     </div>
                 </div>
             </div>
-            <div th:else>
+            <div th:unless="${actualOffer}">
                 <div class="row">
                     <div class="col">
                         <a data-th-text="'Actuellement pas d\'offres'"></a>

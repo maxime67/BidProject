@@ -1,31 +1,31 @@
 <nav th:fragment="navbar" class="navbar bg-body-tertiary" xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="container">
         <a  class="navbar-brand mr-0 mr-md-2" th:href="@{/}">
-            <img  width="30" height="30" data-th-src="@{/images/upload/logo.jpg}">
+            <img  width="30" height="30" data-th-src="@{/images/logo.png}">
         </a>
         <a class="navbar-brand" th:href="@{/product/list}">
-            <button class="btn btn-outline-dark">Produits</button>
+            <button class="button-50">Produits</button>
         </a>
         <a class="navbar-brand" th:href="@{/product/add}">
-            <button class="btn btn-outline-dark">Ajouter</button>
+            <button class="button-50">Ajouter</button>
         </a>
         <a class="navbar-brand" th:href="@{/user/list}">
-            <button class="btn btn-outline-dark">Utilisateurs</button>
+            <button class="button-50">Utilisateurs</button>
         </a>
         <a class="navbar-brand" th:href="@{/offer/list}">
-            <button class="btn btn-outline-dark">Offres</button>
+            <button class="button-50">Offres</button>
         </a>
         <a class="navbar-brand" th:href="@{/user/myAccount}" sec:authorize="isAuthenticated()">
-            <button class="btn btn-outline-dark">myAccount</button>
+            <button class="button-50">myAccount</button>
         </a>
         <a class="navbar-brand" th:href="@{/login}" sec:authorize="!isAuthenticated()">
-            <button class="btn btn-outline-dark">Login</button>
+            <button class="button-50">Login</button>
         </a>
         <a class="navbar-brand" th:href="@{/logout}" sec:authorize="isAuthenticated()">
-            <button class="btn btn-outline-dark">Logout</button>
+            <button class="button-50">Logout</button>
         </a>
         <a class="navbar-brand" th:href="@{/user/register}" sec:authorize="!isAuthenticated()">
-            <button class="btn btn-outline-dark">Inscription</button>
+            <button class="button-50">Inscription</button>
         </a>
     </div>
 </nav>

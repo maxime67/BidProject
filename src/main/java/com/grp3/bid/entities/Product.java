@@ -22,7 +22,7 @@ public class Product implements Serializable {
     @NotBlank(message = "La description est obligatoire")
     private String description;
     @NotNull(message = "Le prix de depart est obligatoire")
-    private Long startingValue;
+    private Float startingValue;
     private String pathToImg;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -30,7 +30,7 @@ public class Product implements Serializable {
     private Category category;
     @Nullable
     private User buyer;
-    public Product(String name, String description, Long startingValue, String pathToImg, LocalDateTime startDate, LocalDateTime endDate, User seller, Category category) {
+    public Product(String name, String description, Float startingValue, String pathToImg, LocalDateTime startDate, LocalDateTime endDate, User seller, Category category) {
         this.name = name;
         this.description = description;
         this.startingValue = startingValue;

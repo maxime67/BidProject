@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <div th:replace="~{fragments/frag-head}"></div>
 <div th:replace="~{fragments/frag-navbar}"></div>
 <div th:replace="~{fragments/frag-search}"></div>
@@ -7,14 +7,28 @@
 <body>
 <div class="container">
     <div class="card">
-        <img src="..." class="card-img-top" alt="...">
+        <img width="286" height="180" data-th-src="|/images/upload/${product.pathToImg}|"
+             class="card-img-top object-fit-sm-cover" alt="...">
         <div class="card-body">
             <h5 class="card-title" data-th-text="${product.name}"></h5>
-            <p class="card-text" data-th-text="'Description : ' + ${product.description}"></p>
-            <p class="card-text" data-th-text="'Valeur de départ : ' + ${product.startingValue}"></p>
-            <p class="card-text" data-th-text="'Date de fin : ' + ${product.endDate}"></p>
-            <p class="card-text" data-th-text="'Vendue par : ' + ${product.seller.email}"></p>
-            <a th:href="@{/product/bid?id=} + ${product.id}" class="btn btn-primary">Enchérir</a>
+            <p class="card-text" data-th-text="${product.description}"></p>
+            <button class="btn btn-outline-dark"
+                    data-th-text="'Valeur de départ : ' + ${product.startingValue}"></button>
+
+            <p th:text="'Date de fin : ' + ${#temporals.format(product.endDate, 'EEEE')} + ' ' + ${#temporals.format(product.endDate, 'dd')} + ' ' + ${#temporals.format(product.endDate, 'MMMM yyyy')} + ' ' + ${#temporals.format(product.endDate, 'HH:mm')}"></p>
+            <a style="text-decoration: none;  color:black" th:href="@{/user/get?id=} + ${product.id}">
+                Vendu par :
+                <button class="btn-sm btn btn-outline-dark" data-th-text="${product.getSeller().getEmail()}">a</button>
+            </a>
+            <div sec:authorize="isAnonymous()">
+                <p class="card-text">Veuillez vous authentifier pour accèder aux enchère</p>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+                <a th:href="@{/product/get?id=} + ${product.id}">
+                    <br>
+                    <button class="button-50">Voir le produit</button>
+                </a>
+            </div>
         </div>
     </div>
 </div>
