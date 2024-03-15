@@ -1,5 +1,7 @@
 package com.grp3.bid;
 
+import com.grp3.bid.services.StorageServiceInterface;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -26,4 +28,13 @@ public class Conf {
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("db.sql").build();
     }
+
+    @Bean
+    CommandLineRunner init(StorageServiceInterface storageService) {
+        return (args) -> {
+            storageService.deleteAll();
+            storageService.init();
+        };
+    }
+
 }

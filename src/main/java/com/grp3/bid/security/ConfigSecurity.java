@@ -51,7 +51,7 @@ public class ConfigSecurity {
 //			auth.requestMatchers(HttpMethod.POST, "/console").permitAll();
 
 			auth.requestMatchers("/css/*").permitAll()
-				.requestMatchers("/images/*").permitAll()
+				.requestMatchers("/images/**").permitAll()
 				.requestMatchers("/javascript/*").permitAll()
 				.requestMatchers("/error").permitAll()
 				.anyRequest().authenticated();

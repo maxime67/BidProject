@@ -1,7 +1,7 @@
 <nav th:fragment="navbar" class="navbar bg-body-tertiary" xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="container">
-        <a class="navbar-brand" href="#">
-            <img src="../ressources/static/logo.png">
+        <a  class="navbar-brand mr-0 mr-md-2" th:href="@{/}">
+            <img  width="30" height="30" data-th-src="@{/images/upload/logo.jpg}">
         </a>
         <a class="navbar-brand" th:href="@{/product/list}">
             <button class="btn btn-outline-dark">Produits</button>
