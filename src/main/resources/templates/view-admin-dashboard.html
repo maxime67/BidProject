@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<div th:replace="~{fragments/frag-head}"></div>
+<div th:replace="~{fragments/frag-navbar-admin}"></div>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<table class="table table-bordered">
+    <tr data-th-each="product: ${productLst}">
+        <td data-th-text="${product.name}" />
+        <td data-th-text="${product.description}" />
+        <td data-th-text="${product.startingValue}" />
+        <td data-th-text="${product.getSeller().getEmail()}" />
+        <td data-th-text="${product.startingValue}" />
+        <td data-th-text="${product.startingValue}" />
+        <td>
+            <a th:href="@{/product/get?id=} + ${product.id}">
+                <button>
+                    Go To
+                </button>
+            </a>
+        </td>
+    </tr>
+</table>
+
+<table class="table table-bordered">
+    <tr data-th-each="user: ${userLst}">
+        <td data-th-text="${user.firstName}" />
+        <td data-th-text="${user.lastName}" />
+        <td data-th-text="${user.email}" />
+        <td>
+            <a th:href="@{/user/get?id=} + ${user.id}">
+                <button>
+                    Go To
+                </button>
+            </a>
+        </td>
+    </tr>
+</table>
+
+<table class="table table-bordered">
+    <tr data-th-each="offer: ${offerLst}">
+        <td data-th-text="${offer.name}" />
+        <td data-th-text="'Valeur d\'origine : ' + ${offer.value}" />
+        <td data-th-text="${offer.offerDateTime}" />
+        <td data-th-text="'Acheteur : ' + ${offer.user.getEmail()}" />
+        <td data-th-text="'Vendeur : ' + ${offer.product.getSeller().getEmail()}" />
+    </tr>
+</table>
+
+</body>
+</html>

@@ -2,6 +2,10 @@
     <div class="container-fluid">
         <a class="navbar-brand mr-0 mr-md-2" th:href="@{/}">
             <img width="30" height="30" data-th-src="@{/images/logo.png}">
+<nav th:fragment="navbar" class="navbar bg-body-tertiary" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <a class="navbar-brand mr-0 mr-md-2" th:href="@{/}">
+            <img width="30" height="30" data-th-src="@{/images/logo.png}">
         </a>
         <a class="navbar-brand" th:href="@{/product/list}">
             <button class="button-50">Produits</button>
@@ -44,6 +48,17 @@
         <a class="navbar-brand" th:href="@{/user/register}" sec:authorize="!isAuthenticated()">
             <button class="button-50">Inscription</button>
         </a>
+
+        <form method="post" data-th-action="@{/user/deleteCurrent?id=} + '1'">
+            <a class="navbar-brand">
+                <button class="button-50">DeleteCurrent</button>
+            </a>
+        </form>
+        <form method="post" data-th-action="@{/user/deleteTarget?id=} + '1'">
+            <a class="navbar-brand">
+                <button class="button-50">DeleteTarget</button>
+            </a>
+        </form>
     </div>
 </nav>
 <br>

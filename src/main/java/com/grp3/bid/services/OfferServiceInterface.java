@@ -1,6 +1,7 @@
 package com.grp3.bid.services;
 
 import com.grp3.bid.entities.Offer;
+import com.grp3.bid.entities.User;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ public interface OfferServiceInterface {
     boolean updateOffer(Integer id, Offer offer);
     Offer getActualMaxOffer(Integer idProduct);
     boolean isOfferExistOnProduct(Integer idProduct);
+    List<Offer> getOfferByUser(User user);
 }
