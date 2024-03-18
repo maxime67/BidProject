@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -22,8 +23,9 @@ public class ProductDAO implements ProductDAOInterface{
     private final String getProductByIdUser = "SELECT * FROM PRODUCT WHERE id_seller = :id_seller";
     private final String getAll = "SELECT * FROM PRODUCT";
     private final String getByIdCategory = "SELECT * FROM PRODUCT WHERE category_id = :id_category";
-
     private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_to_image, start_date,end_date, id_seller, category_id) VALUES (:name_product,:description,:starting_value,:path_to_image,:start_date,:end_date,:id_seller, :category_id)";
+    private final String GET_ENDED_AUCTION = "SELECT * FROM PRODUCT WHERE end_date < CURRENT_TIMESTAMP() AND id_buyer IS NULL";
+    private final String UPDATE_BUYER = "UPDATE PRODUCT SET id_buyer = :id_buyer WHERE id_product = :id_product";
     @Autowired
     private final NamedParameterJdbcTemplate jdbcTemplate;
     @Autowired
@@ -77,6 +79,19 @@ public class ProductDAO implements ProductDAOInterface{
     }
 
     @Override
+    public List<Product> getEndedAuctionWithoutBuyer() {
+        return jdbcTemplate.query(GET_ENDED_AUCTION, new ProductRowMapper());
+    }
+
+    @Override
+    public boolean updateBuyer(Product product, User buyer) {
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("id_product", product.getId());
+        sqlParameterSource.addValue("id_buyer", buyer.getId());
+        return jdbcTemplate.update(UPDATE_BUYER, sqlParameterSource) == 1;
+    }
+
+    @Override
     public List<Product> getProductListByIdSeller(User user) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("id_seller", user.getId());
@@ -98,6 +113,7 @@ public class ProductDAO implements ProductDAOInterface{
             Timestamp timestampEnd = rs.getTimestamp("end_date");
             p.setEndDate(timestampEnd.toLocalDateTime());
             p.setSeller(userDAO.getUserById(rs.getInt("id_seller")));
+            p.setBuyer(userDAO.getUserById(rs.getInt("id_buyer")));
             p.setCategory(categoryDAO.getById(rs.getLong("category_id")));
             return p;
         }

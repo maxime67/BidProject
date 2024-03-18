@@ -3,6 +3,7 @@ package com.grp3.bid.repositories;
 import com.grp3.bid.entities.*;
 import com.grp3.bid.services.AddressServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -35,7 +36,11 @@ public class UserDAO implements UserDAOInterface {
     public User getUserById(Integer id) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("id", id);
-        return jdbcTemplate.queryForObject(getUserByid, sqlParameterSource, new UserRowMapper());
+        try {
+            return jdbcTemplate.queryForObject(getUserByid, sqlParameterSource, new UserRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     @Override
