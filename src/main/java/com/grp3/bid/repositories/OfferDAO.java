@@ -80,7 +80,11 @@ public class OfferDAO implements OfferDAOInterface {
     public Offer getActualMaxOffer(Integer idProduct) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("id_product", idProduct);
-        return jdbcTemplate.queryForObject(getActualMaxOffer, sqlParameterSource, new OfferRowMapper());
+        try {
+            return jdbcTemplate.queryForObject(getActualMaxOffer, sqlParameterSource, new OfferRowMapper());
+        } catch (Exception e){
+            return null;
+        }
     }
 
     @Override

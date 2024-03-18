@@ -29,14 +29,16 @@ public class AuctionVerifierBatch {
     public void run() {
         List<Product> productList = productService.getEndedAuctionWithoutBuyer();
         for (Product product : productList) {
-            Offer highestOffer = offerService.getActualMaxOffer(product.getId());
-            User seller = product.getSeller();
-            User buyer = highestOffer.getUser();
-            product.setBuyer(buyer);
-            productService.updateBuyer(product, buyer);
-            accountService.decrementAccount(buyer, highestOffer.getValue());
-            accountService.addToAccount(seller, highestOffer.getValue());
-            System.out.println("New Buyer : " + product.getBuyer().getEmail() + " For The Product : " + product.getName());
+            if(null != offerService.getActualMaxOffer(product.getId())){
+                Offer highestOffer = offerService.getActualMaxOffer(product.getId());
+                User seller = product.getSeller();
+                User buyer = highestOffer.getUser();
+
+                accountService.decrementAccount(userService.getUserByid(buyer.getId()), highestOffer.getValue());
+                accountService.addToAccount(userService.getUserByid(seller.getId()), highestOffer.getValue());
+
+                productService.updateBuyer(product, buyer);
+            }
         }
     }
 }

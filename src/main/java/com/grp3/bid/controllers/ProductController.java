@@ -85,7 +85,7 @@ public class ProductController {
         if(currentUser.getId() == offerService.getActualMaxOffer(id).getUser().getId()){
             return "redirect:/product/list";
         }
-//      IF THE USER HOW BID IS ALREADY THE SELLER
+//      IF THE USER WHO BID IS ALREADY THE SELLER
         if(currentUser.getId() == productService.getProductByid(id).getSeller().getId()){
             return "redirect:/product/list";
         }

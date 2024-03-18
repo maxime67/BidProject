@@ -12,15 +12,15 @@ public class AccountService implements AccountServiceInterface{
 
     @Override
     public void addToAccount(User user, Float ammount) {
-        user.setAccountWallet(user.getAccountWallet() + ammount);
+        user.setAccountWallet(userDAO.getUserById(user.getId()).getAccountWallet() + ammount);
         userDAO.updateAccountWallet(user);
+        System.out.println(userDAO.getUserById(user.getId()));
+
     }
 
     @Override
     public void decrementAccount(User user, Float ammount) {
-        if(ammount > user.getAccountWallet()) {
-            user.setAccountWallet(user.getAccountWallet() - ammount);
-        }
+        user.setAccountWallet(userDAO.getUserById(user.getId()).getAccountWallet() - ammount);
         userDAO.updateAccountWallet(user);
     }
 
