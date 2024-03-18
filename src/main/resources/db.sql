@@ -26,8 +26,8 @@ CREATE TABLE USER_APP
     password      VARCHAR(255),
     role_user     VARCHAR(255),
     accountWallet FLOAT,
-    id_address INT,
-    CONSTRAINT fk_user_address FOREIGN KEY (id_address) REFERENCES ADDRESS(id_address)
+    id_address    INT,
+    CONSTRAINT fk_user_address FOREIGN KEY (id_address) REFERENCES ADDRESS (id_address)
 );
 CREATE TABLE CATEGORY
 (
@@ -35,19 +35,6 @@ CREATE TABLE CATEGORY
     name_category VARCHAR(255)
 );
 
-CREATE TABLE PRODUCT (
-                         id_product INT AUTO_INCREMENT PRIMARY KEY,
-                         name_product VARCHAR(255),
-                         description VARCHAR(255),
-                         starting_value FLOAT,
-                         path_to_image VARCHAR(255),
-                         start_date TIMESTAMP,
-                         end_date TIMESTAMP,
-                         id_seller INT,
-                         id_buyer INT,
-                         category_id INT,
-                         CONSTRAINT fk_product_user FOREIGN KEY (id_seller) REFERENCES USER_APP(id_user_app),
-                         CONSTRAINT fk_category_product FOREIGN KEY (category_id) REFERENCES CATEGORY(id_category)
 CREATE TABLE PRODUCT
 (
     id_product     INT AUTO_INCREMENT PRIMARY KEY,
@@ -58,8 +45,10 @@ CREATE TABLE PRODUCT
     start_date     TIMESTAMP,
     end_date       TIMESTAMP,
     id_seller      INT,
+    id_buyer       INT,
     category_id    INT,
     CONSTRAINT fk_product_user FOREIGN KEY (id_seller) REFERENCES USER_APP (id_user_app) ON DELETE CASCADE,
+    CONSTRAINT fk_product_user_buyer FOREIGN KEY (id_buyer) REFERENCES USER_APP (id_user_app) ON DELETE CASCADE,
     CONSTRAINT fk_category_product FOREIGN KEY (category_id) REFERENCES CATEGORY (id_category)
 );
 
