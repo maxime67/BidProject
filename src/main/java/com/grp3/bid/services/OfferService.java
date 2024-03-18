@@ -39,6 +39,15 @@ public class OfferService implements OfferServiceInterface {
     public Offer getActualMaxOffer(Integer idProduct) {
         return offerDAO.getActualMaxOffer(idProduct);
     }
+    @Override
+    public Float getActualMaxValue(Integer idProduct) {
+        boolean exist;
+         exist = (null != offerDAO.getActualMaxOffer(idProduct));
+         if(exist){
+             return offerDAO.getActualMaxOffer(idProduct).getValue();
+         }
+         return 0F;
+    }
 
     @Override
     public boolean isOfferExistOnProduct(Integer idProduct) {

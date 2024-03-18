@@ -1,11 +1,15 @@
 package com.grp3.bid.entities;
 
+import com.grp3.bid.services.OfferService;
+import com.grp3.bid.services.OfferServiceInterface;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.Serializable;
@@ -14,6 +18,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Component
 public class Product implements Serializable {
 
     private Integer id;
@@ -30,6 +35,7 @@ public class Product implements Serializable {
     private Category category;
     @Nullable
     private User buyer;
+
     public Product(String name, String description, Float startingValue, String pathToImg, LocalDateTime startDate, LocalDateTime endDate, User seller, Category category) {
         this.name = name;
         this.description = description;

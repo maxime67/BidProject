@@ -9,15 +9,9 @@
 </head>
 <body>
 <div class="container">
-    <div class="card">
-        <h5 class="card-header">Modifier profil</h5>
-        <form data-th-replace="~{fragments/frag-userWithAddressFrom :: frag-userWithAddressForm(userWithAddressDTO, @{/user/editAccount}, true)}">
-        </form>
-    </div>
-
-
-
-
+    <h5 class="card-header">Modifier profil</h5>
+    <form data-th-replace="~{fragments/frag-userWithAddressFrom :: frag-userWithAddressForm(userWithAddressDTO, @{/user/editAccount}, true)}">
+    </form>
 </div>
 <div th:replace="~{fragments/frag-script}"></div>
 </body>

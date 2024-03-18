@@ -3,78 +3,109 @@
 <div th:replace="~{fragments/frag-head}"></div>
 <div th:replace="~{fragments/frag-navbar}"></div>
 <body>
-<div class="container">
-    <div class="h-100 d-flex align-items-center justify-content-center">
-        <h1 class="position-relative">Détails d'un utilisateur</h1>
-    </div>
-    <div class="card" style="width: 18rem;">
+
 
 <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
-    <div class="card p-4">
-        <div class=" image d-flex flex-column justify-content-center align-items-center">
-            <button class="btn btn-secondary"><img src="https://i.imgur.com/wvxPV9S.png" height="100" width="100"/>
+    <div class="card shadow p-4">
+        <div class="image d-flex flex-column justify-content-center align-items-center">
+            <button class="btn btn-secondary"><img data-th-src="@{/images/user.png}" height="100"
+                                                   width="100"/>
             </button>
-            <span class="name mt-3">Eleanor Pena</span> <span class="idd">@eleanorpena</span>
-            <div class="d-flex flex-row justify-content-center align-items-center gap-2"><span class="idd1">Oxc4c16a645_b21a</span>
+            <span class="name mt-3" data-th-text="${user.lastName} + ' ' + ${user.firstName}"></span>
+            <div class="d-flex flex-row justify-content-center align-items-center gap-2"><span class="idd1"> <a
+                    style="text-decoration: none; color: black"
+                    th:href="'mailto:' + ${user.email}"
+                    data-th-text="${user.email}"
+                    class="social-link"></a></span>
                 <span><i class="fa fa-copy"></i></span></div>
-            <div class="d-flex flex-row justify-content-center align-items-center mt-3"><span class="number">1069 <span
-                    class="follow">Followers</span></span></div>
-            <div class=" d-flex mt-2">
-                <a th:href="@{user/get?id} + ${user.id}">
-                    <button class="button-50">Edit Profile</button>
-                </a>
+            <div class="d-flex flex-row justify-content-center align-items-center mt-3"><span class="number"><span
+                    class="follow" data-th-text="${user.nbSales} + ' : ventes au total'"></span></span></div>
+            <div class="text mt-3">
+
+                <div class=" px-2 rounded mt-4 date">
+                    <span data-th-text="${user.description}"></span>
+                </div>
             </div>
             <div class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center"><span><i
                     class="fa fa-twitter"></i></span> <span><i class="fa fa-facebook-f"></i></span> <span><i
                     class="fa fa-instagram"></i></span> <span><i class="fa fa-linkedin"></i></span></div>
-            <div class=" px-2 rounded mt-4 date "><span class="join">Joined May,2021</span></div>
+            <div class=" px-2 rounded mt-4 date "><span class="join" ></span></div>
         </div>
     </div>
 </div>
-
-<div class="container justify-content-center">
-    <div class="card d-flex align-items-center ">
-        <div class="card-body">
-            <h5 class="card-title" data-th-text="${user.pseudo}"></h5>
-            <p class="card-text" data-th-text="${user.firstName}"></p>
-            <p class="card-text" data-th-text="${user.lastName}"></p>
-            <p class="card-text" data-th-text="${user.email}"></p>
-            <p class="card-text" data-th-text="${user.getPhoneNumber}"></p>
-            <td data-th-text="${user.getUserAddress.zip_code}" />
-            <td data-th-text="${user.getUserAddress.nb_street}" />
-            <td data-th-text="${user.getUserAddress.street_name}" />
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4 mb-4" data-th-each="product: ${productLst}">
-            <div class="card">
-                <img width="286" height="180" data-th-src="|/images/upload/${product.pathToImg}|"
-                     class="card-img-top object-fit-sm-cover" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title" data-th-text="${product.name}"></h5>
-                    <p class="card-text" data-th-text="${product.description}"></p>
-                    <button class="btn btn-outline-dark"
-                            data-th-text="'Valeur de départ : ' + ${product.startingValue}"></button>
-
-                    <p th:text="'Date de fin : ' + ${#temporals.format(product.endDate, 'EEEE')} + ' ' + ${#temporals.format(product.endDate, 'dd')} + ' ' + ${#temporals.format(product.endDate, 'MMMM yyyy')} + ' ' + ${#temporals.format(product.endDate, 'HH:mm')}"></p>
-                    <a style="text-decoration: none;  color:black" th:href="@{/user/get?id=} + ${product.id}">
-                        Vendu par :
-                        <button class="btn-sm btn btn-outline-dark" data-th-text="${product.getSeller().getEmail()}">a
-                        </button>
-                    </a>
-                    <div sec:authorize="isAnonymous()">
-                        <p class="card-text">Veuillez vous authentifier pour accèder aux ventes</p>
+<div class="row">
+    <div class="col-lg-4 mb-4" data-th-each="product: ${productLst}">
+        <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+            <div class="card shadow p-4">
+                <div class="image d-flex flex-column justify-content-center align-items-center">
+                    <button class="btn btn-secondary"><img data-th-src="|/images/upload/${product.pathToImg}|"
+                                                           height="100"
+                                                           width="100"/>
+                    </button>
+                    <span class="name mt-3" data-th-text="${product.name}"></span>
+                    <div class="d-flex flex-row justify-content-center align-items-center gap-2"><span class="idd1"> <a
+                            style="text-decoration: none; color: black"
+                            class="social-link"></a></span>
+                        <span><i class="fa fa-copy"></i></span></div>
+                    <div th:if="${@offerService.getActualMaxValue(product.id)} != 0">
+                        <div class="d-flex flex-row justify-content-center align-items-center mt-3"><span
+                                data-th-text="${@offerService.getActualMaxValue(product.id)}" class="number"><span
+                                class="follow">Followers</span></span></div>
                     </div>
-                    <div sec:authorize="isAuthenticated()">
-                        <a th:href="@{/product/get?id=} + ${product.id}">
-                            <br>
-                            <button class="button-50">Voir le produit</button>
-                        </a>
+                    <div th:unless="${@offerService.getActualMaxValue(product.id)} != 0">
+                        <div class="d-flex flex-row justify-content-center align-items-center mt-3"><span
+                                data-th-text="${product.startingValue}" class="number"><span
+                                class="follow">Followers</span></span></div>
+                    </div>
+                    <div class=" d-flex mt-2">
+                        <button class="btn1 btn-dark">Détails</button>
                     </div>
                 </div>
+
+                <div class="text mt-3">
+                </div>
+
+                <div class=" px-2 rounded mt-4 date"><span class="join">
+                        <p data-th-text="${product.description}"></p>
+                        <span
+                                th:text="'Date de fin : ' + ${#temporals.format(product.endDate, 'EEEE')} + ' ' + ${#temporals.format(product.endDate, 'dd')} + ' ' + ${#temporals.format(product.endDate, 'MMMM yyyy')} + ' ' + ${#temporals.format(product.endDate, 'HH:mm')}">
+                    </span>
+                    </span></div>
             </div>
         </div>
     </div>
+
+
+    <!--                <div class="card">-->
+    <!--                    <img width="286" height="180" data-th-src="|/images/upload/${product.pathToImg}|"-->
+    <!--                         class="card-img-top object-fit-sm-cover" alt="...">-->
+    <!--                    <div class="card-body">-->
+    <!--                        <h5 class="card-title" data-th-text="${product.name}"></h5>-->
+    <!--                        <p class="card-text" data-th-text="${product.description}"></p>-->
+    <!--                        <button class="btn btn-outline-dark"-->
+    <!--                                data-th-text="'Valeur de départ : ' + ${product.startingValue}"></button>-->
+
+    <!--                        <p th:text="'Date de fin : ' + ${#temporals.format(product.endDate, 'EEEE')} + ' ' + ${#temporals.format(product.endDate, 'dd')} + ' ' + ${#temporals.format(product.endDate, 'MMMM yyyy')} + ' ' + ${#temporals.format(product.endDate, 'HH:mm')}"></p>-->
+    <!--                        <a style="text-decoration: none;  color:black"-->
+    <!--                           th:href="@{/user/get?id=} + ${product.id}">-->
+    <!--                            Vendu par :-->
+    <!--                            <button class="btn-sm btn btn-outline-dark"-->
+    <!--                                    data-th-text="${product.getSeller().getEmail()}">a-->
+    <!--                            </button>-->
+    <!--                        </a>-->
+    <!--                        <div sec:authorize="isAnonymous()">-->
+    <!--                            <p class="card-text">Veuillez vous authentifier pour accèder aux ventes</p>-->
+    <!--                        </div>-->
+    <!--                        <div sec:authorize="isAuthenticated()">-->
+    <!--                            <a th:href="@{/product/get?id=} + ${product.id}">-->
+    <!--                                <br>-->
+    <!--                                <button class="button-50">Voir le produit</button>-->
+    <!--                            </a>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                </div>-->
+</div>
+</div>
 </div>
 <div th:replace="~{fragments/frag-script}"></div>
 </body>

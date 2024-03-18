@@ -22,6 +22,7 @@ public class EditUserMapper {
                 user.getLastName(),
                 user.getEmail(),
                 user.getPhoneNumber(),
+                user.getDescription(),
                 user.getUserAddress().getId_address(),
                 user.getUserAddress().getStreet_name(),
                 user.getUserAddress().getState_name(),
@@ -40,6 +41,7 @@ public class EditUserMapper {
         user.setFirstName(editUserDTO.getFirstName());
         user.setLastName(editUserDTO.getLastName());
         user.setPhoneNumber(editUserDTO.getPhone_number());
+        user.setDescription(editUserDTO.getDescription());
         user.getUserAddress().setCity_name(editUserDTO.getCity_name());
         user.getUserAddress().setNb_street(editUserDTO.getNb_street());
         user.getUserAddress().setZip_code(editUserDTO.getZip_code());

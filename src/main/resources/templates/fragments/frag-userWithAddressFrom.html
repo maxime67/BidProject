@@ -42,6 +42,11 @@
                 <input type="text" class="form-control" name="phone_number" data-th-field="${userWithAddressDTO.phone_number}" required>
                 <ul data-th-replace="~{fragments/error :: frag-error(fieldName='phone_number')}"></ul>
             </div>
+            <div class="form-group">
+                <label name="phone_number" > Description </label>
+                <input type="text" class="form-control" name="description" data-th-field="${userWithAddressDTO.description}" required>
+                <ul data-th-replace="~{fragments/error :: frag-error(fieldName='phone_number')}"></ul>
+            </div>
         </div>
 
         <div class="col-5 mx-auto">
@@ -75,7 +80,7 @@
                 <ul data-th-replace="~{fragments/error :: frag-error(fieldName='state_name')}"></ul>
             </div>
         </div>
-
+        <p></p>
         <button type="submit" data-th-text="Valider" class="button-50 w-25 mx-auto">
         </button>
     </div>

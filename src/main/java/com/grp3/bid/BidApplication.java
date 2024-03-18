@@ -35,7 +35,7 @@ public class BidApplication {
         Address addr1 = new Address(1L,"street_name","state_name","city_name",12,"29300");
         Address addr2 = new Address(2L,"street_name","state_name","city_name",12,"29300");
 
-        User ap = new User("pseudo1","firstname1","lastName1","email1","phone_number1","ADMIN,USER",1F,"password1",new Address(2L,"street_name","state_name","city_name",12,"29300"));
+        User ap = new User("pseudo1","firstname1","lastName1","email1","phone_number1","ADMIN,USER",1F,"password1",addr2,0);
         System.out.println(ap);
 
         Category cat1 = new Category(1L, "Jouets");
@@ -46,19 +46,29 @@ public class BidApplication {
         addressService.insertAddress(addr1);
         addressService.insertAddress(addr2);
         addressService.insertAddress(addr2);
-
-        userService.insertUser(new User("pseudo1","Djibril1","Laporte1","1Djibril.laporte@gmail.com","0298965678","ADMIN,USER",10000F,"password1",addr2));
-        userService.insertUser(new User("pseudo2","Djibril2","Laporte2","2Djibril.laporte@gmail.com","0298965678","ADMIN,USER",10000F,"password2",addr2));
-        userService.insertUser(new User("pseudo3","Djibril3","Laporte3","3Djibril.laporte@gmail.com","0298965678","ADMIN,USER",10000F,"password3",addr1));
+        User user1 = new User("pseudo1","Djibril1","Laporte1","1Djibril.laporte@gmail.com","0298965678","ADMIN,USER",10000F,"password1",addr2,0);
+        user1.setNbSales(15);
+        userService.insertUser(user1);
+        userService.insertUser(new User("pseudo2","Djibril2","Laporte2","2Djibril.laporte@gmail.com","0298965678","ADMIN,USER",10000F,"password2",addr2,0));
+        userService.insertUser(new User("pseudo3","Djibril3","Laporte3","3Djibril.laporte@gmail.com","0298965678","ADMIN,USER",10000F,"password3",addr1, 0));
         accountService.addToAccount(userService.getUserByid(1), 900F);
         accountService.addToAccount(userService.getUserByid(2), 900F);
         accountService.addToAccount(userService.getUserByid(3), 900F);
-
-        productService.insertProduct(new Product("Couteau","Jolie couteau du XIIème siècle",1F,"couteau.jpg",  LocalDateTime.now(),  LocalDateTime.now().plusSeconds(30), userService.getUserByid(1), cat1));
-        productService.insertProduct(new Product("Voiture","Mégane RS Trophy à vendre",1F,"tooth.png",   LocalDateTime.now(),  LocalDateTime.now().plusSeconds(30), userService.getUserByid(1),cat2));
-        productService.insertProduct(new Product("Bateau","Hobbie 16 à vendre",1F,"tooth.png",   LocalDateTime.now(), LocalDateTime.now().plusSeconds(30), userService.getUserByid(1), cat2));
-        productService.insertProduct(new Product("Bateau","Hobbie 16 à vendre",1F,"tooth.png",   LocalDateTime.now(), LocalDateTime.now().plusDays(30), userService.getUserByid(1), cat2));
-        productService.insertProduct(new Product("Bateau","Hobbie 16 à vendre",1F,"tooth.png",   LocalDateTime.now(), LocalDateTime.now().plusDays(30), userService.getUserByid(1), cat2));
+        for (int i = 0; i < 15; i++) {
+            userService.insertUser(new User("'pseudo1" + i,"firstName" + i,"lasName" + i,"email@email" + i,"numTèl" + i,"USER",200F + (float) i,"password" + i,addr2,0));
+        }
+        for (int i = 0; i < 13; i++) {
+            productService.insertProduct(new Product("productName" + i, "description" + i, (float) i, "couteau.jpg",LocalDateTime.now() , LocalDateTime.now().plusSeconds(30), userService.getUserByid(i+1), cat1));
+            productService.insertProduct(new Product("productName" + i, "description" + i, (float) i, "couteau.jpg",LocalDateTime.now() , LocalDateTime.now().plusSeconds(30), userService.getUserByid(i+1), cat1));
+        }
+        for (int i = 0; i < 11; i++) {
+            offerService.insertOffer(new Offer(20F,LocalDateTime.now(), userService.getUserByid(i+1), productService.getProductByid(i+1), addr2));
+        }
+//        productService.insertProduct(new Product("Couteau","Jolie couteau du XIIème siècle",1F,"couteau.jpg",  LocalDateTime.now(),  LocalDateTime.now().plusSeconds(30), userService.getUserByid(1), cat1));
+//        productService.insertProduct(new Product("Voiture","Mégane RS Trophy à vendre",1F,"tooth.png",   LocalDateTime.now(),  LocalDateTime.now().plusSeconds(30), userService.getUserByid(1),cat2));
+//        productService.insertProduct(new Product("Bateau","Hobbie 16 à vendre",1F,"tooth.png",   LocalDateTime.now(), LocalDateTime.now().plusSeconds(30), userService.getUserByid(1), cat2));
+//        productService.insertProduct(new Product("Bateau","Hobbie 16 à vendre",1F,"tooth.png",   LocalDateTime.now(), LocalDateTime.now().plusDays(30), userService.getUserByid(1), cat2));
+//        productService.insertProduct(new Product("Bateau","Hobbie 16 à vendre",1F,"tooth.png",   LocalDateTime.now(), LocalDateTime.now().plusDays(30), userService.getUserByid(1), cat2));
 
 //        offerService.insertOffer(new Offer(100F,LocalDateTime.now(), userService.getUserByid(3), productService.getProductByid(1), addr2));
 //        offerService.insertOffer(new Offer(100F, LocalDateTime.now(), userService.getUserByid(3), productService.getProductByid(2), addr2));

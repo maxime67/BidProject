@@ -34,6 +34,8 @@ public class UserService implements UserServiceInterface{
         user.setPassword(encodeur.encode(user.getPassword()));
         user.setAccountWallet(100f);
         user.setRoles("USER");
+        user.setDescription("Ceci est une description par défaut");
+        user.setNbSales(0);
         return userDAO.InsertUser(user);
     }
 

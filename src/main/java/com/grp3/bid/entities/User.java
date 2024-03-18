@@ -1,6 +1,8 @@
 package com.grp3.bid.entities;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +17,8 @@ public class User implements Serializable {
     private Integer id;
     @NotNull
     private String pseudo;
+    @Nullable
+    private String description;
     @NotNull
     private String firstName;
     @NotNull
@@ -25,6 +29,10 @@ public class User implements Serializable {
     private String phoneNumber;
     @NotNull
     private String roles;
+    @Nullable
+    private String pathToImgProfile;
+    @NotNull
+    Integer nbSales;
     @NotNull
     private Float accountWallet;
     @NotNull
@@ -32,7 +40,7 @@ public class User implements Serializable {
     @NotNull
     private Address userAddress;
 
-    public User(String pseudo, String firstName, String lastName, String email, String phoneNumber, String roles, Float accountWallet, String password, Address userAddress) {
+    public User(String pseudo, String firstName, String lastName, String email, String phoneNumber, String roles, Float accountWallet, String password, Address userAddress, Integer nb_sales) {
         this.pseudo = pseudo;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,6 +50,8 @@ public class User implements Serializable {
         this.accountWallet = accountWallet;
         this.password = password;
         this.userAddress = userAddress;
+        this.nbSales = nb_sales;
+        this.description = "Ceci est une description par défaut";
     }
 
     @Override

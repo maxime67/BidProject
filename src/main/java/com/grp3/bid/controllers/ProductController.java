@@ -8,6 +8,7 @@ import com.grp3.bid.entities.User;
 import com.grp3.bid.services.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -131,6 +132,7 @@ public class ProductController {
                 String userName = authentication.getName();
                 product.setSeller(userService.getUserByPseudo(userName));
                 product.setCategory(category);
+                product.setStartDate(LocalDateTime.now());
                 product.setPathToImg(file.getOriginalFilename());
                 productService.insertProduct(product);
                 return "redirect:/";

@@ -27,11 +27,11 @@ public class UserDAO implements UserDAOInterface {
     private final String getUserByEmail = "SELECT * FROM USER_APP WHERE email = :email;";
     private final String getByPseudo = "SELECT * FROM USER_APP WHERE pseudo = :pseudo;";
     private final String getAll = "SELECT * FROM USER_APP;";
-    private final String insertUser = "INSERT INTO USER_APP (pseudo, firstname,lastname,email,phone_number,password, role_user, accountWallet, id_address) VALUES (:pseudo,:firstname,:lastname,:email,:phone_number,:password, :role_user,:accountWallet, :id_address);";
+    private final String insertUser = "INSERT INTO USER_APP (pseudo, firstname,lastname,email,phone_number,password, role_user, accountWallet, id_address, description, nb_sales) VALUES (:pseudo,:firstname,:lastname,:email,:phone_number,:password, :role_user,:accountWallet,:id_address,:description, :nb_sales);";
     private final String deleteUser = "DELETE FROM USER_APP WHERE id_user_app = :id_user_app";
     private final String updateAccountWallet = "UPDATE USER_APP SET accountWallet = :accountWallet WHERE id_user_app = :id";
-    private final String UPDATE_USER_WITHOUT_PASSWORD = "UPDATE USER_APP SET pseudo = :pseudo, firstname = :firstname, lastname = :lastname, email = :email, phone_number = :phone_number WHERE id_user_app = :id_user_app;";
-    private final String UPDATE_USER_WITH_PASSWORD = "UPDATE USER_APP SET pseudo = :pseudo, firstname = :firstname, lastname = :lastname, email = :email, phone_number = :phone_number, password = :password WHERE id_user_app = :id_user_app;";
+    private final String UPDATE_USER_WITHOUT_PASSWORD = "UPDATE USER_APP SET pseudo = :pseudo, firstname = :firstname, lastname = :lastname, email = :email, phone_number = :phone_number, description = :description WHERE id_user_app = :id_user_app;";
+    private final String UPDATE_USER_WITH_PASSWORD = "UPDATE USER_APP SET pseudo = :pseudo, firstname = :firstname, lastname = :lastname, email = :email, phone_number = :phone_number, password = :password, description = :description WHERE id_user_app = :id_user_app;";
     private final String UPDATE_USER_PASSWORD = "UPDATE USER_APP SET password = :password WHERE id_user_app = :id_user_app;";
     @Override
     public User getUserById(Integer id) {
@@ -68,6 +68,8 @@ public class UserDAO implements UserDAOInterface {
         sqlParameterSource.addValue("password", user.getPassword());
         sqlParameterSource.addValue("phone_number", user.getPhoneNumber());
         sqlParameterSource.addValue("role_user", user.getRoles());
+        sqlParameterSource.addValue("description", user.getDescription());
+        sqlParameterSource.addValue("nb_sales", user.getNbSales());
         sqlParameterSource.addValue("accountWallet", user.getAccountWallet());
         sqlParameterSource.addValue("id_address", id_address);
         return jdbcTemplate.update(insertUser, sqlParameterSource, keyHolder) == 1 ? keyHolder.getKey().intValue() : -1;
@@ -84,6 +86,7 @@ public class UserDAO implements UserDAOInterface {
         sqlParameterSource.addValue("lastname", user.getLastName());
         sqlParameterSource.addValue("email", user.getEmail());
         sqlParameterSource.addValue("phone_number", user.getPhoneNumber());
+        sqlParameterSource.addValue("description", user.getDescription());
         if (isUpdatePassword) {
             sqlParameterSource.addValue("password", user.getPassword());
         }
@@ -139,6 +142,8 @@ public class UserDAO implements UserDAOInterface {
             u.setPhoneNumber(rs.getString("phone_number"));
             u.setPassword(rs.getString("password"));
             u.setRoles(rs.getString("role_user"));
+            u.setNbSales(rs.getInt("nb_sales"));
+            u.setDescription(rs.getString("description"));
             u.setAccountWallet(rs.getFloat("accountWallet"));
             u.setUserAddress(addressService.getAddressByid(rs.getInt("id_address")));
             return u;

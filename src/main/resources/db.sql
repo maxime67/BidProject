@@ -19,12 +19,15 @@ CREATE TABLE USER_APP
 (
     id_user_app   INT AUTO_INCREMENT PRIMARY KEY,
     pseudo        VARCHAR(255),
+    description   VARCHAR(255),
     firstname     VARCHAR(255),
     lastname      VARCHAR(255),
     email         VARCHAR(255),
     phone_number  VARCHAR(255),
     password      VARCHAR(255),
     role_user     VARCHAR(255),
+    nb_sales INT,
+    path_to_img_profile VARCHAR(255),
     accountWallet FLOAT,
     id_address    INT,
     CONSTRAINT fk_user_address FOREIGN KEY (id_address) REFERENCES ADDRESS (id_address)

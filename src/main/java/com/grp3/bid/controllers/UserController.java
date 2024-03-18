@@ -40,6 +40,8 @@ public class UserController {
     ResetPasswdTokenServiceInterface resetPasswdTokenService;
     @Autowired
     DeleteUserInterface deleteUser;
+    @Autowired
+    OfferServiceInterface offerService;
 
     @GetMapping("/list")
     public String getAll(Model model){
@@ -56,6 +58,7 @@ public class UserController {
     public String myAccount(Model model, Authentication authentication){
         if(null != authentication) {
             if (!(authentication instanceof AnonymousAuthenticationToken)) {
+                model.addAttribute("productLst", productService.getProductListByIdSeller(userService.getUserByPseudo(authentication.getName())));
                 model.addAttribute("user", userService.getUserByPseudo(authentication.getName()));
                 return "view-user-myaccount";
             }

@@ -5,6 +5,70 @@
 
 <body>
 <div class="container">
+    <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
+        <!--                <a style="text-decoration: none; color: black" th:href="@{/product/get?id=} + ${product.id}">-->
+        <div class="card shadow p-4">
+            <div class="image d-flex flex-column justify-content-center align-items-center">
+                <button class="btn btn-secondary"><img class="image" data-th-src="|/images/upload/${product.pathToImg}|"
+                                                       height="100"
+                                                       width="100"/>
+                </button>
+                <span class="name mt-3" data-th-text="${product.name}"></span>
+                <div class="d-flex flex-row justify-content-center align-items-center gap-2"><span
+                        class="idd1"> <a
+                        style="text-decoration: none; color: black"
+                        class="social-link"></a></span>
+                    <span><i class="fa fa-copy"></i></span></div>
+                <div th:if="${@offerService.getActualMaxValue(product.id)} != 0">
+                    <div class="d-flex flex-row justify-content-center align-items-center mt-3"><span
+                            data-th-text="${@offerService.getActualMaxValue(product.id)}"
+                            class="number"><span
+                            class="follow">Followers</span></span></div>
+                </div>
+                <div th:unless="${@offerService.getActualMaxValue(product.id)} != 0">
+                    <div class="d-flex flex-row justify-content-center align-items-center mt-3"><span
+                            data-th-text="${product.startingValue}" class="number"><span
+                            class="follow">Followers</span>
+                            </span></div>
+                </div>
+                <div sec:authorize="isAnonymous()">
+                    <p class="card-text">Veuillez vous authentifier pour accèder aux ventes</p>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    <div class=" d-flex mt-2">
+                        <button th:href="@{/product/get?id=} + ${product.id}" class="btn1 btn-dark">Détails</button>
+                    </div>
+                </div>
+            </div>
+            <div class="text mt-3">
+            </div>
+
+            <div class=" px-2 rounded mt-4 date"><span class="join">
+                        <p data-th-text="${product.description}"></p>
+                        <span
+                                th:text="'Date de fin : ' + ${#temporals.format(product.endDate, 'EEEE')} + ' ' + ${#temporals.format(product.endDate, 'dd')} + ' ' + ${#temporals.format(product.endDate, 'MMMM yyyy')} + ' ' + ${#temporals.format(product.endDate, 'HH:mm')}">
+                    </span>
+                    </span></div>
+            <div th:if="${actualOffer}">
+                <div class=" px-2 rounded mt-4 date"><span class="join">
+            <span data-th-text="'Meilleur Offreur :' + ${actualOffer.getUser().getEmail()}"></span>
+            <span data-th-text="'Valeur actuelle :' + ${actualOffer.getValue()}"></span>
+            </span>
+                </div>
+                <div th:unless="${actualOffer}">
+                    <a data-th-text="'Actuellement pas d\'offres'"></a>
+                </div>
+            </div>
+            <div class=" px-1 rounded mt-2 date"><span class="join">
+                        <span data-th-text="'Meilleur Offreur:' + ${actualOffer.getUser().getEmail()}"></span>
+                <p></p>
+                        <span
+                                data-th-text="'Valeur actuelle :' + ${actualOffer.getValue()}">
+                    </span>
+                    </span></div>
+        </div>
+    </div>
+
     <div class="card">
         <img width="286" height="180" data-th-src="|/images/upload/${product.pathToImg}|"
              class="card-img-top object-fit-sm-cover" alt="...">
@@ -12,12 +76,13 @@
             <h5 class="card-title" data-th-text="${product.name}"></h5>
             <p class="card-text" data-th-text="${product.description}"></p>
             <button class="btn btn-outline-dark"
-                    data-th-text="'Valeur de départ : ' + ${product.startingValue}"></button>
+            ></button>
 
             <p th:text="'Date de fin : ' + ${#temporals.format(product.endDate, 'EEEE')} + ' ' + ${#temporals.format(product.endDate, 'dd')} + ' ' + ${#temporals.format(product.endDate, 'MMMM yyyy')} + ' ' + ${#temporals.format(product.endDate, 'HH:mm')}"></p>
             <a style="text-decoration: none;  color:black" th:href="@{/user/get?id=} + ${product.id}">
                 Vendu par :
-                <button class="btn-sm btn btn-outline-dark" data-th-text="${product.getSeller().getEmail()}">a</button>
+                <button class="btn-sm btn btn-outline-dark" data-th-text="${product.getSeller().getEmail()}">a
+                </button>
             </a>
             <div class="col">
                 <a data-th-text="'Valeur de départ : ' + ${product.startingValue}"></a>
@@ -31,7 +96,8 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" data-th-text="${walletAccount} + '$'"></span>
                         </div>
-                        <input type="text" class="form-control" name="value" placeholder="Montant de votre enchère" required>
+                        <input type="text" class="form-control" name="value" placeholder="Montant de votre enchère"
+                               required>
                     </div>
                     <div th:if="${actualOffer}">
                         <div class="row">

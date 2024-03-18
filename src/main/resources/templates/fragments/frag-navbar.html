@@ -1,16 +1,14 @@
 <nav th:fragment="navbar" class="navbar navbar-expand-lg bg-body-tertiary" xmlns:sec="http://www.w3.org/1999/xhtml">
     <div class="container-fluid">
         <a class="navbar-brand mr-0 mr-md-2" th:href="@{/}">
-            <img width="30" height="30" data-th-src="@{/images/logo.png}">
-            <nav th:fragment="navbar" class="navbar bg-body-tertiary" xmlns:sec="http://www.w3.org/1999/xhtml">
+            <a >
+                <img width="150" height="145" data-th-src="@{/images/logo4.png}">
+                <nav th:fragment="navbar" class="navbar bg-body-tertiary" xmlns:sec="http://www.w3.org/1999/xhtml">
                     <a class="navbar-brand" th:href="@{/product/list}">
                         <button class="button-50">Produits</button>
                     </a>
-                    <a class="navbar-brand" th:href="@{/product/add}">
+                    <a sec:authorize="isAuthenticated()" class="navbar-brand" th:href="@{/product/add}">
                         <button class="button-50">Ajouter</button>
-                    </a>
-                    <a class="navbar-brand" th:href="@{/user/list}">
-                        <button class="button-50">Utilisateurs</button>
                     </a>
                     <form id="searchForm" class="form-inline my-2 my-lg-0" method="POST" th:action="@{/product/search}">
                         <div class="input-group ">
@@ -32,9 +30,6 @@
                             </div>
                         </div>
                     </form>
-                    <a class="navbar-brand" th:href="@{/offer/list}">
-                        <button class="button-50">Offres</button>
-                    </a>
                     <a class="navbar-brand" th:href="@{/user/myAccount}" sec:authorize="isAuthenticated()">
                         <button class="button-50">myAccount</button>
                     </a>
@@ -48,8 +43,8 @@
                         <button class="button-50">Inscription</button>
                     </a>
 
-            </nav>
-        </a>
+                </nav>
+            </a>
     </div>
 </nav>
 

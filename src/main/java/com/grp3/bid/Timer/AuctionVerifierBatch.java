@@ -36,7 +36,7 @@ public class AuctionVerifierBatch {
 
                 accountService.decrementAccount(userService.getUserByid(buyer.getId()), highestOffer.getValue());
                 accountService.addToAccount(userService.getUserByid(seller.getId()), highestOffer.getValue());
-
+                seller.setNbSales(seller.getNbSales()+1);
                 productService.updateBuyer(product, buyer);
             }
         }
