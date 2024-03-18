@@ -2,64 +2,67 @@
     <div class="container-fluid">
         <a class="navbar-brand mr-0 mr-md-2" th:href="@{/}">
             <img width="30" height="30" data-th-src="@{/images/logo.png}">
-<nav th:fragment="navbar" class="navbar bg-body-tertiary" xmlns:sec="http://www.w3.org/1999/xhtml">
-    <div class="container">
-        <a class="navbar-brand mr-0 mr-md-2" th:href="@{/}">
-            <img width="30" height="30" data-th-src="@{/images/logo.png}">
-        </a>
-        <a class="navbar-brand" th:href="@{/product/list}">
-            <button class="button-50">Produits</button>
-        </a>
-        <a class="navbar-brand" th:href="@{/product/add}">
-            <button class="button-50">Ajouter</button>
-        </a>
-        <a class="navbar-brand" th:href="@{/user/list}">
-            <button class="button-50">Utilisateurs</button>
-        </a>
-        <form id="searchForm" class="form-inline my-2 my-lg-0" method="POST" th:action="@{/product/search}">
-            <div class="input-group ">
-                <button type="submit" class="input-group-text">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
-                     viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                </svg>
-                </button>
-                <input id="searchBar" name="name" type="search" class="form-control mr-sm-2" placeholder="Search" aria-label="Search">
-                <div id="categoryDiv" class="col no-border" style="display: none;">
-                    <select class="form-select" name="categoryId">
-                        <option th:each="category : ${categories}" data-th-value="${category.idCategory}" data-th-text="${category.nameCategory}">
-                        </option>
-                    </select>
-                </div>
-            </div>
-        </form>
-        <a class="navbar-brand" th:href="@{/offer/list}">
-            <button class="button-50">Offres</button>
-        </a>
-        <a class="navbar-brand" th:href="@{/user/myAccount}" sec:authorize="isAuthenticated()">
-            <button class="button-50">myAccount</button>
-        </a>
-        <a class="navbar-brand" th:href="@{/login}" sec:authorize="!isAuthenticated()">
-            <button class="button-50">Login</button>
-        </a>
-        <a class="navbar-brand" th:href="@{/logout}" sec:authorize="isAuthenticated()">
-            <button class="button-50">Logout</button>
-        </a>
-        <a class="navbar-brand" th:href="@{/user/register}" sec:authorize="!isAuthenticated()">
-            <button class="button-50">Inscription</button>
-        </a>
+            <nav th:fragment="navbar" class="navbar bg-body-tertiary" xmlns:sec="http://www.w3.org/1999/xhtml">
+<!--                <div class="container">-->
+                    <a class="navbar-brand" th:href="@{/product/list}">
+                        <button class="button-50">Produits</button>
+                    </a>
+                    <a class="navbar-brand" th:href="@{/product/add}">
+                        <button class="button-50">Ajouter</button>
+                    </a>
+                    <a class="navbar-brand" th:href="@{/user/list}">
+                        <button class="button-50">Utilisateurs</button>
+                    </a>
+                    <form id="searchForm" class="form-inline my-2 my-lg-0" method="POST" th:action="@{/product/search}">
+                        <div class="input-group ">
+                            <button type="submit" class="input-group-text">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-search"
+                                     viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                </svg>
+                            </button>
+                            <input id="searchBar" name="name" type="search" class="form-control mr-sm-2"
+                                   placeholder="Search" aria-label="Search">
+                            <div id="categoryDiv" class="col no-border" style="display: none;">
+                                <select class="form-select" name="categoryId">
+                                    <option th:each="category : ${categories}" data-th-value="${category.idCategory}"
+                                            data-th-text="${category.nameCategory}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                    <a class="navbar-brand" th:href="@{/offer/list}">
+                        <button class="button-50">Offres</button>
+                    </a>
+                    <a class="navbar-brand" th:href="@{/user/myAccount}" sec:authorize="isAuthenticated()">
+                        <button class="button-50">myAccount</button>
+                    </a>
+                    <a class="navbar-brand" th:href="@{/login}" sec:authorize="!isAuthenticated()">
+                        <button class="button-50">Login</button>
+                    </a>
+                    <a class="navbar-brand" th:href="@{/logout}" sec:authorize="isAuthenticated()">
+                        <button class="button-50">Logout</button>
+                    </a>
+                    <a class="navbar-brand" th:href="@{/user/register}" sec:authorize="!isAuthenticated()">
+                        <button class="button-50">Inscription</button>
+                    </a>
 
-        <form method="post" data-th-action="@{/user/deleteCurrent?id=} + '1'">
-            <a class="navbar-brand">
-                <button class="button-50">DeleteCurrent</button>
-            </a>
-        </form>
-        <form method="post" data-th-action="@{/user/deleteTarget?id=} + '1'">
-            <a class="navbar-brand">
-                <button class="button-50">DeleteTarget</button>
-            </a>
-        </form>
+                    <form method="post" data-th-action="@{/user/deleteCurrent?id=} + '1'">
+                        <a class="navbar-brand">
+                            <button class="button-50">DeleteCurrent</button>
+                        </a>
+                    </form>
+                    <form method="post" data-th-action="@{/user/deleteTarget?id=} + '1'">
+                        <a class="navbar-brand">
+                            <button class="button-50">DeleteTarget</button>
+                        </a>
+                    </form>
+<!--                </div>-->
+            </nav>
+        </a>
     </div>
 </nav>
-<br>
+
 

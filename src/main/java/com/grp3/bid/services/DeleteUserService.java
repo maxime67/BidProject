@@ -33,7 +33,7 @@ public class DeleteUserService implements DeleteUserInterface {
                     User currentUser = currentOffer.getUser();
                     currentUser.setAccountWallet(currentUser.getAccountWallet() + currentOffer.getValue());
 //                    Final update of AccountWallet
-                    userDAO.updateUser(currentUser);
+                    userDAO.updateAccountWallet(currentUser);
                 }
             }
         }
