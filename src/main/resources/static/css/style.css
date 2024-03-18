@@ -49,7 +49,7 @@
     }
 }
 
-.input-group{
+.input-group-searchbar{
     background-color: #000;
     background-image: none;
     border: 1px solid #000;
@@ -67,20 +67,20 @@
     overflow: visible;
 }
 
-.input-group:focus {
+.input-group-searchbar:focus {
     text-decoration: none;
 }
 
-.input-group:hover {
+.input-group-searchbar:hover {
     text-decoration: none;
 }
 
-.input-group:active {
+.input-group-searchbar:active {
     box-shadow: rgba(0, 0, 0, .125) 0 3px 5px inset;
     outline: 0;
 }
 
-.input-group:not([disabled]):active {
+.input-group-searchbar:not([disabled]):active {
     box-shadow: #fff 2px 2px 0 0, #000 2px 2px 0 1px;
     transform: translate(2px, 2px);
 }
