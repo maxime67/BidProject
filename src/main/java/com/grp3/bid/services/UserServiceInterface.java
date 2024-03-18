@@ -13,5 +13,5 @@ public interface UserServiceInterface {
     boolean updateAccountWallet(User user);
     boolean updateUser(User user);
     boolean deleteUser(User user);
-
+    boolean updateUserPassword(User user, String password);
 }

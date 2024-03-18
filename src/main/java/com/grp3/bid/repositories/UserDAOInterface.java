@@ -15,4 +15,5 @@ public interface UserDAOInterface {
     User findByPseudo(String pseudo);
     boolean deleteUser(User user);
     User getUserByPseudo(String pseudo);
+    boolean updateUserPassword(User user, String password);
 }

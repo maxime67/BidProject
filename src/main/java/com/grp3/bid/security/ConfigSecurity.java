@@ -36,6 +36,9 @@ public class ConfigSecurity {
 			// peuvent s'exécuter sans login
 			auth.requestMatchers(HttpMethod.GET, "/user/register").anonymous();
 			auth.requestMatchers(HttpMethod.POST, "/user/register").anonymous();
+			auth.requestMatchers(HttpMethod.GET, "/user/forgottenPassword").anonymous();
+			auth.requestMatchers(HttpMethod.POST, "/user/forgottenPassword").anonymous();
+			auth.requestMatchers(HttpMethod.POST, "/user/forgottenPassword/reset").anonymous();
 			auth.requestMatchers(HttpMethod.GET, "/user/editAccount").authenticated();
 			auth.requestMatchers(HttpMethod.POST, "/user/editAccount").authenticated();
 			auth.requestMatchers(HttpMethod.GET, "/product/get").authenticated();

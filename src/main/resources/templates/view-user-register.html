@@ -7,13 +7,13 @@
     <title>Title</title>
 </head>
 <body>
-<div class="container">
-    <div class="h-100 d-flex align-items-center justify-content-center">
-        <h1 class="position-relative">Inscription</h1>
+    <div class="container">
+        <div class="card">
+            <h5 class="card-header">Inscription</h5>
+            <form data-th-replace="~{fragments/frag-userWithAddressFrom :: frag-userWithAddressForm(userWithAddressDTO, @{/user/register}, false)}">
+            </form>
+        </div>
     </div>
-    <form data-th-replace="~{fragments/frag-userWithAddressFrom :: frag-userWithAddressForm(userWithAddressDTO, @{/user/register}, false)}">
-    </form>
-</div>
 <div th:replace="~{fragments/frag-script}"></div>
 </body>
 </html>
