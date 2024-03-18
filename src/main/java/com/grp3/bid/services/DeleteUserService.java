@@ -21,35 +21,35 @@ public class DeleteUserService implements DeleteUserInterface {
     ProductDAOInterface productDAO;
     @Autowired
     UserDAOInterface userDAO;
+    @Autowired
+    AccountServiceInterface accountService;
 
     @Override
     public boolean deleteUser(User user) {
 //        Check if target user contain products
-        if (!productDAO.getProductListByIdSeller(user).isEmpty()) {
-//          Credit users the amount of placed bid
-            for (Product product : productDAO.getProductListByIdSeller(user)) {
-                if (offerDAO.isOfferExistOnProduct(product.getId())) {
-                    Offer currentOffer = offerDAO.getActualMaxOffer(product.getId());
-                    User currentUser = currentOffer.getUser();
-                    currentUser.setAccountWallet(currentUser.getAccountWallet() + currentOffer.getValue());
-//                    Final update of AccountWallet
-                    userDAO.updateAccountWallet(currentUser);
-                }
-            }
-        }
-//        Check if target user have offers on products
-        if (!offerDAO.getOfferByUser(user).isEmpty()) {
-            for (Offer offer : offerDAO.getOfferByUser(user)) {
-//                Check if user offers are on the top
-                if (offerDAO.getActualMaxOffer(offer.getProduct().getId()).equals(offer)) {
-//                    Get precedent user, if exist
-                        User secondUser = offerDAO.getAllOffersByproduct(offer.getProduct().getId()).get(0).getUser();
-                        secondUser.setAccountWallet(secondUser.getAccountWallet() - offer.getValue());
-//                      Final update of AccountWallet
-                        userDAO.updateUser(secondUser);
-                }
-            }
-        }
+//        if (!productDAO.getProductListByIdSeller(user).isEmpty()) {
+////          Credit users the amount of placed bid
+//            for (Product product : productDAO.getProductListByIdSeller(user)) {
+//                if (offerDAO.isOfferExistOnProduct(product.getId())) {
+//                    Offer currentOffer = offerDAO.getActualMaxOffer(product.getId());
+//                    User currentUser = currentOffer.getUser();
+////                    Final update
+//                    accountService.addToAccount(currentUser, currentOffer.getValue());
+//                }
+//            }
+//        }
+////        Check if target user have offers on products
+//        if (!offerDAO.getOfferByUser(user).isEmpty()) {
+//            for (Offer offer : offerDAO.getOfferByUser(user)) {
+////                Check if user offers are on the top
+//                if (offerDAO.getActualMaxOffer(offer.getProduct().getId()).equals(offer)) {
+////                    Get precedent user, if exist
+//                        User secondUser = offerDAO.getAllOffersByproduct(offer.getProduct().getId()).getUser();
+////                      Final update
+//                        accountService.decrementAccount(secondUser, offer.getValue());
+//                }
+//            }
+//        }
         if(userDAO.deleteUser(user)){
             return true;
         }

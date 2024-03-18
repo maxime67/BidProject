@@ -19,6 +19,9 @@
                 Vendu par :
                 <button class="btn-sm btn btn-outline-dark" data-th-text="${product.getSeller().getEmail()}">a</button>
             </a>
+            <div class="col">
+                <a data-th-text="'Valeur de départ : ' + ${product.startingValue}"></a>
+            </div>
             <div sec:authorize="isAnonymous()">
                 <p class="card-text">Veuillez vous authentifier pour accèder aux enchère</p>
             </div>
@@ -30,14 +33,6 @@
                         </div>
                         <input type="text" class="form-control" name="value" placeholder="Montant de votre enchère" required>
                     </div>
-                    <!--            <div class="row">-->
-                    <!--                <div class="col">-->
-                    <!--                    <input  type="number" class="form-control" placeholder="Montant de votre enchère">-->
-                    <!--                </div>-->
-                    <!--                <div class="col">-->
-                    <!--                    <a data-th-text="'Solde de votre compte :' + ${walletAccount}"></a>-->
-                    <!--                </div>-->
-                    <!--            </div>-->
                     <div th:if="${actualOffer}">
                         <div class="row">
                             <div class="col">

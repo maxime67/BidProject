@@ -50,4 +50,9 @@ public class OfferService implements OfferServiceInterface {
         return null;
     }
 
+    @Override
+    public List<Offer> getAllOffersByproduct(Product product) {
+        return offerDAO.getAllOffersByproduct(product.getId());
+    }
+
 }

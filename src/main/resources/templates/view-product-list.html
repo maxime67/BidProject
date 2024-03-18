@@ -16,13 +16,16 @@
                 <div class="card-body">
                     <h5 class="card-title" data-th-text="${product.name}"></h5>
                     <p class="card-text" data-th-text="${product.description}"></p>
+                    <p class="card-text" data-th-text="${product.category.nameCategory}"></p>
                     <button class="btn btn-outline-dark"
                             data-th-text="'Valeur de départ : ' + ${product.startingValue}"></button>
 
                     <p th:text="'Date de fin : ' + ${#temporals.format(product.endDate, 'EEEE')} + ' ' + ${#temporals.format(product.endDate, 'dd')} + ' ' + ${#temporals.format(product.endDate, 'MMMM yyyy')} + ' ' + ${#temporals.format(product.endDate, 'HH:mm')}"></p>
-                        <a   style="text-decoration: none;  color:black" th:href="@{/user/get?id=} + ${product.id}">
-                            Vendu par : <button class="btn-sm btn btn-outline-dark" data-th-text="${product.getSeller().getEmail()}">a</button>
-                        </a>
+                    <a style="text-decoration: none; color: black" th:href="@{/user/get?id=} + ${product.seller.id}">
+                        Vendu par :
+                        <button class="btn-sm btn btn-outline-dark" data-th-text="${product.getSeller().getEmail()}">a
+                        </button>
+                    </a>
                     <div sec:authorize="isAnonymous()">
                         <p class="card-text">Veuillez vous authentifier pour accèder aux ventes</p>
                     </div>
