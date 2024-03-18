@@ -2,6 +2,7 @@ package com.grp3.bid.services;
 
 import com.grp3.bid.entities.Product;
 import com.grp3.bid.entities.User;
+import com.grp3.bid.repositories.ProductDAO;
 import com.grp3.bid.repositories.ProductDAOInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,16 @@ public class ProductService implements ProductServiceInterface{
     @Override
     public List<Product> getByIdCategory(Integer idCategory) {
         return productDAO.getByIdCategory(idCategory);
+    }
+
+    @Override
+    public List<Product> getEndedAuctionWithoutBuyer() {
+        return productDAO.getEndedAuctionWithoutBuyer();
+    }
+
+    @Override
+    public boolean updateBuyer(Product product, User buyer) {
+        return productDAO.updateBuyer(product, buyer);
     }
 
 }

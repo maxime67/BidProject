@@ -41,6 +41,7 @@ CREATE TABLE PRODUCT (
                          start_date TIMESTAMP,
                          end_date TIMESTAMP,
                          id_seller INT,
+                         id_buyer INT,
                          category_id INT,
                          CONSTRAINT fk_product_user FOREIGN KEY (id_seller) REFERENCES USER_APP(id_user_app),
                          CONSTRAINT fk_category_product FOREIGN KEY (category_id) REFERENCES CATEGORY(id_category)
