@@ -34,6 +34,8 @@ public class UserController {
     UserWithAddressMapper userWithAddressMapper;
     @Autowired
     EditUserMapper editUserMapper;
+    @Autowired
+    DeleteUserInterface deleteUser;
 
     @GetMapping("/list")
     public String getAll(Model model){
@@ -64,7 +66,6 @@ public class UserController {
         model.addAttribute("userWithAddressDTO", new UserWithAddressDTO());
         return "view-user-register";
     }
-
     @PostMapping("/register")
     public String registerPost(@Valid @ModelAttribute("userWithAddressDTO") UserWithAddressDTO userWithAddressDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -89,5 +90,15 @@ public class UserController {
         User user = editUserMapper.toUser(editUserDTO);
         userService.updateUser(user);
         return "redirect:/logout";
+    }
+    @PostMapping("/deleteCurrent")
+    public String deleteCurrentAccount(){
+        deleteUser.deleteUser(authenticationFacade.getConnectedUser());
+        return "redirect:/login";
+    }
+    @PostMapping("/deleteTarget")
+    public String deleteTargetAccount(@RequestParam("id") Integer id){
+        deleteUser.deleteUser(userService.getUserByid(id));
+        return "redirect:/admin";
     }
 }

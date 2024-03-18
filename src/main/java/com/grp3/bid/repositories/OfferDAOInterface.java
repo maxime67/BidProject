@@ -10,5 +10,11 @@ public interface OfferDAOInterface {
     int insertOffer(Offer offer);
     boolean updateOffer(Integer id, Offer offer);
     Offer getActualMaxOffer(Integer idProduct);
+    Offer getSecondMaxOffer(Integer idProduct);
+
     boolean isOfferExistOnProduct(Integer idProduct);
+
+    List<Offer> getAllOffersByproduct(Integer idProduct);
+
+    List<Offer> getOfferByUser(User user);
 }

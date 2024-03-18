@@ -2,6 +2,7 @@ package com.grp3.bid.repositories;
 
 
 import com.grp3.bid.entities.Offer;
+import com.grp3.bid.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -24,11 +25,21 @@ public class OfferDAO implements OfferDAOInterface {
     @Autowired
     private UserDAOInterface userDAO;
     private final String getOfferById = "SELECT * FROM OFFER WHERE id_offer = :id;";
+    private final String getOffersByUserId = "SELECT * FROM OFFER WHERE id_user_app = :id_user_app;";
+
     private final String getAll = "SELECT * FROM OFFER;";
 
     private final String insertOffer = "INSERT INTO OFFER (value_offer,date_offer,id_product,id_user_app) VALUES (:value_offer,:offer_datetime,:id_product,:id_user_app);";
     private final String updateOffer = "UPDATE OFFER SET value=?,offer_datetime=?,id_user=?,id_product=? WHERE id_offer = ?;";
+    private final String getAllOffersByProduct = "SELECT * FROM OFFER WHERE id_product = :id_product ORDER BY value_offer DESC";
+
     private final String getActualMaxOffer = "SELECT TOP 1 * FROM OFFER WHERE id_product = :id_product ORDER BY value_offer DESC";
+    private final String getSecondMaxOffer = "SELECT TOP 2 * FROM OFFER " +
+            "WHERE id_product = :id_product " +
+            "ORDER BY value_offer DESC " +
+            "OFFSET 1 ROWS   -- Skip this number of rows\n" +
+            "FETCH NEXT 1 ROWS ONLY;  -- Return this number of rows";
+
     private final String isOfferExistOnProduct = "SELECT count(*) FROM OFFER WHERE id_product = :id_product";
 
     public OfferDAO(NamedParameterJdbcTemplate jdbcTemplate, ProductDAOInterface productDAO, UserDAOInterface userDAO) {
@@ -71,11 +82,32 @@ public class OfferDAO implements OfferDAOInterface {
         sqlParameterSource.addValue("id_product", idProduct);
         return jdbcTemplate.queryForObject(getActualMaxOffer, sqlParameterSource, new OfferRowMapper());
     }
+
+    @Override
+    public Offer getSecondMaxOffer(Integer idProduct) {
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("id_product", idProduct);
+        return jdbcTemplate.queryForObject(getSecondMaxOffer, sqlParameterSource, new OfferRowMapper());
+    }
+
     @Override
     public boolean isOfferExistOnProduct(Integer idProduct) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("id_product", idProduct);
         return jdbcTemplate.queryForObject(isOfferExistOnProduct, sqlParameterSource, Integer.class) == 1;
+    }
+    @Override
+    public List<Offer> getAllOffersByproduct(Integer idProduct) {
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("id_product", idProduct);
+        return jdbcTemplate.query(getAllOffersByProduct, sqlParameterSource, new OfferRowMapper());
+    }
+
+    @Override
+    public List<Offer> getOfferByUser(User user) {
+        MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
+        sqlParameterSource.addValue("id_user_app", user.getId());
+        return jdbcTemplate.query(getOffersByUserId, sqlParameterSource, new OfferRowMapper());
     }
 
     public class OfferRowMapper implements RowMapper<Offer> {

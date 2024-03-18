@@ -45,4 +45,9 @@ public class OfferService implements OfferServiceInterface {
         return offerDAO.isOfferExistOnProduct(idProduct);
     }
 
+    @Override
+    public List<Offer> getOfferByUser(User user) {
+        return null;
+    }
+
 }

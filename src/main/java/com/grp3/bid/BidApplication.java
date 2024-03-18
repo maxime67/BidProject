@@ -24,6 +24,8 @@ public class BidApplication {
     public AddressServiceInterface addressService;
     @Autowired
     public CategoryServiceInterface categoryService;
+    @Autowired
+    public DeleteUserInterface deleteUser;
 
 
     @PostConstruct
@@ -43,24 +45,24 @@ public class BidApplication {
         addressService.insertAddress(addr2);
         addressService.insertAddress(addr2);
 
-        userService.insertUser(new User("pseudo1","Djibril","Laporte","Djibril.laporte@gmail.com","0298965678","ADMIN,USER",200F,"password1",addr2));
-        userService.insertUser(new User("pseudo2","Djibril","Laporte","Djibril.laporte@gmail.com","0298965678","ADMIN,USER",200F,"password2",addr2));
-        userService.insertUser(new User("pseudo3","Djibril","Laporte","Djibril.laporte@gmail.com","0298965678","ADMIN,USER",200F,"password3",addr1));
+        userService.insertUser(new User("pseudo1","Djibril1","Laporte1","1Djibril.laporte@gmail.com","0298965678","ADMIN,USER",200F,"password1",addr2));
+        userService.insertUser(new User("pseudo2","Djibril2","Laporte2","2Djibril.laporte@gmail.com","0298965678","ADMIN,USER",200F,"password2",addr2));
+        userService.insertUser(new User("pseudo3","Djibril3","Laporte3","3Djibril.laporte@gmail.com","0298965678","ADMIN,USER",200F,"password3",addr1));
 
         productService.insertProduct(new Product("Couteau","Jolie couteau du XIIème siècle",1F,"couteau.jpg",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1), cat1));
         productService.insertProduct(new Product("Voiture","Mégane RS Trophy à vendre",1F,"tooth.png",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1),cat2));
-        productService.insertProduct(new Product("Bateau","Hobbie 16 à vendre",1F,"tooth.png",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1),cat2));
+        productService.insertProduct(new Product("Bateau","Hobbie 16 à vendre",1F,"tooth.png",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(3),cat2));
 
-        offerService.insertOffer(new Offer(50.6F,LocalDateTime.now(), userService.getUserByid(2), productService.getProductByid(1), addr2));
+        offerService.insertOffer(new Offer(40F,LocalDateTime.now(), userService.getUserByid(1), productService.getProductByid(2), addr2));
+        offerService.insertOffer(new Offer(50F,LocalDateTime.now(), userService.getUserByid(2), productService.getProductByid(2), addr2));
+        offerService.insertOffer(new Offer(60F,LocalDateTime.now(), userService.getUserByid(1), productService.getProductByid(2), addr2));
 
-        userService.getAll().forEach(System.out::println);
-        productService.getAll().forEach(System.out::println);
-
-        categoryService.getAll().forEach(System.out::println);
-        
-        categoryService.getAll().forEach(System.out::println);
-
-
+//        userService.getUserByid(1).setAccountWallet(200F - 60F);
+//
+//        userService.updateUser(userService.getUserByid(1));
+//        deleteUser.deleteUser(userService.getUserByid(2));
+//
+//        System.out.println(userService.getUserByid(3));
     }
 
     public static void main(String[] args) {

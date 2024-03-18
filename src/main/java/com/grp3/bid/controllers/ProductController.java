@@ -91,7 +91,7 @@ public class ProductController {
         if(currentUser.getId() == productService.getProductByid(id).getSeller().getId()){
             return "redirect:/product/list";
         }
-//      IF OFFER ALREADY EXIST
+//
         if (value > offerService.getActualMaxOffer(currentProduct.getId()).getValue()) {
             if (currentUser.getAccountWallet() >= value) {
                 User precUser = offerService.getActualMaxOffer(id).getUser();
