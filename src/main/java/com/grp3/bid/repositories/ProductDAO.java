@@ -22,6 +22,7 @@ public class ProductDAO implements ProductDAOInterface{
     private final String getProductByid = "SELECT * FROM PRODUCT WHERE id_PRODUCT = :id_product";
     private final String getProductByIdUser = "SELECT * FROM PRODUCT WHERE id_seller = :id_seller";
     private final String getAll = "SELECT * FROM PRODUCT";
+    private final String getAllActif = "SELECT * FROM PRODUCT WHERE id_buyer IS NULL";
     private final String getByIdCategory = "SELECT * FROM PRODUCT WHERE category_id = :id_category";
     private final String insertProduct = "INSERT INTO PRODUCT (name_product,description,starting_value,path_to_image, start_date,end_date, id_seller, category_id) VALUES (:name_product,:description,:starting_value,:path_to_image,:start_date,:end_date,:id_seller, :category_id)";
     private final String GET_ENDED_AUCTION = "SELECT * FROM PRODUCT WHERE end_date < CURRENT_TIMESTAMP() AND id_buyer IS NULL";
@@ -47,6 +48,11 @@ public class ProductDAO implements ProductDAOInterface{
     @Override
     public List<Product> getAll() {
         return jdbcTemplate.query(getAll, new ProductRowMapper());
+    }
+
+    @Override
+    public List<Product> getAllActif() {
+        return jdbcTemplate.query(getAllActif, new ProductRowMapper());
     }
 
     @Override

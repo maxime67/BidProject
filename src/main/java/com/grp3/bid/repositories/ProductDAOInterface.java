@@ -8,6 +8,7 @@ import java.util.List;
 public interface ProductDAOInterface {
     Product getProductByid(Integer id);
     List<Product> getAll();
+    List<Product> getAllActif();
     int insertProduct(Product product);
     boolean updateProduct(Integer id, Product product);
     List<Product> getByIdCategory(Integer idCategory);

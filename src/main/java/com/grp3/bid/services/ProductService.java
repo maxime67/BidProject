@@ -52,4 +52,9 @@ public class ProductService implements ProductServiceInterface{
         return productDAO.updateBuyer(product, buyer);
     }
 
+    @Override
+    public List<Product> getAllActif() {
+        return productDAO.getAllActif();
+    }
+
 }

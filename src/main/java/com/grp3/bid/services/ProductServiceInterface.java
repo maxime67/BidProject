@@ -15,4 +15,6 @@ public interface ProductServiceInterface {
     List<Product> getByIdCategory(Integer idCategory);
     List<Product> getEndedAuctionWithoutBuyer();
     boolean updateBuyer(Product product, User buyer);
+
+    List<Product> getAllActif();
 }

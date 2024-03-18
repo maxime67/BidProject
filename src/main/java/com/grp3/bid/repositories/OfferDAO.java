@@ -94,7 +94,7 @@ public class OfferDAO implements OfferDAOInterface {
     public boolean isOfferExistOnProduct(Integer idProduct) {
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource();
         sqlParameterSource.addValue("id_product", idProduct);
-        return jdbcTemplate.queryForObject(isOfferExistOnProduct, sqlParameterSource, Integer.class) == 1;
+        return jdbcTemplate.queryForObject(isOfferExistOnProduct, sqlParameterSource, Integer.class) >= 1;
     }
     @Override
     public List<Offer> getAllOffersByproduct(Integer idProduct) {

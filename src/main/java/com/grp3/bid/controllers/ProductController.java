@@ -38,14 +38,14 @@ public class ProductController {
     @GetMapping
     public String getAllProducts(Model model) {
         model.addAttribute("categories", categoryService.getAll());
-        model.addAttribute("productLst", productService.getAll());
+        model.addAttribute("productLst", productService.getAllActif());
         return "view-product-list";
     }
 
     @GetMapping("product/list")
     public String getAll(Model model) {
         model.addAttribute("categories", categoryService.getAll());
-        model.addAttribute("productLst", productService.getAll());
+        model.addAttribute("productLst", productService.getAllActif());
         return "view-product-list";
     }
 
@@ -76,9 +76,7 @@ public class ProductController {
 //      IF THE OFFER IS THE FIRST FOR THE TARGET PRODUCT
         if (!offerService.isOfferExistOnProduct(id)) {
             if (currentUser.getAccountWallet() >= productService.getProductByid(id).getStartingValue()) {
-                currentUser.setAccountWallet(currentUser.getAccountWallet() - value);
                 offerService.insertOffer(new Offer(value, LocalDateTime.now(), currentUser, productService.getProductByid(id), currentUser.getUserAddress()));
-                userService.updateAccountWallet(currentUser);
                 return "redirect:/product/list";
             }
             return "redirect:/product/list";
@@ -94,12 +92,7 @@ public class ProductController {
 //
         if (value > offerService.getActualMaxOffer(currentProduct.getId()).getValue()) {
             if (currentUser.getAccountWallet() >= value) {
-                User precUser = offerService.getActualMaxOffer(id).getUser();
-                precUser.setAccountWallet(precUser.getAccountWallet() + offerService.getActualMaxOffer(id).getValue());
-                userService.updateAccountWallet(precUser);
-                currentUser.setAccountWallet(currentUser.getAccountWallet() - value);
                 offerService.insertOffer(new Offer(value, LocalDateTime.now(), currentUser, productService.getProductByid(id), currentUser.getUserAddress()));
-                userService.updateAccountWallet(currentUser);
             }
         }
         return "redirect:/product/list";

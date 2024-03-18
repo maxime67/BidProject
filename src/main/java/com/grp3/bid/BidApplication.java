@@ -49,19 +49,18 @@ public class BidApplication {
         userService.insertUser(new User("pseudo2","Djibril2","Laporte2","2Djibril.laporte@gmail.com","0298965678","ADMIN,USER",200F,"password2",addr2));
         userService.insertUser(new User("pseudo3","Djibril3","Laporte3","3Djibril.laporte@gmail.com","0298965678","ADMIN,USER",200F,"password3",addr1));
 
-        productService.insertProduct(new Product("Couteau","Jolie couteau du XIIème siècle",1F,"couteau.jpg",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1), cat1));
-        productService.insertProduct(new Product("Voiture","Mégane RS Trophy à vendre",1F,"tooth.png",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1),cat2));
-        productService.insertProduct(new Product("Bateau","Hobbie 16 à vendre",1F,"tooth.png",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.of(2024, 3, 25, 12, 00), userService.getUserByid(1), cat2));
-        productService.insertProduct(new Product("Saladier","Réceptacle à salade",1F,"tooth.png",  LocalDateTime.of(2024, 3, 23, 12, 00), LocalDateTime.now().plusSeconds(5), userService.getUserByid(1), cat2));
+        productService.insertProduct(new Product("Couteau","Jolie couteau du XIIème siècle",1F,"couteau.jpg",  LocalDateTime.now(),  LocalDateTime.now().plusSeconds(30), userService.getUserByid(1), cat1));
+        productService.insertProduct(new Product("Voiture","Mégane RS Trophy à vendre",1F,"tooth.png",   LocalDateTime.now(),  LocalDateTime.now().plusSeconds(30), userService.getUserByid(1),cat2));
+        productService.insertProduct(new Product("Bateau","Hobbie 16 à vendre",1F,"tooth.png",   LocalDateTime.now(), LocalDateTime.now().plusSeconds(30), userService.getUserByid(1), cat2));
 
-//        offerService.insertOffer(new Offer(15F,LocalDateTime.now(), userService.getUserByid(1), productService.getProductByid(1), addr2));
-        offerService.insertOffer(new Offer(5F, LocalDateTime.now(), userService.getUserByid(2), productService.getProductByid(4), null));
-        offerService.insertOffer(new Offer(10F, LocalDateTime.now().plusSeconds(1), userService.getUserByid(3), productService.getProductByid(4), null));
+        offerService.insertOffer(new Offer(15F,LocalDateTime.now(), userService.getUserByid(3), productService.getProductByid(1), addr2));
+        offerService.insertOffer(new Offer(5F, LocalDateTime.now(), userService.getUserByid(3), productService.getProductByid(2), null));
+        offerService.insertOffer(new Offer(10F, LocalDateTime.now(), userService.getUserByid(3), productService.getProductByid(3), null));
 
-        userService.getAll().forEach(System.out::println);
-        productService.getAll().forEach(System.out::println);
-        categoryService.getAll().forEach(System.out::println);
-        categoryService.getAll().forEach(System.out::println);
+//        userService.getAll().forEach(System.out::println);
+//        productService.getAll().forEach(System.out::println);
+//        categoryService.getAll().forEach(System.out::println);
+//        categoryService.getAll().forEach(System.out::println);
 
 
     }
